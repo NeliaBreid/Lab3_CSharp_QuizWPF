@@ -7,6 +7,32 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+
+        <Menu VerticalAlignment="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="New Question Pack"/>
+                <MenuItem Header="Select Question Pack">
+                    <MenuItem Header="Default question pack"/>
+                </MenuItem>
+                <MenuItem Header="Delete Question Pack"/>
+                <MenuItem Header="Exit"/>
+
+            </MenuItem>
+
+            <MenuItem Header="Edit">
+
+                <MenuItem Header="Add Question"/>
+                <MenuItem Header="Remove Question"/>
+                <MenuItem Header="Pack Options"/>
+
+            </MenuItem>
+
+            <MenuItem Header="View">
+                <MenuItem Header="Play"/>
+                <MenuItem Header="Edit"/>
+                <MenuItem Header="FullScreen"/>
+            </MenuItem>
+        </Menu>
+        
     </Grid>
 </UserControl>
