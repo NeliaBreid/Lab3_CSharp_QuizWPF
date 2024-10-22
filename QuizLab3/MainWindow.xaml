@@ -10,5 +10,6 @@
 
         <local:MenuView></local:MenuView>
         <local:ConfigurationView></local:ConfigurationView>
+        <!--<local:PlayerView></local:PlayerView>-->
     </Grid>
 </Window>

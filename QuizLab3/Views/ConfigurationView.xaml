@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuizLab3.Views"
+             xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="650">
     <Grid>
@@ -20,9 +21,19 @@
         <Label Content="Default Question Pack"  Grid.Row="1" Margin="5" FontWeight="Bold"/>
 
         <StackPanel Orientation="Horizontal" Margin="256,0,0,0" Grid.Row="1" HorizontalAlignment="Left">
-            <Button FontSize="15" Content="=" Width="18" Height="18" Margin="5 0 0 0" ToolTip="Pack Options"></Button>
-            <Button FontSize="15" Content="+" Width="18" Height="18" Margin="5 0 0 0" ToolTip="Add Question"></Button>
-            <Button FontSize="15" Content="-" Width="18" Height="18" Margin="5 0 0 0" ToolTip="Remove Question"></Button>
+            
+            <Button FontSize="15" Width="18" Height="18" Margin="5 0 0 0" ToolTip="Pack Options">
+                <fa:ImageAwesome Icon="Sliders"></fa:ImageAwesome>
+            </Button>
+        
+        <Button FontSize="15" Width="18" Height="18" Margin="5 0 0 0" ToolTip="Add Question">
+                <fa:ImageAwesome Icon="Plus"></fa:ImageAwesome>
+            </Button>
+            
+            <Button FontSize="15" Width="18" Height="18" Margin="5 0 0 0" ToolTip="Remove Question">
+                <fa:ImageAwesome Icon="Minus"></fa:ImageAwesome>
+            </Button>
+        
         </StackPanel>
         <ListBox x:Name="studentListBox" Grid.Column="0" Grid.Row="2" Margin="10,0,0,10" HorizontalAlignment="Left" Width="315"/>
 
@@ -47,7 +58,7 @@
 
             </StackPanel>
         </StackPanel>
-
+        
 
 
     </Grid>
