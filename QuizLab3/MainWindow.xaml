@@ -6,7 +6,56 @@
         xmlns:local="clr-namespace:QuizLab3"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="auto" />
+
+        </Grid.RowDefinitions>
+
+
+        <Menu VerticalAlignment="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="New Question Pack"/>
+                <MenuItem Header="Select Question Pack">
+                    <MenuItem Header="Default question pack"/>
+                </MenuItem>
+                <MenuItem Header="Delete Question Pack"/>
+                <MenuItem Header="Exit"/>
+
+            </MenuItem>
+
+            <MenuItem Header="Edit">
+
+                <MenuItem Header="Add Question"></MenuItem> /MenuItem>
+                <MenuItem Header="Remove Question"></MenuItem> /MenuItem>
+                <MenuItem Header="Pack Options"></MenuItem> /MenuItem>
+
+            </MenuItem>
+
+            <MenuItem Header="View">
+                <MenuItem Header="Play"></MenuItem>/MenuItem>
+                <MenuItem Header="Edit"></MenuItem> /MenuItem>
+                <MenuItem Header="FullScreen"></MenuItem> /MenuItem>
+            </MenuItem>
+        </Menu>
+           
+            <Label Content="Default Question Pack" Grid.Column="0" Grid.Row="1" Margin="5" FontWeight="Bold"/>
+
+        <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Grid.Row="1" HorizontalAlignment="Right">
+            <Button FontSize="15" Content="=" Width="20" Height="20" Margin="5 0 0 0"></Button>
+            <Button FontSize="15" Content="+" Width="20" Height="20" Margin="5 0 0 0"></Button>
+            <Button FontSize="15" Content="-" Width="20" Height="20" Margin="5 0 0 0"></Button>
+        </StackPanel>
+
+        <ListBox x:Name="studentListBox" Grid.Column="0" Grid.Row="2" />
 
     </Grid>
 </Window>
