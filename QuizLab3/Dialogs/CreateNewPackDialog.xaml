@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuizLab3.Dialogs"
         mc:Ignorable="d"
-        Title="CreateNewPackDialog" Height="450" Width="800">
+        Title="New Question Pack" Height="310" Width="260" ResizeMode="NoResize">
     <Grid>
+        <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="center">
+            <TextBlock Text="PackName" Margin="5" FontWeight="Bold"/>
+            <TextBox Margin="5 0 5 10" Text="Default Question Pack"/>
+            
+            <Label Content="Difficulty" FontWeight="Bold"/>
+            <ComboBox Margin="5 0 5 10">
+                <ComboBoxItem>Easy</ComboBoxItem>
+                <ComboBoxItem>Medium</ComboBoxItem>
+                <ComboBoxItem>Hard</ComboBoxItem>
+            </ComboBox>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Time Limit:" FontWeight="Bold"/>
+                <Label Margin="100 0 0 0"   VerticalAlignment="Center" Content="... seconds"/>
+            </StackPanel>
+            
+            <Slider 
+                TickPlacement="BottomRight"
+                TickFrequency="5"
+                 Margin="5 0 5 10"
+                Minimum="0"
+                Maximum="100"
+                Width="250"
+                Value="0"/>   
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Cancel" Margin="20" HorizontalAlignment="left"/>
+                <Button Content="Create" Margin="20" HorizontalAlignment="Right"/>
+            </StackPanel>
+            
+        </StackPanel>
         
+
     </Grid>
 </Window>

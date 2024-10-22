@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuizLab3.Views"
         mc:Ignorable="d"
+        
         Title="NeliasKahoot" MinHeight="450" MinWidth="650" ResizeMode="CanResize" Height="450" Width="650">
     <Grid ShowGridLines="True">
 
