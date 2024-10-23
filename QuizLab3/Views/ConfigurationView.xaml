@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuizLab3.Views"
-             xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+             xmlns:fa="clr-namespace:FontAwesome.Sharp;assembly=FontAwesome.Sharp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="650">
     <Grid>
@@ -27,15 +27,15 @@
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
             
             <Button FontSize="15" Width="18" Height="18" Margin="5 0 0 0"  ToolTip="Pack Options">
-                <fa:ImageAwesome Icon="Sliders"></fa:ImageAwesome>
+                
             </Button>
         
         <Button FontSize="15" Width="18" Height="18" Margin="5 0 0 0" ToolTip="Add Question">
-                <fa:ImageAwesome Icon="Plus"></fa:ImageAwesome>
+                
             </Button>
             
             <Button FontSize="15" Width="18" Height="18" Margin="5 0 0 0" ToolTip="Remove Question">
-                <fa:ImageAwesome Icon="Minus"></fa:ImageAwesome>
+                
             </Button>
         
         </StackPanel>
