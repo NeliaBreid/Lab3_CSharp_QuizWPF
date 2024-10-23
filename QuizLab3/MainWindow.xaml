@@ -3,18 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuizLab3.Views" 
+        xmlns:local="clr-namespace:QuizLab3" xmlns:view="clr-namespace:QuizLab3.Views"
         mc:Ignorable="d"
         
         Title="NeliasKahoot" MinHeight="450" MinWidth="650" ResizeMode="CanResize" Height="450" Width="650">
     <Grid ShowGridLines="True">
 
-        <!--<local:MenuView></local:MenuView>-->
-        <!--<local:ConfigurationView></local:ConfigurationView>-->
-        <local:PlayerView></local:PlayerView>
-        
-        <!--Gör något med locals så det ligger i smlns:view-->
 
-        
+        <!--<view:ResultView></view:ResultView>-->
+        <!--<view:ConfigurationView></view:ConfigurationView>-->
+        <view:MenuView/>
+
+
     </Grid>
 </Window>
