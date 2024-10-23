@@ -15,7 +15,7 @@
                 </MenuItem>
 
 
-                <MenuItem Header="Select Question Pack">
+                <MenuItem Header="Select Question Pack" Icon="{fa:Icon FolderOpen}">
                     <MenuItem Header=" blabla">
                     </MenuItem>
                 </MenuItem>
@@ -24,7 +24,7 @@
 
                 </MenuItem>
 
-                <MenuItem Header="Delete Question Pack">
+                <MenuItem Header="Delete Question Pack" Icon="{fa:Icon Trash}">
 
                 </MenuItem>
                 
@@ -39,29 +39,29 @@
 
             <MenuItem Header="Edit">
 
-                <MenuItem Header="Add Question">
+                <MenuItem Header="Add Question" Icon="{fa:Icon Plus}">
 
                 </MenuItem>
-            
-            <MenuItem Header="Remove Question">
+
+                <MenuItem Header="Remove Question" Icon="{fa:Icon Minus}">
 
             </MenuItem>
-                
-            <MenuItem Header="Pack Options">
+
+                <MenuItem Header="Pack Options" Icon="{fa:Icon Sliders}">
 
             </MenuItem>
 
             </MenuItem>
 
             <MenuItem Header="View">
-                <MenuItem Header="Play">
+                <MenuItem Header="Play" Icon="{fa:Icon Play}">
 
                 </MenuItem>
 
-                <MenuItem Header="Edit" Icon="{fa:Icon FolderOpen}">
+                <MenuItem Header="Edit" Icon="{fa:Icon Pen}">
                 </MenuItem>
-                
-                <MenuItem Header="FullScreen">
+
+                <MenuItem Header="FullScreen" Icon="{fa:Icon Expand}">
 
                 </MenuItem>
             </MenuItem>

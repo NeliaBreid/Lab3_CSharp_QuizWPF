@@ -21,9 +21,9 @@ namespace QuizLab3
         public MainWindow()
         {
             InitializeComponent();
-            var pack =  new QuestionPackViewModel(new QuestionPack("My Question Pack")); //Test för F11
-            pack.TimeLimitInSeconds = 100; //test F11
-            
+
+            DataContext = new MainWindowViewModel(); //När jag gör binding kmr den hitta dden här datacontect för det är den enda.
+
         }
     }
 }

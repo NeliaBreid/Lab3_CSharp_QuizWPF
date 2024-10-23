@@ -9,8 +9,12 @@
         Title="NeliasKahoot" MinHeight="450" MinWidth="650" ResizeMode="CanResize" Height="450" Width="650">
     <Grid ShowGridLines="True">
 
-        <local:MenuView></local:MenuView>
+        <!--<local:MenuView></local:MenuView>-->
         <!--<local:ConfigurationView></local:ConfigurationView>-->
-        <!--<local:PlayerView></local:PlayerView>-->
+        <local:PlayerView></local:PlayerView>
+        
+        <!--Gör något med locals så det ligger i smlns:view-->
+
+        
     </Grid>
 </Window>
