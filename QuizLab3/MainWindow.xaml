@@ -12,13 +12,16 @@
         <KeyBinding Key="U" Modifiers="Ctrl" Command="{Binding PlayerViewModel.UpdateButtonCommand}"/>
     </Window.InputBindings>
     
-    <Grid ShowGridLines="True">
-
-
-        <!--<view:ResultView></view:ResultView>-->
-        <!--<view:ConfigurationView></view:ConfigurationView>-->
-        <view:MenuView/>
-        <view:PlayerView/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <view:MenuView Grid.Row="0"/>
+        <!--<view:ConfigurationView Grid.Row="1"/>-->
+        <!--<view:ResultView Grid.Row="1"/>
+        <view:PlayerView Grid.Row="1"/>-->
 
 
     </Grid>
