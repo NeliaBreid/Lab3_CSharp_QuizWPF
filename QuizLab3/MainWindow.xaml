@@ -4,15 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuizLab3" xmlns:view="clr-namespace:QuizLab3.Views"
+        Icon="icon/kahoot.ico"
         mc:Ignorable="d"
         
         Title="NeliasKahoot" MinHeight="450" MinWidth="650" ResizeMode="CanResize" Height="450" Width="650">
+    <Window.InputBindings> 
+        <KeyBinding Key="U" Modifiers="Ctrl" Command="{Binding PlayerViewModel.UpdateButtonCommand}"/>
+    </Window.InputBindings>
+    
     <Grid ShowGridLines="True">
 
 
         <!--<view:ResultView></view:ResultView>-->
         <!--<view:ConfigurationView></view:ConfigurationView>-->
         <view:MenuView/>
+        <view:PlayerView/>
 
 
     </Grid>

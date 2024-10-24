@@ -24,7 +24,9 @@
 
                 </MenuItem>
 
-                <MenuItem Header="Delete Question Pack" Icon="{fa:Icon Trash}">
+                <MenuItem Header="Delete Question Pack" Icon="{fa:Icon Trash}" 
+                          Command="{Binding PlayerViewModel.UpdateButtonCommand}"
+                          InputGestureText="Ctrl+U">
 
                 </MenuItem>
                 

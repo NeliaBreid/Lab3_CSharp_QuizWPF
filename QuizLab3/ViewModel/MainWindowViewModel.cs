@@ -27,6 +27,7 @@ namespace QuizLab3.ViewModel
 			{
 				_activePack = value;
 				RaisePropertyChanged(); //uppdateringsmetod
+				ConfigurationViewModel.RaisePropertyChanged("ActivePack"); //ett exempel
 			}
 		}
 		public MainWindowViewModel()
