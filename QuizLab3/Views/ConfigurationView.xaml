@@ -52,7 +52,7 @@
             </Button>
         
         </StackPanel>
-        <ListBox x:Name="studentListBox" Grid.Column="0" Grid.Row="2" SelectionMode="Multiple" ItemsSource="{Binding ActivePack.Questions}"/>
+        <ListBox x:Name="studentListBox" Grid.Column="0" Grid.Row="2" SelectionMode="Multiple" ItemsSource="{Binding ActivePack.Questions}"></ListBox>
 
         <StackPanel Grid.Row="2" Grid.Column="1" DataContext="{Binding ConfigurationViewModel}">
 

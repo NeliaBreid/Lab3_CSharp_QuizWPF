@@ -26,8 +26,8 @@ namespace QuizLab3.ViewModel
         private QuestionPackViewModel? _activePack; //backningfield. frågetecknet för att tala om för kompliern att vi vet att den kan vara null
 
         
-		
-		public QuestionPackViewModel? ActivePack
+
+        public QuestionPackViewModel? ActivePack
 		{
 			get => _activePack;
 			set
@@ -49,7 +49,6 @@ namespace QuizLab3.ViewModel
 			ConfigurationViewModel = new ConfigurationViewModel(this);
 
             ActivePack = new QuestionPackViewModel(new QuestionPack("my default questionspack"));
-            ActivePack.Questions.Add(new Question("vad är 2 plus 2", "4", "2", "6", "10"));
             ConfigurationViewModel.ActiveQuestion = ActivePack.Questions.FirstOrDefault();
 
             NewPackDialog = new DelegateCommand(UpdateNewPackDialog, CanUpdateNewPackDialog);
