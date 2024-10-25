@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,6 +25,8 @@ namespace QuizLab3.ViewModel
 
         private QuestionPackViewModel? _activePack; //backningfield. frågetecknet för att tala om för kompliern att vi vet att den kan vara null
 
+        
+		
 		public QuestionPackViewModel? ActivePack
 		{
 			get => _activePack;
@@ -34,35 +37,69 @@ namespace QuizLab3.ViewModel
 				ConfigurationViewModel.RaisePropertyChanged("ActivePack"); //ett exempel
 			}
 		}
-        public ICommand OpenDialogCommand { get; }
-		public MainWindowViewModel()
+
+        public ICommand NewPackDialog { get; }
+        public ICommand PackOptionsDialog { get; }
+        public ICommand AddQuestionsCommand { get; }
+        
+        public MainWindowViewModel()
 		{
 			PlayerViewModel = new PlayerViewModel(this);
 
 			ConfigurationViewModel = new ConfigurationViewModel(this);
 
-			ActivePack = new QuestionPackViewModel(new QuestionPack("my default questionspack"));
-			ActivePack.Questions.Add(new Question("vad är 2 plus 2", "4", "2", "6", "10"));
+            ActivePack = new QuestionPackViewModel(new QuestionPack("my default questionspack"));
+            ActivePack.Questions.Add(new Question("vad är 2 plus 2", "4", "2", "6", "10"));
+            ConfigurationViewModel.ActiveQuestion = ActivePack.Questions.FirstOrDefault();
 
-            ActivePack.Questions.Add(new Question("vad är 5 plus 2", "4", "2", "6", "10")); //fråga 2
-			ConfigurationViewModel.ActiveQuestion = ActivePack.Questions.FirstOrDefault();
+            NewPackDialog = new DelegateCommand(UpdateNewPackDialog, CanUpdateNewPackDialog);
 
-            OpenDialogCommand = new DelegateCommand(UpdateDialog, CanUpdateDialog);
-			
+            PackOptionsDialog = new DelegateCommand(UpdatePackOptionsDialog, CanUpdatePackOptionsDialog);
+            AddQuestionsCommand = new AddQuestionsCommand(parameter => AddQuestionToActivePack(parameter), 
+            parameter => CanAddQuestionToActivePack());
+
+ 
+
 
         }
-  //      private void OpenDialogCreatePack() //gör en metod för att öppna 
-		//{
-		//	CreateNewPackDialog createNewPackDialog = new CreateNewPackDialog();
 
-		//	createNewPackDialog.ShowDialog();
-		//}
-        private bool CanUpdateDialog(object? arg) //lite tokigt namn, viewmodel vet inte om att det finns en knapp i view.
+        //en metod som lägger till frågor till det nuvarande packet
+        private void AddQuestionToActivePack(object parameter)
         {
-            return true; //lägga in logic // längden på strängen
+            if (ActivePack != null)
+            {
+                // Create a new Question (this could come from a user input)
+                var newQuestion = new Question("vad är 5 plus 2", "4", "2", "6", "10");
+                
+                // Add the new question to the active pack
+                ActivePack.Questions.Add(newQuestion);
+                
+            }
+        }
+        private bool CanAddQuestionToActivePack()
+        {
+            // For now, we always return true
+            return ActivePack != null;
         }
 
-        private void UpdateDialog(object obj)
+
+        private bool CanUpdateNewPackDialog(object? arg) 
+        {
+            return true; 
+        }
+
+        private void UpdateNewPackDialog(object obj)
+        {
+            CreateNewPackDialog createNewPackDialog = new CreateNewPackDialog();
+
+            createNewPackDialog.ShowDialog();
+        }
+        private bool CanUpdatePackOptionsDialog(object? arg) 
+        {
+            return true; 
+        }
+
+        private void UpdatePackOptionsDialog(object obj)
         {
             CreateNewPackDialog createNewPackDialog = new CreateNewPackDialog();
 

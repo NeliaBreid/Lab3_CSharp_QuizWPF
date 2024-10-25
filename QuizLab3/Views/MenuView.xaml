@@ -10,8 +10,8 @@
     <Grid>
 
         <Menu VerticalAlignment="Top">
-            <MenuItem Header="File" Command="{Binding OpenDialogCommand}">
-                <MenuItem Header="New Question Pack" Icon="{fa:Icon folderplus}">
+            <MenuItem Header="File" >
+                <MenuItem Header="New Question Pack" Icon="{fa:Icon folderplus}" Command="{Binding NewPackDialog}">
                 </MenuItem>
 
 
@@ -47,7 +47,7 @@
 
             </MenuItem>
 
-                <MenuItem Header="Pack Options" Icon="{fa:Icon Sliders}" InputGestureText="Ctrl+O">
+                <MenuItem Header="Pack Options" Icon="{fa:Icon Sliders}" Command="{Binding PackOptionsDialog}" InputGestureText="Ctrl+O">
 
             </MenuItem>
 

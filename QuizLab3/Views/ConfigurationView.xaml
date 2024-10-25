@@ -36,7 +36,8 @@
                 Height="18" 
                 Margin="5 0 0 0" 
                 ToolTip="Add Question"
-                >
+                Command= "{Binding AddQuestionsCommand}">
+            
                 <fa:IconBlock Icon="Plus" Foreground="Green"/>
             </Button>
             
@@ -51,7 +52,7 @@
             </Button>
         
         </StackPanel>
-        <ListBox x:Name="studentListBox" Grid.Column="0" Grid.Row="2" SelectionMode="Multiple"/>
+        <ListBox x:Name="studentListBox" Grid.Column="0" Grid.Row="2" SelectionMode="Multiple" ItemsSource="{Binding ActivePack.Questions}"/>
 
         <StackPanel Grid.Row="2" Grid.Column="1" DataContext="{Binding ConfigurationViewModel}">
 

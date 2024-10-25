@@ -14,21 +14,8 @@ namespace QuizLab3.ViewModel
 
         public QuestionPackViewModel? ActivePack{ get => mainWindowViewModel.ActivePack;}
 
-
         private Question _activeQuestion;
 
-        private Question _incorrectAnswer;
-
-        public Question IncorrectAnswer
-        {
-            get => _incorrectAnswer;
-            set
-            {
-                _incorrectAnswer = value;
-                RaisePropertyChanged(); //skickas varje gång man sätter testdatan. annars måste man sätta metoden överallt. 
-                //inte alla gånger doxk*
-            }
-        }
 
         public Question ActiveQuestion
         {
@@ -41,19 +28,15 @@ namespace QuizLab3.ViewModel
             }
         }
     
-     
-    
-
-
 
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel;
-            
-
-
-      //här ska vara logik som hämtar
+ 
         }
+
+      
+        //en metod som lägger till frågorna i
 
       
 
