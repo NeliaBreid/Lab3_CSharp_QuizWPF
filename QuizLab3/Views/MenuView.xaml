@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuizLab3.Views"
-             xmlns:fa="clr-namespace:FontAwesome.Sharp;assembly=FontAwesome.Sharp"
+             xmlns:fa="clr-namespace:FontAwesome.Sharp;assembly=FontAwesome.Sharp" xmlns:viewmodel="clr-namespace:QuizLab3.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
 
         <Menu VerticalAlignment="Top">
-            <MenuItem Header="File">
+            <MenuItem Header="File" Command="{Binding OpenDialogCommand}">
                 <MenuItem Header="New Question Pack" Icon="{fa:Icon folderplus}">
                 </MenuItem>
 
@@ -29,11 +29,9 @@
                           InputGestureText="Ctrl+U">
 
                 </MenuItem>
-                
-                <Separator/>
-                <!--Lägg till för att få fina steck-->
 
-                <MenuItem Header="Exit" Icon="{fa:Icon times}">
+                <Separator/>
+                <MenuItem Header="Exit" Icon="{fa:Icon times}" InputGestureText="Alt+F4">
 
             </MenuItem>
 
@@ -41,29 +39,30 @@
 
             <MenuItem Header="Edit">
 
-                <MenuItem Header="Add Question" Icon="{fa:Icon Plus}">
+                <MenuItem Header="Add Question" Icon="{fa:Icon Plus}" InputGestureText="Insert">
 
                 </MenuItem>
 
-                <MenuItem Header="Remove Question" Icon="{fa:Icon Minus}">
+                <MenuItem Header="Remove Question" Icon="{fa:Icon Minus}" InputGestureText="Delete">
 
             </MenuItem>
 
-                <MenuItem Header="Pack Options" Icon="{fa:Icon Sliders}">
+                <MenuItem Header="Pack Options" Icon="{fa:Icon Sliders}" InputGestureText="Ctrl+O">
 
             </MenuItem>
 
             </MenuItem>
 
             <MenuItem Header="View">
-                <MenuItem Header="Play" Icon="{fa:Icon Play}">
+                <MenuItem Header="Play" Icon="{fa:Icon Play}" InputGestureText="Ctrl+P">
 
                 </MenuItem>
 
-                <MenuItem Header="Edit" Icon="{fa:Icon Pen}">
+                <MenuItem Header="Edit" Icon="{fa:Icon Pen}" InputGestureText="Ctrl+E">
                 </MenuItem>
-
-                <MenuItem Header="FullScreen" Icon="{fa:Icon Expand}">
+                
+                <Separator/>
+                <MenuItem Header="FullScreen" Icon="{fa:Icon Expand}" InputGestureText="Alt+Enter">
 
                 </MenuItem>
             </MenuItem>

@@ -24,7 +24,7 @@ namespace QuizLab3.ViewModel
                 RaisePropertyChanged(); //skickas varje gång man sätter testdatan. annars måste man sätta metoden överallt. 
                 //inte alla gånger doxk*
             }
-}
+        }
 
         public DelegateCommand UpdateButtonCommand { get; } //måste gå o binda mot så inte bara field
 

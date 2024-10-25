@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QuizLab3.Views"
-             xmlns:fa="clr-namespace:FontAwesome.Sharp;assembly=FontAwesome.Sharp"
-             DataContext="{Binding ConfigurationViewModel}"
+             xmlns:fa="clr-namespace:FontAwesome.Sharp;assembly=FontAwesome.Sharp" xmlns:viewmodel="clr-namespace:QuizLab3.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="650">
     <Grid>
@@ -22,7 +21,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Default Question Pack"  Grid.Column="0" Grid.Row="0" Margin="5" FontWeight="Bold"/>
+        <Label  Grid.Column="0" Grid.Row="0" Margin="5" FontWeight="Bold" Content="{Binding ActivePack.Name}"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
 
@@ -32,35 +31,46 @@
                 <fa:IconBlock Icon="Sliders" Foreground="Black"/>
             </Button>
         
-        <Button FontSize="15" Width="18" Height="18" Margin="5 0 0 0" ToolTip="Add Question">
+        <Button FontSize="15" 
+                Width="18" 
+                Height="18" 
+                Margin="5 0 0 0" 
+                ToolTip="Add Question"
+                >
                 <fa:IconBlock Icon="Plus" Foreground="Green"/>
             </Button>
             
-            <Button FontSize="15" Width="18" Height="18" Margin="5 0 0 0" ToolTip="Remove Question">
+            <Button FontSize="15" 
+                    Width="18" 
+                    Height="18" 
+                    Margin="5 0 0 0" 
+                    ToolTip="Remove Question"
+                    >
+                
                 <fa:IconBlock Icon="Minus" Foreground="Red"/>
             </Button>
         
         </StackPanel>
         <ListBox x:Name="studentListBox" Grid.Column="0" Grid.Row="2" SelectionMode="Multiple"/>
 
-        <StackPanel Grid.Row="2" Grid.Column="1">
+        <StackPanel Grid.Row="2" Grid.Column="1" DataContext="{Binding ConfigurationViewModel}">
 
             <TextBlock FontWeight="Bold" Margin="20 0 0 0" Text="Question:" />
-            <TextBox Text="New Question" Margin="20 0 20 20" Height="80"/>
+            <TextBox Margin="20 0 20 20" Height="80" Text="{Binding ActiveQuestion.Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
 
                 <TextBlock FontWeight="Bold" Margin="20 0 0 0"  Text="Correct Answer:" />
-                <TextBox Margin="20 0 20 10"/>
+                <TextBox  x:Name="correctAnswer" Margin="20 0 20 10" Text="{Binding ActiveQuestion.CorrectAnswer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock FontWeight="Bold" Margin="20 0 0 0" Text="First Incorrect Answer:" />
-                <TextBox Margin="20 0 20 10"/>
+                <TextBlock FontWeight="Bold" Margin="20 0 0 0"  />
+                <TextBox Margin="20 0 20 10" Text="{Binding ActiveQuestion.IncorrectAnswers[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock FontWeight="Bold" Margin="20 0 0 0" Text="Second Incorrect Answer:" />
-                <TextBox Margin="20 0 20 10"/>
+                <TextBox Margin="20 0 20 10" Text="{Binding ActiveQuestion.IncorrectAnswers[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock FontWeight="Bold" Margin="20 0 0 0" Text="Third Incorrect Answer:" />
-                <TextBox Margin="20 0 20 10"/>
+                <TextBox Margin="20 0 20 10" Text="{Binding ActiveQuestion.IncorrectAnswers[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             </StackPanel>
         </StackPanel>

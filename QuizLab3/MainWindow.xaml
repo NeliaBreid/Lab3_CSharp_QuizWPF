@@ -10,6 +10,14 @@
         Title="NeliasKahoot" MinHeight="450" MinWidth="650" ResizeMode="CanResize" Height="450" Width="650">
     <Window.InputBindings> 
         <KeyBinding Key="U" Modifiers="Ctrl" Command="{Binding PlayerViewModel.UpdateButtonCommand}"/>
+        <KeyBinding Key="L" Modifiers="Ctrl"/>
+        <KeyBinding Key="P" Modifiers="Ctrl"/>
+        <KeyBinding Key="E" Modifiers="Ctrl"/>
+        <KeyBinding Key="O" Modifiers="Ctrl"/>
+        <KeyBinding Key="F4" Modifiers="Alt"/>
+        <KeyBinding Key="Enter" Modifiers="Alt"/>
+        <KeyBinding Key="Insert"/>
+        <KeyBinding Key="Delete"/>
     </Window.InputBindings>
     
     <Grid>
@@ -19,9 +27,9 @@
         </Grid.RowDefinitions>
         
         <view:MenuView Grid.Row="0"/>
-        <!--<view:ConfigurationView Grid.Row="1"/>-->
-        <!--<view:ResultView Grid.Row="1"/>
-        <view:PlayerView Grid.Row="1"/>-->
+        <view:ConfigurationView Grid.Row="1"/>
+        <!--<view:ResultView Grid.Row="1"/>-->
+        <!--<view:PlayerView Grid.Row="1"/>-->
 
 
     </Grid>
