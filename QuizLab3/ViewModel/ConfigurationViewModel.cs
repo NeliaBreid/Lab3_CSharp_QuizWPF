@@ -43,40 +43,74 @@ namespace QuizLab3.ViewModel
         }
 
         public ICommand AddQuestionsCommand { get; }
+        public ICommand RemoveQuestionsCommand { get; }
+
 
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel;
 
-            
-            ActivePack.Questions.Add(new Question(" "," "," "," ", " "));
+
+            ActivePack.Questions.Add(new Question(" ", " ", " ", " ", " "));
 
             ActiveQuestion = ActivePack.Questions.FirstOrDefault(); //får ut första itemet i en lista.
 
             AddQuestionsCommand = new DelegateCommand(AddQuestionToActivePack, CanAddQuestionToActivePack);
 
+            RemoveQuestionsCommand = new DelegateCommand(RemoveQuestionFromActivePack, CanRemoveQuestionFromActivePack);
+
         }
 
         private void AddQuestionToActivePack(object parameter)
         {
+            if (ActiveQuestion == null)
+            {
+                ActiveQuestion = new Question(
 
-                var newQuestion = new Question(
+                 ActiveQuestion.Query = string.Empty,
+                 ActiveQuestion.CorrectAnswer = string.Empty,
+                 ActiveQuestion.IncorrectAnswers[0] = string.Empty,
+                 ActiveQuestion.IncorrectAnswers[1] = string.Empty,
+                 ActiveQuestion.IncorrectAnswers[2] = string.Empty
+                 );
+
+            }
+
+            var newQuestion = new Question(
                  ActiveQuestion.Query,
                  ActiveQuestion.CorrectAnswer,
                  ActiveQuestion.IncorrectAnswers[0],
                  ActiveQuestion.IncorrectAnswers[1],
                  ActiveQuestion.IncorrectAnswers[2]);
-                
-                ActivePack.Questions.Add(newQuestion);
+
+            ActivePack.Questions.Add(newQuestion);
+
+            RaisePropertyChanged(nameof(ActiveQuestion));
 
         }
         private bool CanAddQuestionToActivePack(object parameter)
         {
             return ActivePack != null;
         }
+        private void RemoveQuestionFromActivePack(object parameter)
+        {
+            if (ActivePack != null)
+            {
+            ActivePack.Questions.Remove(ActiveQuestion);
+
+                RaisePropertyChanged(nameof(ActiveQuestion));
+            }
+     
+        }
+
+        private bool CanRemoveQuestionFromActivePack(object parameter)
+        {
+            return ActivePack != null;
+        }
+
 
 
     }
-    }
+}
 
 

@@ -46,7 +46,7 @@
                     Height="18" 
                     Margin="5 0 0 0" 
                     ToolTip="Remove Question"
-                    >
+                    Command="{Binding RemoveQuestionsCommand}">
                 
                 <fa:IconBlock Icon="Minus" Foreground="Red"/>
             </Button>
