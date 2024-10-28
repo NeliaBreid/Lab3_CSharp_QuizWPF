@@ -48,7 +48,7 @@ namespace QuizLab3.ViewModel
                 RaisePropertyChanged();
             }
         }   
-        public ObservableCollection<Question> Questions { get; }
+        public ObservableCollection<Question> Questions { get; set; }
         
         //När Jag klickar på Knappen, läggs det är skrivet i textbox1 i propertyn Questions
 

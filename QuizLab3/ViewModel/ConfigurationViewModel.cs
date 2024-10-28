@@ -1,10 +1,12 @@
-﻿using QuizLab3.Model;
+﻿using QuizLab3.Command;
+using QuizLab3.Model;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace QuizLab3.ViewModel
 {
@@ -15,9 +17,9 @@ namespace QuizLab3.ViewModel
         public QuestionPackViewModel? ActivePack{ get => mainWindowViewModel.ActivePack;}
 
         private Question _activeQuestion;
+      
 
-
-        public Question ActiveQuestion
+        public Question? ActiveQuestion
         {
             get => _activeQuestion;
              set
@@ -27,25 +29,54 @@ namespace QuizLab3.ViewModel
                 //inte alla gånger doxk*
             }
         }
-    
+
+        private string _query;
+        public string Query
+        {
+            get => ActiveQuestion.Query;
+            set
+            {
+                ActiveQuestion.Query = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("SelectedItem");
+            }
+        }
+
+        public ICommand AddQuestionsCommand { get; }
 
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel;
- 
+
+            
+            ActivePack.Questions.Add(new Question(" "," "," "," ", " "));
+
+            ActiveQuestion = ActivePack.Questions.FirstOrDefault(); //får ut första itemet i en lista.
+
+            AddQuestionsCommand = new DelegateCommand(AddQuestionToActivePack, CanAddQuestionToActivePack);
+
         }
 
-      
-        //en metod som lägger till frågorna i
+        private void AddQuestionToActivePack(object parameter)
+        {
 
-      
+                var newQuestion = new Question(
+                 ActiveQuestion.Query,
+                 ActiveQuestion.CorrectAnswer,
+                 ActiveQuestion.IncorrectAnswers[0],
+                 ActiveQuestion.IncorrectAnswers[1],
+                 ActiveQuestion.IncorrectAnswers[2]);
+                
+                ActivePack.Questions.Add(newQuestion);
 
-            //Först skapar vi en default questionpack. Den kommer finnas i början av spelet så att det ska initieras när programmet byggs.
-            //när programmet byggs, (i ngn konstruktor) skapa en questionpack.
-
-            //varje gång jag klickar på add i configurationview så adderas ett objekt av typen Question till Active QuestionPack.
-            //Question har då tillhörande question, correct answer och tre fel svar. (dessa måste vara med)
         }
+        private bool CanAddQuestionToActivePack(object parameter)
+        {
+            return ActivePack != null;
+        }
+
+
+    }
     }
 
 

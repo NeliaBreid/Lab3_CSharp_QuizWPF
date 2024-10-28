@@ -39,7 +39,7 @@
 
             <MenuItem Header="Edit">
 
-                <MenuItem Header="Add Question" Icon="{fa:Icon Plus}" InputGestureText="Insert" Command="{Binding AddQuestionsCommand}">
+                <MenuItem Header="Add Question" Icon="{fa:Icon Plus}" InputGestureText="Insert" DataContext="{Binding ConfigurationViewModel}" Command="{Binding AddQuestionsCommand}">
 
                 </MenuItem>
 
