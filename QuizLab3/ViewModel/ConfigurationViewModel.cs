@@ -22,9 +22,11 @@ namespace QuizLab3.ViewModel
         public Question? ActiveQuestion
         {
             get => _activeQuestion;
-             set
+             set 
             {
-                _activeQuestion = value;
+                if (value != null)
+                    _activeQuestion = value;
+                
                 RaisePropertyChanged(); //skickas varje gång man sätter testdatan. annars måste man sätta metoden överallt. 
                 //inte alla gånger doxk*
             }
