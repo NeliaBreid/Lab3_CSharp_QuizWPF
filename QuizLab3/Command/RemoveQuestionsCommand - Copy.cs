@@ -30,6 +30,7 @@ namespace QuizLab3.Command
         public void Execute(object? parameter)
         {
             execute(parameter);
+            
         }
 
     }

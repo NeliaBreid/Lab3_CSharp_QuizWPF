@@ -9,7 +9,9 @@
              DataContext="{Binding ConfigurationViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="650">
+
     <Grid>
+     
 
         <Grid.RowDefinitions>
 
@@ -41,14 +43,15 @@
                 <fa:IconBlock Icon="Plus" Foreground="Green"/>
             </Button>
             
-            <Button FontSize="15" 
+            <Button x:Name="removeButton"
+                    FontSize="15" 
                     Width="18" 
                     Height="18" 
                     Margin="5 0 0 0" 
                     ToolTip="Remove Question"
                     Command="{Binding RemoveQuestionsCommand}">
                 
-                <fa:IconBlock Icon="Minus" Foreground="Red"/>
+                <fa:IconBlock Icon="Minus" Foreground="Black"/>
             </Button>
         
         </StackPanel>
@@ -70,7 +73,7 @@
         </ListBox.ItemTemplate>
     </ListBox>
 
-    <StackPanel Grid.Row="2" Grid.Column="1">
+        <StackPanel Grid.Row="2" Grid.Column="1" Visibility="{Binding QuestionPanelVisibility}">
 
             <TextBlock FontWeight="Bold" Margin="20 0 0 0" Text="Question:" />
             <TextBox Margin="20 0 20 20" Height="80" Text="{Binding ActiveQuestion.Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

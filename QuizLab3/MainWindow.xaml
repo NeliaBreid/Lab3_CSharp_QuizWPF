@@ -16,8 +16,8 @@
         <KeyBinding Key="O" Modifiers="Ctrl"/>
         <KeyBinding Key="F4" Modifiers="Alt"/>
         <KeyBinding Key="Enter" Modifiers="Alt"/>
-        <KeyBinding Key="Insert"/>
-        <KeyBinding Key="Delete"/>
+        <KeyBinding Key="Insert" Command="{Binding ConfigurationViewModel.AddQuestionsCommand}"/>
+        <KeyBinding Key="Delete" Command="{Binding ConfigurationViewModel.RemoveQuestionsCommand}"/>
     </Window.InputBindings>
     
     <Grid>

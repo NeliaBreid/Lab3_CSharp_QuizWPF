@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="center">
             <TextBlock Text="PackName" Margin="5" FontWeight="Bold"/>
-            <TextBox Margin="5 0 5 10" Text="something"/>
+            <TextBox Margin="5 0 5 10" Text="Something"/>
             
             <Label Content="Difficulty" FontWeight="Bold"/>
             <ComboBox Margin="5 0 5 10">
@@ -42,3 +42,5 @@
 
     </Grid>
 </Window>
+    
+

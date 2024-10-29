@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace QuizLab3.ViewModel
@@ -17,7 +18,20 @@ namespace QuizLab3.ViewModel
         public QuestionPackViewModel? ActivePack{ get => mainWindowViewModel.ActivePack;}
 
         private Question _activeQuestion;
-      
+
+        private Visibility _questionPanelVisibility;
+        public Visibility QuestionPanelVisibility
+        {
+            get => _questionPanelVisibility;
+            set
+            {  
+                
+            _questionPanelVisibility = value;
+                RaisePropertyChanged();
+
+                
+            }
+        }
 
         public Question? ActiveQuestion
         {
@@ -26,9 +40,8 @@ namespace QuizLab3.ViewModel
             {
                 if (value != null)
                     _activeQuestion = value;
+                RaisePropertyChanged();
                 
-                RaisePropertyChanged(); //skickas varje gång man sätter testdatan. annars måste man sätta metoden överallt. 
-                //inte alla gånger doxk*
             }
         }
 
@@ -40,9 +53,9 @@ namespace QuizLab3.ViewModel
             {
                 ActiveQuestion.Query = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged("SelectedItem");
             }
         }
+      
 
         public ICommand AddQuestionsCommand { get; }
         public ICommand RemoveQuestionsCommand { get; }
@@ -52,65 +65,66 @@ namespace QuizLab3.ViewModel
         {
             this.mainWindowViewModel = mainWindowViewModel;
 
+            QuestionPanelVisibility = Visibility.Hidden;
+            
 
-            ActivePack.Questions.Add(new Question(" ", " ", " ", " ", " "));
+            //ActivePack.Questions.Add(new Question(" ", " ", " ", " ", " "));
 
             ActiveQuestion = ActivePack.Questions.FirstOrDefault(); //får ut första itemet i en lista.
 
             AddQuestionsCommand = new DelegateCommand(AddQuestionToActivePack, CanAddQuestionToActivePack);
 
             RemoveQuestionsCommand = new DelegateCommand(RemoveQuestionFromActivePack, CanRemoveQuestionFromActivePack);
+            RemoveQuestionsCommand = new DelegateCommand(RemoveQuestionFromActivePack, CanRemoveQuestionFromActivePack);
 
         }
 
         private void AddQuestionToActivePack(object parameter)
         {
-            if (ActiveQuestion == null)
+
+            if (ActiveQuestion != null)
             {
-                ActiveQuestion = new Question(
+                QuestionPanelVisibility = Visibility.Visible;
 
-                 ActiveQuestion.Query = string.Empty,
-                 ActiveQuestion.CorrectAnswer = string.Empty,
-                 ActiveQuestion.IncorrectAnswers[0] = string.Empty,
-                 ActiveQuestion.IncorrectAnswers[1] = string.Empty,
-                 ActiveQuestion.IncorrectAnswers[2] = string.Empty
-                 );
-
+                var newQuestion = new Question(
+                     ActiveQuestion.Query,
+                     ActiveQuestion.CorrectAnswer,
+                     ActiveQuestion.IncorrectAnswers[0],
+                     ActiveQuestion.IncorrectAnswers[1],
+                     ActiveQuestion.IncorrectAnswers[2]);
+                ActivePack.Questions.Add(newQuestion);
             }
+            ActiveQuestion = new Question(" ", " ", " ", " ", " ");
 
-            var newQuestion = new Question(
-                 ActiveQuestion.Query,
-                 ActiveQuestion.CorrectAnswer,
-                 ActiveQuestion.IncorrectAnswers[0],
-                 ActiveQuestion.IncorrectAnswers[1],
-                 ActiveQuestion.IncorrectAnswers[2]);
-
-            ActivePack.Questions.Add(newQuestion);
-
-            RaisePropertyChanged(nameof(ActiveQuestion));
+            RaisePropertyChanged(); 
 
         }
         private bool CanAddQuestionToActivePack(object parameter)
         {
             return ActivePack != null;
+
         }
         private void RemoveQuestionFromActivePack(object parameter)
         {
-            if (ActivePack != null)
-            {
-            ActivePack.Questions.Remove(ActiveQuestion);
+            var questionToRemove = ActivePack.Questions.FirstOrDefault();
 
-                RaisePropertyChanged(nameof(ActiveQuestion));
+            // Check if there is a question to remove
+            if (questionToRemove != null && ActivePack != null)
+            {
+                // Remove the question from the collection
+                ActivePack.Questions.Remove(questionToRemove);
             }
-     
+
+            RaisePropertyChanged();
+
+
         }
 
         private bool CanRemoveQuestionFromActivePack(object parameter)
         {
-            return ActivePack != null;
+            return ActiveQuestion != null;
+            
         }
-
-
 
     }
 }

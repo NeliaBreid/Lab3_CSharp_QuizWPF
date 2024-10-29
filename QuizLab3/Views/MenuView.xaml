@@ -16,7 +16,7 @@
 
 
                 <MenuItem Header="Select Question Pack" Icon="{fa:Icon FolderOpen}">
-                    <MenuItem Header=" blabla">
+                    <MenuItem Header="blabla">
                     </MenuItem>
                 </MenuItem>
 
@@ -43,7 +43,7 @@
 
                 </MenuItem>
 
-                <MenuItem Header="Remove Question" Icon="{fa:Icon Minus}" InputGestureText="Delete" DataContext="{Binding ConfigurationViewModel}" Command="{Binding RemoveQuestionsCommand}">
+                <MenuItem x:Name="removeButtonMenu" Header="Remove Question" Icon="{fa:Icon Minus}" InputGestureText="Delete" DataContext="{Binding ConfigurationViewModel}" Command="{Binding RemoveQuestionsCommand}">
 
                 </MenuItem>
 
