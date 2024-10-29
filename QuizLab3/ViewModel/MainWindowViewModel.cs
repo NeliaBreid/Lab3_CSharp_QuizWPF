@@ -33,13 +33,12 @@ namespace QuizLab3.ViewModel
 			set
 			{
 				_activePack = value;
-				RaisePropertyChanged(); //uppdateringsmetod
-				//ConfigurationViewModel.RaisePropertyChanged("ActivePack"); //ett exempel
-			}
+				RaisePropertyChanged(); 
+            }
 		}
 
-        public ICommand NewPackDialog { get; }
-        public ICommand PackOptionsDialog { get; }
+        public DelegateCommand NewPackDialog { get; }
+        public DelegateCommand PackOptionsDialog { get; }
 
 
         public MainWindowViewModel()
@@ -53,11 +52,8 @@ namespace QuizLab3.ViewModel
             NewPackDialog = new DelegateCommand(UpdateNewPackDialog, CanUpdateNewPackDialog);
 
             PackOptionsDialog = new DelegateCommand(UpdatePackOptionsDialog, CanUpdatePackOptionsDialog);
-
         }
 
-        //en metod som lägger till frågor till det nuvarande packet
-        
 
 
         private bool CanUpdateNewPackDialog(object? arg) 
@@ -80,7 +76,7 @@ namespace QuizLab3.ViewModel
         {
             CreateNewPackDialog createNewPackDialog = new CreateNewPackDialog();
 
-            createNewPackDialog.ShowDialog(); //
+            createNewPackDialog.ShowDialog(); 
         }
 
     }

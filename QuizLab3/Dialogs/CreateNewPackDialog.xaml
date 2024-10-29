@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuizLab3.Dialogs"
         mc:Ignorable="d"
+        DataContext="{Binding QuestionPackViewModel}"
         Title="New Question Pack" Height="310" Width="260" ResizeMode="NoResize">
     <Grid>
         <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="center">
@@ -34,7 +35,7 @@
             
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Cancel" Margin="20" HorizontalAlignment="left"/>
-                <Button Content="Create" Margin="20" HorizontalAlignment="Right"/>
+                <Button Content="Create" Margin="20" HorizontalAlignment="Right" Command="{Binding CreateQuestionPacksCommand}" />
             </StackPanel>
             
         </StackPanel>

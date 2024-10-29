@@ -1,13 +1,16 @@
-﻿using QuizLab3.Model;
+﻿using QuizLab3.Command;
+using QuizLab3.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO.Packaging;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace QuizLab3.ViewModel
 {
@@ -20,6 +23,7 @@ namespace QuizLab3.ViewModel
         {
             this.model = model;
             this.Questions = new ObservableCollection<Question>(model.Questions);
+           // CreateQuestionPacksCommand = new DelegateCommand(CreatePack, CanCreatePack);
         }
         public string Name //Det blir bara som en översättning egentligen
         {
@@ -49,8 +53,21 @@ namespace QuizLab3.ViewModel
             }
         }   
         public ObservableCollection<Question> Questions { get; set; }
-        
-        //När Jag klickar på Knappen, läggs det är skrivet i textbox1 i propertyn Questions
+
+        public ICommand CreateQuestionPacksCommand { get; }
+        private void CreatePack()
+        {
+            // skapar nytt pack
+            var newPack = new QuestionPack(Name, Difficulty, TimeLimitInSeconds);
+            
+
+        }
+
+        private bool CanCreatePack()
+        {
+            // Enable Create only if PackName is set
+            return !string.IsNullOrWhiteSpace(Name);
+        }
 
     }
 
