@@ -43,9 +43,11 @@ namespace QuizLab3.ViewModel
 
         public MainWindowViewModel()
 		{
-            ActivePack = new QuestionPackViewModel(new QuestionPack("my default questionspack"));
+            ActivePack = new QuestionPackViewModel(new QuestionPack("my default Questionspack"));
 
-			PlayerViewModel = new PlayerViewModel(this);
+            Packs = new ObservableCollection<QuestionPackViewModel>(); //skapar en instans av Packs
+
+            PlayerViewModel = new PlayerViewModel(this);
 
 			ConfigurationViewModel = new ConfigurationViewModel(this);
 

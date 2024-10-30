@@ -3,21 +3,25 @@ using QuizLab3.Model;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace QuizLab3.ViewModel
 {
     class ConfigurationViewModel : ViewModelBase
     {
         private readonly MainWindowViewModel? mainWindowViewModel;
-
+        public ObservableCollection<QuestionPackViewModel> Packs { get => mainWindowViewModel.Packs; } //funkar denna?
         public QuestionPackViewModel? ActivePack{ get => mainWindowViewModel.ActivePack;}
-
+        
         private Question _activeQuestion;
+
+        private QuestionPack _myQuestionPack;
 
         private Visibility _questionPanelVisibility;
         public Visibility QuestionPanelVisibility
@@ -30,6 +34,16 @@ namespace QuizLab3.ViewModel
             }
         }
 
+        public QuestionPack? MyQuestionPack
+        {
+            get => _myQuestionPack;
+            set
+            {
+                _myQuestionPack = value;
+                RaisePropertyChanged();
+
+            }
+        }
         public Question? ActiveQuestion
         {
             get => _activeQuestion;
@@ -55,6 +69,7 @@ namespace QuizLab3.ViewModel
 
         public DelegateCommand AddQuestionsCommand { get; }
         public DelegateCommand RemoveQuestionsCommand { get; }
+        public DelegateCommand CreateQuestionPacksCommand { get; }
 
 
 
@@ -70,6 +85,9 @@ namespace QuizLab3.ViewModel
 
             RemoveQuestionsCommand = new DelegateCommand(RemoveQuestionFromActivePack, CanRemoveQuestionFromActivePack);
 
+            CreateQuestionPacksCommand = new DelegateCommand(CreatePack);
+
+            
         }
 
         private void AddQuestionToActivePack(object parameter)
@@ -85,13 +103,15 @@ namespace QuizLab3.ViewModel
                      ActiveQuestion.IncorrectAnswers[1],
                      ActiveQuestion.IncorrectAnswers[2]);
                      ActivePack.Questions.Add(newQuestion);
+
             }
             else 
             {
                 ActivePack.Questions.Add(new Question("New Question", string.Empty, string.Empty, string.Empty, string.Empty));
             }
 
-            QuestionPanelVisibility = Visibility.Visible;
+                QuestionPanelVisibility = Visibility.Visible;
+            
             RemoveQuestionsCommand.RaiseCanExecuteChanged();
             RaisePropertyChanged(); 
 
@@ -105,7 +125,6 @@ namespace QuizLab3.ViewModel
         {
             if (ActivePack != null && ActiveQuestion != null)
             {
-                
                 ActivePack.Questions.Remove(ActiveQuestion);
                 RemoveQuestionsCommand.RaiseCanExecuteChanged();
             }
@@ -116,6 +135,24 @@ namespace QuizLab3.ViewModel
         private bool CanRemoveQuestionFromActivePack(object parameter)
         {
             return ActivePack.Questions.Any();
+            
+        }
+
+        private void CreatePack(object? parameter) //här är när man klickar på CreateKnappen i dialog
+        {
+            // skapar nytt pack
+            
+            Packs.Add(new QuestionPackViewModel(new QuestionPack(Packs.Name, newPack.Difficulty, newPack.TimeLimitInSeconds));
+
+            //var newPack = (new QuestionPack(newPack.Name, newPack.Difficulty, newPack.TimeLimitInSeconds));
+            //koppla namn, 
+
+        }
+
+        private bool CanCreatePack()
+        {
+            // Enable Create only if PackName is set
+            return true;
         }
 
     }

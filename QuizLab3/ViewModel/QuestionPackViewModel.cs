@@ -23,7 +23,6 @@ namespace QuizLab3.ViewModel
         {
             this.model = model;
             this.Questions = new ObservableCollection<Question>(model.Questions);
-           // CreateQuestionPacksCommand = new DelegateCommand(CreatePack, CanCreatePack);
         }
         public string Name //Det blir bara som en översättning egentligen
         {
@@ -54,20 +53,7 @@ namespace QuizLab3.ViewModel
         }   
         public ObservableCollection<Question> Questions { get; set; }
 
-        public ICommand CreateQuestionPacksCommand { get; }
-        private void CreatePack()
-        {
-            // skapar nytt pack
-            var newPack = new QuestionPack(Name, Difficulty, TimeLimitInSeconds);
-            
-
-        }
-
-        private bool CanCreatePack()
-        {
-            // Enable Create only if PackName is set
-            return !string.IsNullOrWhiteSpace(Name);
-        }
+      
 
     }
 

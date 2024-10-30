@@ -13,11 +13,12 @@
             <MenuItem Header="File" >
                 <MenuItem Header="New Question Pack" Icon="{fa:Icon folderplus}" Command="{Binding NewPackDialog}">
                 </MenuItem>
-
-
                 <MenuItem Header="Select Question Pack" Icon="{fa:Icon FolderOpen}">
-                    <MenuItem Header="blabla">
-                    </MenuItem>
+                    <MenuItem.ItemsSource>
+                        <CompositeCollection>
+                            <CollectionContainer Collection="{Binding Packs}" />
+                        </CompositeCollection>
+                    </MenuItem.ItemsSource>
                 </MenuItem>
 
                 <MenuItem Header="Default question pack" Icon="{fa:Icon folder}">
