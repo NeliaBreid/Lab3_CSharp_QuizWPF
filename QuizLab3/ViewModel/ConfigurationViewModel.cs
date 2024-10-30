@@ -21,7 +21,7 @@ namespace QuizLab3.ViewModel
         
         private Question _activeQuestion;
 
-        private QuestionPack _myQuestionPack;
+        private QuestionPack _newQuestionPack;
 
         private Visibility _questionPanelVisibility;
         public Visibility QuestionPanelVisibility
@@ -34,12 +34,12 @@ namespace QuizLab3.ViewModel
             }
         }
 
-        public QuestionPack? MyQuestionPack
+        public QuestionPack? NewQuestionPack
         {
-            get => _myQuestionPack;
+            get => _newQuestionPack;
             set
             {
-                _myQuestionPack = value;
+                _newQuestionPack = value;
                 RaisePropertyChanged();
 
             }
@@ -70,6 +70,7 @@ namespace QuizLab3.ViewModel
         public DelegateCommand AddQuestionsCommand { get; }
         public DelegateCommand RemoveQuestionsCommand { get; }
         public DelegateCommand CreateQuestionPacksCommand { get; }
+      
 
 
 
@@ -140,12 +141,8 @@ namespace QuizLab3.ViewModel
 
         private void CreatePack(object? parameter) //här är när man klickar på CreateKnappen i dialog
         {
-            // skapar nytt pack
-            
-            Packs.Add(new QuestionPackViewModel(new QuestionPack(Packs.Name, newPack.Difficulty, newPack.TimeLimitInSeconds));
 
-            //var newPack = (new QuestionPack(newPack.Name, newPack.Difficulty, newPack.TimeLimitInSeconds));
-            //koppla namn, 
+            Packs.Add(new QuestionPackViewModel(new QuestionPack(NewQuestionPack.Name, NewQuestionPack.Difficulty, NewQuestionPack.TimeLimitInSeconds)));
 
         }
 

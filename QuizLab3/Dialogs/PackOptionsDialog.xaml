@@ -20,8 +20,9 @@
 
             <StackPanel Orientation="Horizontal" Margin="0 10 0 10">
 
-                <Label HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Time Limit:" FontWeight="Bold"/>
-                <Label Margin="100 0 0 0"  Content="... seconds"/>
+                <TextBlock Margin="10" Text="Time Limit:" FontWeight="Bold"/>
+                <TextBlock Margin="70 10 5 10"/>
+                <TextBlock Margin="0 10 10 10" Text="seconds"/>
             </StackPanel>
             <Slider 
                 TickPlacement="BottomRight"

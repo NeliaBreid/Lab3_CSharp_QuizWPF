@@ -15,10 +15,15 @@
                 </MenuItem>
                 <MenuItem Header="Select Question Pack" Icon="{fa:Icon FolderOpen}">
                     <MenuItem.ItemsSource>
-                        <CompositeCollection>
-                            <CollectionContainer Collection="{Binding Packs}" />
-                        </CompositeCollection>
+                        <Binding Path="Packs"/>
                     </MenuItem.ItemsSource>
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Header" Value="{Binding Name}" />
+                            <Setter Property="Command" Value="{Binding DataContext.SetActivePackCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
+                            <Setter Property="CommandParameter" Value="{Binding}" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
                 </MenuItem>
 
                 <MenuItem Header="Default question pack" Icon="{fa:Icon folder}">
@@ -55,8 +60,8 @@
             </MenuItem>
 
             <MenuItem Header="View">
-                <MenuItem Header="Play" Icon="{fa:Icon Play}" InputGestureText="Ctrl+P">
-
+                <MenuItem Header="Play" Icon="{fa:Icon Play}" InputGestureText="Ctrl+P" Command="{Binding ShowPlayerViewCommand}" >
+               
                 </MenuItem>
 
                 <MenuItem Header="Edit" Icon="{fa:Icon Pen}" InputGestureText="Ctrl+E">

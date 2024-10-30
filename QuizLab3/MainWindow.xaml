@@ -28,6 +28,7 @@
         
         <view:MenuView Grid.Row="0"/>
         <view:ConfigurationView Grid.Row="1"/>
+        <ContentControl Content="{Binding SelectedViewModel}"/>
         <!--<view:ResultView Grid.Row="1"/>-->
         <!--<view:PlayerView Grid.Row="1"/>-->
 

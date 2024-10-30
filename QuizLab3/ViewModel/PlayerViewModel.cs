@@ -10,7 +10,7 @@ namespace QuizLab3.ViewModel
 {
     class PlayerViewModel : ViewModelBase
     {
-        private readonly MainWindowViewModel? mainWindowViewModel; //readOnly för att hålla koll
+        private readonly MainWindowViewModel? mainWindowViewModel;
 
         private DispatcherTimer timer;
         private string _testData;
@@ -22,7 +22,7 @@ namespace QuizLab3.ViewModel
             { 
                 _testData = value;
                 RaisePropertyChanged(); //skickas varje gång man sätter testdatan. annars måste man sätta metoden överallt. 
-                //inte alla gånger doxk*
+              
             }
         }
 
