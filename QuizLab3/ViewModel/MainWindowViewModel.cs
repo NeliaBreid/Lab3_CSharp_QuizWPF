@@ -27,48 +27,29 @@ namespace QuizLab3.ViewModel
 
         private QuestionPackViewModel? _activePack; //backningfield. frågetecknet för att tala om för kompliern att vi vet att den kan vara null
 
-        private object _selectedViewModel;
-
+    
         public QuestionPackViewModel? ActivePack
 		{
 			get => _activePack;
 			set
 			{
 				_activePack = value;
-				RaisePropertyChanged(); 
+                RaisePropertyChanged(nameof(ActivePack));
+                ConfigurationViewModel?.RaisePropertyChanged();
+
             }
 		}
-        private QuestionPackViewModel? _selectedPack;
-
-
-        public QuestionPackViewModel? SelectedPack
-        {
-            get => _selectedPack;
-            set
-            {
-                _selectedPack = value;
-                RaisePropertyChanged();
-                ActivePack = _selectedPack;
-            }
-        }
-        public object SelectedViewModel
-        {
-            get => _selectedViewModel;
-            set
-            {
-                _selectedViewModel = value;
-                RaisePropertyChanged();
-            }
-        }
+    
 
         public DelegateCommand NewPackDialog { get; }
         public DelegateCommand PackOptionsDialog { get; }
         public DelegateCommand SetActivePackCommand { get; }
         public DelegateCommand SelectViewCommand { get; }
+        public DelegateCommand DefaultCommand { get; }
 
         public MainWindowViewModel()
 		{
-            ActivePack = new QuestionPackViewModel(new QuestionPack("my default Questionspack"));
+            ActivePack = new QuestionPackViewModel(new QuestionPack("My default Questionspack"));
 
             Packs = new ObservableCollection<QuestionPackViewModel>(); //skapar en instans av Packs
 
@@ -81,9 +62,6 @@ namespace QuizLab3.ViewModel
             PackOptionsDialog = new DelegateCommand(UpdatePackOptionsDialog, CanUpdatePackOptionsDialog);
 
             SetActivePackCommand = new DelegateCommand(SetActivePack);
-
-           
-
         
         }
 
@@ -116,15 +94,11 @@ namespace QuizLab3.ViewModel
         private void SetActivePack(object? obj)
         {
 
-            if (SelectedPack !=null) //Det här fungerar inte just nu
-            {
-            ActivePack = SelectedPack; //selectedPack förblir null
-            }
+            ActivePack = (QuestionPackViewModel)obj;
+
+            RaisePropertyChanged(nameof(ActivePack));
         }
-        private void SetSelectedViewModel(object? obj)
-        {
-           
-        }
+      
 
     }
 }

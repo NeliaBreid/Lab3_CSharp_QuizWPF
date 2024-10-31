@@ -24,7 +24,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label  Grid.Column="0" Grid.Row="0" Margin="5" FontWeight="Bold" Content="{Binding ActivePack.Name}"/>
+        <Label  Grid.Column="0" Grid.Row="0" Margin="5" FontWeight="Bold" Content="{Binding ActivePack.Name, Mode=TwoWay}"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
 

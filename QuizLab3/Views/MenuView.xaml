@@ -21,12 +21,12 @@
                         <Style TargetType="MenuItem">
                             <Setter Property="Header" Value="{Binding Name}" />
                             <Setter Property="Command" Value="{Binding DataContext.SetActivePackCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
-                            <Setter Property="CommandParameter" Value="{Binding}" />
+                            <Setter Property="CommandParameter" Value="{Binding}"/>
                         </Style>
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
 
-                <MenuItem Header="Default question pack" Icon="{fa:Icon folder}">
+                <MenuItem Header="Default question pack" Icon="{fa:Icon folder}" Command="{Binding DefaultCommand}">
 
                 </MenuItem>
 
@@ -60,7 +60,7 @@
             </MenuItem>
 
             <MenuItem Header="View">
-                <MenuItem Header="Play" Icon="{fa:Icon Play}" InputGestureText="Ctrl+P" Command="{Binding ShowPlayerViewCommand}" >
+                <MenuItem Header="Play" Icon="{fa:Icon Play}" InputGestureText="Ctrl+P" >
                
                 </MenuItem>
 
