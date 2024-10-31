@@ -26,10 +26,6 @@
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
 
-                <MenuItem Header="Default question pack" Icon="{fa:Icon folder}" Command="{Binding DefaultCommand}">
-
-                </MenuItem>
-
                 <MenuItem Header="Delete Question Pack" Icon="{fa:Icon Trash}" 
                           Command="{Binding PlayerViewModel.UpdateButtonCommand}"
                           InputGestureText="Ctrl+U">

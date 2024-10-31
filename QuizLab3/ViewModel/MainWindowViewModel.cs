@@ -49,9 +49,10 @@ namespace QuizLab3.ViewModel
 
         public MainWindowViewModel()
 		{
-            ActivePack = new QuestionPackViewModel(new QuestionPack("My default Questionspack"));
-
             Packs = new ObservableCollection<QuestionPackViewModel>(); //skapar en instans av Packs
+
+            ActivePack = new QuestionPackViewModel(new QuestionPack("My Default QuestionPack"));
+            Packs.Add(ActivePack);
 
             PlayerViewModel = new PlayerViewModel(this);
 
@@ -87,6 +88,7 @@ namespace QuizLab3.ViewModel
 
         private void UpdatePackOptionsDialog(object? obj)
         {
+            ConfigurationViewModel.NewQuestionPack = new QuestionPack(" "); 
             PackOptionsDialog newPackOptionsDialog = new PackOptionsDialog();
 
             newPackOptionsDialog.ShowDialog(); 

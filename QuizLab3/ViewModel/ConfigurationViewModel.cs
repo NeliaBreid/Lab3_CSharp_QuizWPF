@@ -73,7 +73,6 @@ namespace QuizLab3.ViewModel
       
 
 
-
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel;
