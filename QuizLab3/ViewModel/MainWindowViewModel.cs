@@ -36,7 +36,6 @@ namespace QuizLab3.ViewModel
 				_activePack = value;
                 RaisePropertyChanged(nameof(ActivePack));
                 ConfigurationViewModel?.RaisePropertyChanged();
-
             }
 		}
     
@@ -44,8 +43,7 @@ namespace QuizLab3.ViewModel
         public DelegateCommand NewPackDialog { get; }
         public DelegateCommand PackOptionsDialog { get; }
         public DelegateCommand SetActivePackCommand { get; }
-        public DelegateCommand SelectViewCommand { get; }
-        public DelegateCommand DefaultCommand { get; }
+
 
         public MainWindowViewModel()
 		{
@@ -75,7 +73,7 @@ namespace QuizLab3.ViewModel
 
         private void CreateNewPackDialog(object obj)
         {
-            ConfigurationViewModel.NewQuestionPack = new QuestionPack(" ");
+           ConfigurationViewModel.NewQuestionPack = new QuestionPack(" ");
            
             CreateNewPackDialog createNewPackDialog = new CreateNewPackDialog();
             createNewPackDialog.ShowDialog();
@@ -88,10 +86,12 @@ namespace QuizLab3.ViewModel
 
         private void UpdatePackOptionsDialog(object? obj)
         {
-            ConfigurationViewModel.NewQuestionPack = new QuestionPack(" "); 
-            PackOptionsDialog newPackOptionsDialog = new PackOptionsDialog();
+            ActivePack = ActivePack;
 
-            newPackOptionsDialog.ShowDialog(); 
+            PackOptionsDialog newPackOptionsDialog = new PackOptionsDialog();
+      
+            newPackOptionsDialog.ShowDialog();
+
         }
         private void SetActivePack(object? obj)
         {
