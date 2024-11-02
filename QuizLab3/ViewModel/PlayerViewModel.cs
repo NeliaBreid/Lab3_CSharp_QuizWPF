@@ -26,6 +26,8 @@ namespace QuizLab3.ViewModel
             }
         }
 
+        
+
         public DelegateCommand UpdateButtonCommand { get; } //måste gå o binda mot så inte bara field
 
         public PlayerViewModel(MainWindowViewModel? mainWindowViewModel) //
