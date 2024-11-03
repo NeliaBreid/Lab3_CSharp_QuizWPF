@@ -40,13 +40,39 @@ namespace QuizLab3.ViewModel
 
             }
 		}
-    
+        private bool _isConfigurationMode = true;
+        public bool IsConfigurationMode
+        {
+            get => _isConfigurationMode;
+            set
+            {
+                _isConfigurationMode = value;
+                RaisePropertyChanged(nameof(IsConfigurationMode));
+                RaisePropertyChanged(nameof(IsPlayerMode)); // Notify IsPlayerMode change as well
+            }
+        }
+        private bool _isPlayerMode = false;
+        public bool IsPlayerMode
+        {
+            get => _isPlayerMode;
+            set
+            {
+                _isPlayerMode = value;
+                RaisePropertyChanged(nameof(IsConfigurationMode));
+                RaisePropertyChanged(nameof(IsPlayerMode)); // Notify IsPlayerMode change as well
+            }
+        }
+
+        //public bool IsPlayerMode => !IsConfigurationMode;
 
         public DelegateCommand NewPackDialog { get; }
         public DelegateCommand PackOptionsDialog { get; }
         public DelegateCommand SetActivePackCommand { get; }
         public DelegateCommand SelectViewCommand { get; }
         public DelegateCommand DefaultCommand { get; }
+        public DelegateCommand ShowConfigurationViewCommand { get; }
+        public DelegateCommand ShowPlayerViewCommand { get; }
+
 
         public MainWindowViewModel()
 		{
@@ -64,7 +90,11 @@ namespace QuizLab3.ViewModel
             PackOptionsDialog = new DelegateCommand(UpdatePackOptionsDialog, CanUpdatePackOptionsDialog);
 
             SetActivePackCommand = new DelegateCommand(SetActivePack);
-        
+
+            ShowConfigurationViewCommand = new DelegateCommand(ShowConfigurationView);
+
+            ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView, CanShowPlayerView);
+
         }
 
 
@@ -101,7 +131,22 @@ namespace QuizLab3.ViewModel
 
             RaisePropertyChanged(nameof(ActivePack));
         }
-      
+        private void ShowConfigurationView(object? obj)
+        {
+            IsConfigurationMode = true;
+            IsPlayerMode = false;
+        }
+
+        private void ShowPlayerView(object? obj)
+        {
+            IsConfigurationMode = false;
+            IsPlayerMode = true;
+        }
+        private bool CanShowPlayerView(object? arg)
+        {
+            return true; //ActivePack?.Questions != null && ActivePack.Questions.Count > 0;
+            //TODO:Enable the play and edit button, vice versa.
+        }
 
     }
 }

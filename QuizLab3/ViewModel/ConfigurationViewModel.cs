@@ -111,6 +111,7 @@ namespace QuizLab3.ViewModel
             }
 
                 QuestionPanelVisibility = Visibility.Visible;
+
             
             RemoveQuestionsCommand.RaiseCanExecuteChanged();
             RaisePropertyChanged(); 
@@ -147,7 +148,6 @@ namespace QuizLab3.ViewModel
 
         private bool CanCreatePack()
         {
-            // Enable Create only if PackName is set
             return true;
         }
 
