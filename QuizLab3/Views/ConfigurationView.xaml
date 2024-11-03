@@ -28,8 +28,12 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
 
-            <Button FontSize="15" Width="18" Height="18" Margin="5 0 0 0"  
-                    ToolTip="Pack Options" >
+            <Button FontSize="15"
+                    Width="18" 
+                    Height="18" 
+                    Margin="5 0 0 0"  
+                    ToolTip="Pack Options"
+                    Command="{Binding DataContext.PackOptionsDialog, RelativeSource={RelativeSource AncestorType=Window}}">
 
                 <fa:IconBlock Icon="Sliders" Foreground="Black"/>
             </Button>

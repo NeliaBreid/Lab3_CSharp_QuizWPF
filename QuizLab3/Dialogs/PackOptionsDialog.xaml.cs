@@ -22,6 +22,7 @@ namespace QuizLab3.Dialogs
         public PackOptionsDialog()
         {
             InitializeComponent();
+            DataContext = App.Current.MainWindow.DataContext;
         }
     }
 }
