@@ -23,8 +23,6 @@ namespace QuizLab3.ViewModel
 
         private QuestionPack _newQuestionPack;
 
-        private QuestionPack _editQuestionPack;
-
         private Visibility _questionPanelVisibility;
         public Visibility QuestionPanelVisibility
         {
@@ -42,16 +40,6 @@ namespace QuizLab3.ViewModel
             set
             {
                 _newQuestionPack = value;
-                RaisePropertyChanged();
-
-            }
-        }
-        public QuestionPack? EditQuestionPack
-        {
-            get => _editQuestionPack;
-            set
-            {
-                _editQuestionPack = value;
                 RaisePropertyChanged();
 
             }
@@ -82,8 +70,7 @@ namespace QuizLab3.ViewModel
         public DelegateCommand AddQuestionsCommand { get; }
         public DelegateCommand RemoveQuestionsCommand { get; }
         public DelegateCommand CreateQuestionPacksCommand { get; }
-       
-
+      
 
 
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
@@ -100,8 +87,7 @@ namespace QuizLab3.ViewModel
 
             CreateQuestionPacksCommand = new DelegateCommand(CreatePack);
 
-   
-
+            
         }
 
         private void AddQuestionToActivePack(object parameter)
@@ -159,8 +145,9 @@ namespace QuizLab3.ViewModel
 
         }
 
-        private bool CanCreatePack(object parameter)
+        private bool CanCreatePack()
         {
+            // Enable Create only if PackName is set
             return true;
         }
 

@@ -3,17 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuizLab3.Dialogs" xmlns:viewmodel="clr-namespace:QuizLab3.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
+        xmlns:local="clr-namespace:QuizLab3.Dialogs"
         mc:Ignorable="d"
         Title="Pack Options" Height="280" Width="260" ResizeMode="NoResize">
-    
-    <Grid DataContext="{Binding ActivePack}">
+    <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
             <TextBlock Text="PackName" Margin="5" FontWeight="Bold"/>
-            <TextBox Margin="5 0 5 10" Height="25" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Margin="5 0 5 10" Height="25" DataContext="{Binding ConfigurationViewModel}" Text="{Binding ElementName="NameBox1"/>
             <Label Content="Difficulty" FontWeight="Bold"/>
-
-            <ComboBox Margin="5 0 5 10" SelectedItem="{Binding Difficulty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            
+            <ComboBox Margin="5 0 5 10">
                 <ComboBoxItem>Easy</ComboBoxItem>
                 <ComboBoxItem>Medium</ComboBoxItem>
                 <ComboBoxItem>Hard</ComboBoxItem>
@@ -32,7 +31,7 @@
                   Minimum="0"
                   Maximum="100"
                   Width="250"
-                 Value="{Binding TimeLimitInSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                  Value="0"/>
         </StackPanel>
     </Grid>
 </Window>
