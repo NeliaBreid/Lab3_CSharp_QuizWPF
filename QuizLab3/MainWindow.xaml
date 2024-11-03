@@ -29,9 +29,9 @@
         <view:MenuView Grid.Row="0" />
         <view:ConfigurationView Grid.Row="1" Visibility="{Binding ConfigurationViewVisibility}"/>
         <view:PlayerView Grid.Row="1" Visibility="{Binding PlayerViewVisibility}"/>
-        <!--<view:ResultView Grid.Row="1" Visibility="{Binding ResultViewVisibility}"/>-->
+        <view:ResultView Grid.Row="1" Visibility="{Binding ResultViewVisibility}"/>
 
-  
+
 
     </Grid>
 </Window>
