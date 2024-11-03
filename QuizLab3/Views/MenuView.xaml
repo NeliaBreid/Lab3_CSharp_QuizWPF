@@ -56,9 +56,9 @@
             </MenuItem>
 
             <MenuItem Header="View">
-                <MenuItem Header="Play" Icon="{fa:Icon Play}" InputGestureText="Ctrl+P" Command="{Binding ShowPlayerViewCommand}"/>
-
-
+                <MenuItem Header="Play" Icon="{fa:Icon Play}" InputGestureText="Ctrl+P" >
+               
+                </MenuItem>
 
                 <MenuItem Header="Edit" Icon="{fa:Icon Pen}" InputGestureText="Ctrl+E">
                 </MenuItem>

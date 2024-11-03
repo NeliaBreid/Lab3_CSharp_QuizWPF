@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuizLab3" xmlns:view="clr-namespace:QuizLab3.Views" xmlns:viewmodel="clr-namespace:QuizLab3.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
+        xmlns:local="clr-namespace:QuizLab3" xmlns:view="clr-namespace:QuizLab3.Views"
         Icon="icon/kahoot.ico"
         mc:Ignorable="d"
         
@@ -25,13 +25,12 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <view:MenuView Grid.Row="0" />
-        <view:ConfigurationView Grid.Row="1" Visibility="{Binding ConfigurationViewVisibility}"/>
-        <view:PlayerView Grid.Row="1" Visibility="{Binding PlayerViewVisibility}"/>
-        <!--<view:ResultView Grid.Row="1" Visibility="{Binding ResultViewVisibility}"/>-->
-
-  
+        
+        <view:MenuView Grid.Row="0"/>
+        <view:ConfigurationView Grid.Row="1"/>
+      
+        <!--<view:ResultView Grid.Row="1"/>-->
+        <!--<view:PlayerView Grid.Row="1"/>-->
 
     </Grid>
 </Window>

@@ -6,10 +6,11 @@
              xmlns:local="clr-namespace:QuizLab3.Views"
              xmlns:fa="clr-namespace:FontAwesome.Sharp;assembly=FontAwesome.Sharp" 
              xmlns:viewmodel="clr-namespace:QuizLab3.ViewModel"
+             DataContext="{Binding ConfigurationViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="650">
 
-    <Grid DataContext="{Binding ConfigurationViewModel}">
+    <Grid>
      
 
         <Grid.RowDefinitions>
@@ -28,11 +29,11 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
 
             <Button FontSize="15"
-                     Command="{Binding DataContext.PackOptionsDialog, RelativeSource={RelativeSource AncestorType=Window}}"
                     Width="18"
                     Height="18" 
                     Margin="5 0 0 0"  
-                    ToolTip="Pack Options">
+                    ToolTip="Pack Options"
+                     >
                 <fa:IconBlock Icon="Sliders" Foreground="Black"/>
             </Button>
 

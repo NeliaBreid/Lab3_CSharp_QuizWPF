@@ -1,5 +1,4 @@
-﻿using QuizLab3.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +23,6 @@ namespace QuizLab3.Views
         public MenuView()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
         }
 
     }

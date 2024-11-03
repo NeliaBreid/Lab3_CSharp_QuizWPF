@@ -48,7 +48,7 @@ namespace QuizLab3.ViewModel
             set 
             {  
                 model.TimeLimitInSeconds = value;
-                RaisePropertyChanged(nameof(TimeLimitInSeconds));
+                RaisePropertyChanged();
             }
         }   
         public ObservableCollection<Question> Questions { get; set; }

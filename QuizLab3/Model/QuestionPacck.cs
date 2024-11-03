@@ -17,7 +17,6 @@ namespace QuizLab3.Model
             Difficulty = difficulty;
             TimeLimitInSeconds = timeLimitInSeconds;
             Questions = new List<Question>() ;
-            
         }
 
         public string Name { get; set; }

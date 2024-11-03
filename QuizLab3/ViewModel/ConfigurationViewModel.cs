@@ -46,7 +46,16 @@ namespace QuizLab3.ViewModel
 
             }
         }
-    
+        public QuestionPack? EditQuestionPack
+        {
+            get => _editQuestionPack;
+            set
+            {
+                _editQuestionPack = value;
+                RaisePropertyChanged();
+
+            }
+        }
         public Question? ActiveQuestion
         {
             get => _activeQuestion;
@@ -90,6 +99,8 @@ namespace QuizLab3.ViewModel
             RemoveQuestionsCommand = new DelegateCommand(RemoveQuestionFromActivePack, CanRemoveQuestionFromActivePack);
 
             CreateQuestionPacksCommand = new DelegateCommand(CreatePack);
+
+   
 
         }
 

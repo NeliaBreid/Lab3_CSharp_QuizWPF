@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -37,49 +36,13 @@ namespace QuizLab3.ViewModel
 				_activePack = value;
                 RaisePropertyChanged(nameof(ActivePack));
                 ConfigurationViewModel?.RaisePropertyChanged();
-
-
             }
 		}
-        private Visibility _configurationViewVisibility = Visibility.Visible;
-        public Visibility ConfigurationViewVisibility
-        {
-            get => _configurationViewVisibility;
-            set
-            {
-                _configurationViewVisibility = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private Visibility _playerViewVisibility = Visibility.Collapsed;
-        public Visibility PlayerViewVisibility
-        {
-            get => _playerViewVisibility;
-            set
-            {
-                _playerViewVisibility = value;
-                RaisePropertyChanged(nameof(PlayerViewVisibility));
-            }
-        }
-
-        private Visibility _resultViewVisibility = Visibility.Collapsed;
-        public Visibility ReslutViewVisibility
-        {
-            get => _resultViewVisibility;
-            set
-            {
-                _resultViewVisibility = value;
-                RaisePropertyChanged();
-            }
-        }
-
+    
 
         public DelegateCommand NewPackDialog { get; }
         public DelegateCommand PackOptionsDialog { get; }
         public DelegateCommand SetActivePackCommand { get; }
-        public DelegateCommand ShowPlayerViewCommand { get; }
-        public DelegateCommand ShowConfigurationViewCommand { get; }
 
 
         public MainWindowViewModel()
@@ -98,10 +61,7 @@ namespace QuizLab3.ViewModel
             PackOptionsDialog = new DelegateCommand(UpdatePackOptionsDialog, CanUpdatePackOptionsDialog);
 
             SetActivePackCommand = new DelegateCommand(SetActivePack);
-
-            ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView);
-
-            ShowConfigurationViewCommand = new DelegateCommand(ShowConfigurationView);
+        
         }
 
 
@@ -127,7 +87,6 @@ namespace QuizLab3.ViewModel
         private void UpdatePackOptionsDialog(object? obj)
         {
             ActivePack = ActivePack;
-            
 
             PackOptionsDialog newPackOptionsDialog = new PackOptionsDialog();
       
@@ -136,22 +95,12 @@ namespace QuizLab3.ViewModel
         }
         private void SetActivePack(object? obj)
         {
+
             ActivePack = (QuestionPackViewModel)obj;
 
             RaisePropertyChanged(nameof(ActivePack));
         }
-        private void ShowPlayerView(object? obj)
-        {
-            ConfigurationViewVisibility = Visibility.Collapsed;
-            PlayerViewVisibility = Visibility.Visible;
-        }
-
-        private void ShowConfigurationView(object? obj)
-        {
-            ConfigurationViewVisibility = Visibility.Visible;
-            PlayerViewVisibility = Visibility.Collapsed;
-        }
-
+      
 
     }
 }
