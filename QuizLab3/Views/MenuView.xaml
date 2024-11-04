@@ -33,7 +33,7 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Exit" Icon="{fa:Icon times}" InputGestureText="Alt+F4">
+                <MenuItem Header="Exit" Icon="{fa:Icon times}" InputGestureText="Alt+F4" Click="MenuItem_Click">
 
             </MenuItem>
 
@@ -64,7 +64,7 @@
                 </MenuItem>
                 
                 <Separator/>
-                <MenuItem Header="FullScreen" Icon="{fa:Icon Expand}" InputGestureText="Alt+Enter">
+                <MenuItem Header="FullScreen" Icon="{fa:Icon Expand}" Command="{Binding FullScreenCommand}" InputGestureText="Alt+Enter">
 
                 </MenuItem>
             </MenuItem>

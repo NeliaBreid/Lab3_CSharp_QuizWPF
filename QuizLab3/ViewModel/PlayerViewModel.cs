@@ -13,8 +13,19 @@ namespace QuizLab3.ViewModel
         private readonly MainWindowViewModel? mainWindowViewModel;
 
         private DispatcherTimer timer;
-        private string _testData;
 
+        private ConfigurationViewModel _currentQuestion;
+
+        private string _testData;
+        public ConfigurationViewModel CurrentQuestion
+        {
+            get => _currentQuestion;
+            set
+            {
+                _currentQuestion = value;
+                RaisePropertyChanged();
+            }
+        }
         public string TestData
         {
             get => _testData;

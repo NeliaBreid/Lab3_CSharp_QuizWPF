@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -21,25 +22,25 @@ namespace QuizLab3.ViewModel
 
         public ObservableCollection<QuestionPackViewModel> Packs { get; set; }
 
-		public PlayerViewModel PlayerViewModel { get; } //get, bara för att hålla koll på den
+        public PlayerViewModel PlayerViewModel { get; } //get, bara för att hålla koll på den
 
         public ConfigurationViewModel ConfigurationViewModel { get; }
 
 
         private QuestionPackViewModel? _activePack; //backningfield. frågetecknet för att tala om för kompliern att vi vet att den kan vara null
 
-    
+
         public QuestionPackViewModel? ActivePack
-		{
-			get => _activePack;
-			set
-			{
-				_activePack = value;
+        {
+            get => _activePack;
+            set
+            {
+                _activePack = value;
                 RaisePropertyChanged(nameof(ActivePack));
                 ConfigurationViewModel?.RaisePropertyChanged();
 
             }
-		}
+        }
         private bool _isConfigurationMode = true;
         public bool IsConfigurationMode
         {
@@ -72,10 +73,12 @@ namespace QuizLab3.ViewModel
         public DelegateCommand DefaultCommand { get; }
         public DelegateCommand ShowConfigurationViewCommand { get; }
         public DelegateCommand ShowPlayerViewCommand { get; }
+        public DelegateCommand FullScreenCommand { get; }
+
 
 
         public MainWindowViewModel()
-		{
+        {
             Packs = new ObservableCollection<QuestionPackViewModel>(); //skapar en instans av Packs
 
             ActivePack = new QuestionPackViewModel(new QuestionPack("My Default QuestionPack"));
@@ -83,7 +86,7 @@ namespace QuizLab3.ViewModel
 
             PlayerViewModel = new PlayerViewModel(this);
 
-			ConfigurationViewModel = new ConfigurationViewModel(this);
+            ConfigurationViewModel = new ConfigurationViewModel(this);
 
             NewPackDialog = new DelegateCommand(CreateNewPackDialog, CanCreateNewPackDialog);
 
@@ -95,34 +98,36 @@ namespace QuizLab3.ViewModel
 
             ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView, CanShowPlayerView);
 
+            FullScreenCommand = new DelegateCommand(SetFullScreen);
+
         }
 
 
 
-        private bool CanCreateNewPackDialog(object? arg) 
+        private bool CanCreateNewPackDialog(object? arg)
         {
-            return true; 
+            return true;
         }
 
         private void CreateNewPackDialog(object obj)
         {
             ConfigurationViewModel.NewQuestionPack = new QuestionPack(" ");
-           
+
             CreateNewPackDialog createNewPackDialog = new CreateNewPackDialog();
             createNewPackDialog.ShowDialog();
 
         }
-        private bool CanUpdatePackOptionsDialog(object? arg) 
+        private bool CanUpdatePackOptionsDialog(object? arg)
         {
-            return true; 
+            return true;
         }
 
         private void UpdatePackOptionsDialog(object? obj)
         {
-            ConfigurationViewModel.NewQuestionPack = new QuestionPack(" "); 
+            ConfigurationViewModel.NewQuestionPack = new QuestionPack(" ");
             PackOptionsDialog newPackOptionsDialog = new PackOptionsDialog();
 
-            newPackOptionsDialog.ShowDialog(); 
+            newPackOptionsDialog.ShowDialog();
         }
         private void SetActivePack(object? obj)
         {
@@ -147,6 +152,25 @@ namespace QuizLab3.ViewModel
             return true; //ActivePack?.Questions != null && ActivePack.Questions.Count > 0;
             //TODO:Enable the play and edit button, vice versa.
         }
+        private void SetFullScreen(object? obj)
+        {
 
+            var window = App.Current.MainWindow; // or directly reference your window if available
+
+            if (window.WindowState == WindowState.Normal)
+            {
+                // Enter fullscreen
+                window.WindowStyle = WindowStyle.None;
+                window.ResizeMode = ResizeMode.NoResize;
+                window.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                // Exit fullscreen
+                window.WindowStyle = WindowStyle.SingleBorderWindow;
+                window.ResizeMode = ResizeMode.CanResize;
+                window.WindowState = WindowState.Normal;
+            }
+        }
     }
 }
