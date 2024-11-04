@@ -1,4 +1,5 @@
-﻿using QuizLab3.Command;
+﻿using ListShuffle;
+using QuizLab3.Command;
 using QuizLab3.Dialogs;
 using QuizLab3.Model;
 using System;
@@ -21,15 +22,13 @@ namespace QuizLab3.ViewModel
     {
 
         public ObservableCollection<QuestionPackViewModel> Packs { get; set; }
-
         public PlayerViewModel PlayerViewModel { get; } //get, bara för att hålla koll på den
-
         public ConfigurationViewModel ConfigurationViewModel { get; }
-
 
         private QuestionPackViewModel? _activePack; //backningfield. frågetecknet för att tala om för kompliern att vi vet att den kan vara null
 
-
+        public List<Question> ShuffledQuestions { get; set; }
+        public List<Question> ShuffledAnswers { get; set; }
         public QuestionPackViewModel? ActivePack
         {
             get => _activePack;
@@ -149,8 +148,11 @@ namespace QuizLab3.ViewModel
             IsConfigurationMode = false;
             IsPlayerMode = true;
 
+            PlayerViewModel.ShuffleQuestions();
+
             PlayerViewModel.TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
             PlayerViewModel.timer.Start();
+
         }
         private bool CanShowPlayerView(object? arg)
         {

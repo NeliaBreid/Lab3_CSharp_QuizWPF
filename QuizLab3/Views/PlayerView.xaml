@@ -17,12 +17,12 @@
         
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Height="89" Grid.ColumnSpan="2" Margin="50 80 50 50" Width="419" RenderTransformOrigin="0.5,0.5">
 
-            <Label HorizontalAlignment="Center" FontSize="35" Content="New Question"></Label>
+            <TextBlock HorizontalAlignment="Center" FontSize="35" Text="{Binding ShuffledQuestions}"></TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock>Question</TextBlock>
                 <TextBlock>..</TextBlock>
                 <TextBlock>out of</TextBlock>
-                <TextBlock>..</TextBlock>
+                <TextBlock Text="{Binding TotalQuestions}"></TextBlock>
             </StackPanel>
 
         </StackPanel>
