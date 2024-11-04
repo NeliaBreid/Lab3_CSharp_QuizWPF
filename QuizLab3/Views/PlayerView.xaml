@@ -18,7 +18,12 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Height="89" Grid.ColumnSpan="2" Margin="50 80 50 50" Width="419" RenderTransformOrigin="0.5,0.5">
 
             <Label HorizontalAlignment="Center" FontSize="35" Content="New Question"></Label>
-            <Label HorizontalAlignment="Center">Question .. of ..</Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock>You got</TextBlock>
+                <TextBlock></TextBlock>
+                <TextBlock>out of</TextBlock>
+                <TextBlock>Questions correct</TextBlock>
+            </StackPanel>
 
         </StackPanel>
         <StackPanel Orientation="Vertical" Margin="50" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.ColumnSpan="2" Width="442">
