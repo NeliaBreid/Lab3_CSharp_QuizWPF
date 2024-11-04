@@ -135,17 +135,22 @@ namespace QuizLab3.ViewModel
             ActivePack = (QuestionPackViewModel)obj;
 
             RaisePropertyChanged(nameof(ActivePack));
+
         }
         private void ShowConfigurationView(object? obj)
         {
             IsConfigurationMode = true;
             IsPlayerMode = false;
+            PlayerViewModel.timer.Stop();
         }
 
         private void ShowPlayerView(object? obj)
         {
             IsConfigurationMode = false;
             IsPlayerMode = true;
+
+            PlayerViewModel.TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
+            PlayerViewModel.timer.Start();
         }
         private bool CanShowPlayerView(object? arg)
         {

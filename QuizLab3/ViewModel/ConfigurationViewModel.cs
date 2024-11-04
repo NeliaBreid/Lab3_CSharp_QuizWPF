@@ -116,6 +116,7 @@ namespace QuizLab3.ViewModel
 
             
             RemoveQuestionsCommand.RaiseCanExecuteChanged();
+
             RaisePropertyChanged(); 
 
         }

@@ -12,11 +12,12 @@ namespace QuizLab3.ViewModel
     {
         private readonly MainWindowViewModel? mainWindowViewModel;
 
-        private DispatcherTimer timer;
+        public DispatcherTimer timer;
 
         private ConfigurationViewModel _currentQuestion;
 
-        private string _testData;
+        private int _timeRemaining;
+        public string TimeRemainingDisplay => TimeSpan.FromSeconds(TimeRemaining).ToString(@"ss");
         public ConfigurationViewModel CurrentQuestion
         {
             get => _currentQuestion;
@@ -26,14 +27,15 @@ namespace QuizLab3.ViewModel
                 RaisePropertyChanged();
             }
         }
-        public string TestData
+        public int TimeRemaining
         {
-            get => _testData;
-            private set 
-            { 
-                _testData = value;
-                RaisePropertyChanged(); //skickas varje gång man sätter testdatan. annars måste man sätta metoden överallt. 
-              
+            get => _timeRemaining;
+             set 
+            {
+                _timeRemaining = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(TimeRemainingDisplay));
+
             }
         }
 
@@ -43,31 +45,29 @@ namespace QuizLab3.ViewModel
         {
             this.mainWindowViewModel = mainWindowViewModel;
 
-            TestData = "Start Value";
-
+            TimeRemaining = mainWindowViewModel?.ActivePack?.TimeLimitInSeconds ?? 0;
+            
             this.timer = new DispatcherTimer(); //skapar ett objekt av Timer //sätt intervall och tick för
             timer.Interval = TimeSpan.FromSeconds(1); //skapar en timespan som är en sekund
             timer.Tick += Timer_Tick; //event += så kommer det upp förslag på eventhandler
                                       //timer.Start(); //sätt igång timer
 
-            UpdateButtonCommand = new DelegateCommand(UpdateButton, CanUpdateButton); //CanUpdate är valfri
         }
 
-        private bool CanUpdateButton(object? arg) //lite tokigt namn, viewmodel vet inte om att det finns en knapp i view.
-        {
-            return TestData.Length <20; //lägga in logic // längden på strängen
-        }
-
-        private void UpdateButton(object obj)
-        {
-            TestData += "x";
-            UpdateButtonCommand.RaiseCanExecuteChanged(); //
-        }
-
+   
         private void Timer_Tick(object? sender, EventArgs e)
         {
-            TestData += "x";
-           
+            //TimeRemaining = mainWindowViewModel?.ActivePack?.TimeLimitInSeconds ?? 0;
+
+            if (TimeRemaining > 0)
+            {
+                TimeRemaining--; 
+            }
+            else
+            {
+                timer.Stop(); 
+         
+            }
         }
     }
 }
