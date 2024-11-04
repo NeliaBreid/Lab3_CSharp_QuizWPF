@@ -70,7 +70,8 @@ namespace QuizLab3.ViewModel
         public DelegateCommand AddQuestionsCommand { get; }
         public DelegateCommand RemoveQuestionsCommand { get; }
         public DelegateCommand CreateQuestionPacksCommand { get; }
-      
+        public DelegateCommand DeleteQuestionPacksCommand { get; }
+
 
 
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
@@ -86,9 +87,10 @@ namespace QuizLab3.ViewModel
             RemoveQuestionsCommand = new DelegateCommand(RemoveQuestionFromActivePack, CanRemoveQuestionFromActivePack);
 
             CreateQuestionPacksCommand = new DelegateCommand(CreatePack);
+            DeleteQuestionPacksCommand = new DelegateCommand(DeletePack, CanDeletePack);
 
-            
-        }
+
+    }
 
         private void AddQuestionToActivePack(object parameter)
         {
@@ -150,7 +152,23 @@ namespace QuizLab3.ViewModel
         {
             return true;
         }
+        private void DeletePack(object parameter)
+        {
+            if (ActivePack != null && Packs.Contains(ActivePack))
+            {
+                Packs.Remove(ActivePack);
+                mainWindowViewModel.ActivePack = null;
+                DeleteQuestionPacksCommand.RaiseCanExecuteChanged();
+            }
 
+            RaisePropertyChanged();
+        }
+
+        private bool CanDeletePack(object parameter)
+        {
+            return ActivePack != null;
+
+        }
 
     }
 }

@@ -154,19 +154,16 @@ namespace QuizLab3.ViewModel
         }
         private void SetFullScreen(object? obj)
         {
-
-            var window = App.Current.MainWindow; // or directly reference your window if available
+            var window = App.Current.MainWindow; 
 
             if (window.WindowState == WindowState.Normal)
             {
-                // Enter fullscreen
                 window.WindowStyle = WindowStyle.None;
                 window.ResizeMode = ResizeMode.NoResize;
                 window.WindowState = WindowState.Maximized;
             }
             else
             {
-                // Exit fullscreen
                 window.WindowStyle = WindowStyle.SingleBorderWindow;
                 window.ResizeMode = ResizeMode.CanResize;
                 window.WindowState = WindowState.Normal;
