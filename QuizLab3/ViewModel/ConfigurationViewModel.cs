@@ -116,6 +116,7 @@ namespace QuizLab3.ViewModel
 
             
             RemoveQuestionsCommand.RaiseCanExecuteChanged();
+            mainWindowViewModel.ShowPlayerViewCommand.RaiseCanExecuteChanged();
 
             RaisePropertyChanged(); 
 
@@ -131,6 +132,7 @@ namespace QuizLab3.ViewModel
             {
                 ActivePack.Questions.Remove(ActiveQuestion);
                 RemoveQuestionsCommand.RaiseCanExecuteChanged();
+                mainWindowViewModel.ShowPlayerViewCommand.RaiseCanExecuteChanged();
             }
 
             RaisePropertyChanged();

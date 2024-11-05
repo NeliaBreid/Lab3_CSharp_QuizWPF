@@ -14,7 +14,7 @@
     </Window.Resources>
     
     <Window.InputBindings> 
-        <KeyBinding Key="U" Modifiers="Ctrl" Command="{Binding PlayerViewModel.UpdateButtonCommand}"/>
+        <KeyBinding Key="U" Modifiers="Ctrl"/>
         <KeyBinding Key="L" Modifiers="Ctrl"/>
         <KeyBinding Key="P" Modifiers="Ctrl"/>
         <KeyBinding Key="E" Modifiers="Ctrl"/>

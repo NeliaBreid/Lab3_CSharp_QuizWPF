@@ -158,7 +158,6 @@ namespace QuizLab3.ViewModel
             IsPlayerMode = false;
             IsResultMode = false;
             PlayerViewModel.timer.Stop();
-
         }
 
         private void ShowPlayerView(object? obj)
@@ -175,9 +174,8 @@ namespace QuizLab3.ViewModel
         }
         private bool CanShowPlayerView(object? arg)
         {
-            return true;
-               // ActivePack?.Questions != null && ActivePack.Questions.Count > 0;
-            //TODO:Enable the play and edit button, vice versa.
+            return ActivePack.Questions.Any();
+  
         }
 
         private void ShowResultView(object? obj)

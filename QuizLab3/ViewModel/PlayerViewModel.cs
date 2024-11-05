@@ -18,19 +18,20 @@ namespace QuizLab3.ViewModel
         public QuestionPackViewModel? ActivePack { get => mainWindowViewModel.ActivePack; }
         private List<Question> _shuffledQuestions { get; set; }
 
-        public List<Question> ShuffledAnswers { get; set; }
+        public List<String> ShuffledAnswers { get; set; }
+        //field eller property
 
         public int TotalQuestions => ShuffledQuestions?.Count ?? 0; //returns counted shuffledQuestionslist
 
         private int _currentQuestionIndex; //field för att spara index
         public int CurrentQuestionIndex
         {
-            get => _currentQuestionIndex;
+            get => _currentQuestionIndex +1;
             private set
             {
                 _currentQuestionIndex = value;
                 RaisePropertyChanged(nameof(TotalQuestions));
-                
+
             }
         }
         private Question _currentQuestion; //frågan jag är på just nu, innehåller både fråga o svar.
@@ -43,6 +44,46 @@ namespace QuizLab3.ViewModel
                 RaisePropertyChanged();
             }
         }
+        //private Question _questionOption1; //frågan jag är på just nu, innehåller både fråga o svar.
+        //public Question QuestionOption1
+        //{
+        //    get => _questionOption1;
+        //    private set
+        //    {
+        //        _questionOption1 = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
+        //private Question _questionOption2; //frågan jag är på just nu, innehåller både fråga o svar.
+        //public Question QuestionOption2
+        //{
+        //    get => _questionOption2;
+        //    private set
+        //    {
+        //        _questionOption2 = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
+        //private Question _questionOption3; //frågan jag är på just nu, innehåller både fråga o svar.
+        //public Question QuestionOption3
+        //{
+        //    get => _questionOption3;
+        //    private set
+        //    {
+        //        _questionOption3 = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
+        //private Question _questionOption4; //frågan jag är på just nu, innehåller både fråga o svar.
+        //public Question QuestionOption4
+        //{
+        //    get => _questionOption4;
+        //    private set
+        //    {
+        //        _questionOption4 = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
         public List<Question> ShuffledQuestions
         {
             get => _shuffledQuestions;
@@ -69,18 +110,20 @@ namespace QuizLab3.ViewModel
             }
         }
 
-        public DelegateCommand UpdateButtonCommand { get; } //måste gå o binda mot så inte bara field
-
+        //public DelegateCommand UpdateButtonCommand { get; } //måste gå o binda mot så inte bara field
+        public DelegateCommand AnswerButtonCommand { get; }
         public PlayerViewModel(MainWindowViewModel? mainWindowViewModel) //
         {
             this.mainWindowViewModel = mainWindowViewModel;
-            ShuffledQuestions = new List<Question>(); //skapar en ny lista
+            ShuffledQuestions = new List<Question>();
+            //skapar en ny lista
             ShuffleQuestions();
 
             this.timer = new DispatcherTimer(); //skapar ett objekt av Timer //sätt intervall och tick för
             timer.Interval = TimeSpan.FromSeconds(1); //skapar en timespan som är en sekund
             timer.Tick += Timer_Tick; //event += så kommer det upp förslag på eventhandler                 
-            _currentQuestionIndex = 0; //initialiserar index
+            CurrentQuestionIndex = 0; //initialiserar index
+            AnswerButtonCommand = new DelegateCommand(SetAnswerButton);
         }
 
 
@@ -93,6 +136,7 @@ namespace QuizLab3.ViewModel
             else if (CurrentQuestionIndex != TotalQuestions)
             {
                 NextQuestion();
+                
                 TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
             }
         }
@@ -101,40 +145,53 @@ namespace QuizLab3.ViewModel
         {
             if (mainWindowViewModel?.ActivePack?.Questions != null)
             {
-                ShuffledQuestions= mainWindowViewModel.ActivePack.Questions.ToList(); //klonar listan från ActivePack.Questions
-
+                ShuffledQuestions = mainWindowViewModel.ActivePack.Questions.ToList(); //klonar listan från ActivePack.Questions
                 ShuffledQuestions.Shuffle();
 
                 RaisePropertyChanged(nameof(ShuffledQuestions));
 
                 CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
+                ShuffleAnswers();
             }
         }
         public void ShuffleAnswers()
         {
-            if (mainWindowViewModel?.ActivePack?.Questions != null)
+            if (CurrentQuestion!=null)
             {
-                ShuffledAnswers = mainWindowViewModel.ActivePack.Questions.ToList(); //klonar listan från ActivePack.Questions
-               // ShuffledAnswers.Remove(CurrentQuestion.Query); //HUR FÅR JAG EN LISTA med bara questions 
 
-                RaisePropertyChanged(nameof(ShuffledQuestions));
-
-                //CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
+            ShuffledAnswers = new List<string>
+            {
+                CurrentQuestion.CorrectAnswer,
+                CurrentQuestion.IncorrectAnswers[0],
+                CurrentQuestion.IncorrectAnswers[1],
+                CurrentQuestion.IncorrectAnswers[2]
+            };
             }
+            ShuffledAnswers?.Shuffle();
+            RaisePropertyChanged(nameof(ShuffledAnswers));
         }
         public void NextQuestion()
         {
-            if (_currentQuestionIndex < _shuffledQuestions.Count ) //lägg till minus 1?
+            if (_currentQuestionIndex < TotalQuestions) //lägg till minus 1?
             {
                 _currentQuestionIndex++;
                 RaisePropertyChanged(nameof(CurrentQuestionIndex)); // Update display index
                 CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
-
+                ShuffleAnswers();
+            }
+        }
+        public void SetAnswerButton(object? obj)
+        {
+            if ( obj == ShuffledQuestions) //Börja kolla här
+            {
+                
             }
         }
 
+ 
+
     }
 
-        }
+}
     
 

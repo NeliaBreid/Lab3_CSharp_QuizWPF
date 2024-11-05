@@ -30,15 +30,15 @@
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
 
-                <Button Margin="10" Width="200" Height="60"></Button>
-                <Button Margin="10" Width="200" Height="60">H</Button>
+                <Button Margin="10" Width="200" Height="60" Content="{Binding ShuffledAnswers[0]}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding ShuffledAnswers[0]}"></Button>
+                <Button Margin="10" Width="200" Height="60" Content="{Binding ShuffledAnswers[1]}"></Button>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
 
-                <Button Margin="10" Width="200" Height="60">H</Button>
+                <Button Margin="10" Width="200" Height="60" Content="{Binding ShuffledAnswers[2]}"></Button>
 
-                <Button Margin="10" Width="200" Height="60" Content="H" Command="{Binding UpdateButtonCommand}"/> 
+                <Button Margin="10" Width="200" Height="60" Content="{Binding ShuffledAnswers[3]}"/> 
             
             </StackPanel>
         </StackPanel>
