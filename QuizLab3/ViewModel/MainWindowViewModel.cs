@@ -40,7 +40,7 @@ namespace QuizLab3.ViewModel
 
             }
         }
-        private bool _isConfigurationMode = true;
+        private bool _isConfigurationMode = true; //börjar här, därför true
         public bool IsConfigurationMode
         {
             get => _isConfigurationMode;
@@ -48,7 +48,8 @@ namespace QuizLab3.ViewModel
             {
                 _isConfigurationMode = value;
                 RaisePropertyChanged(nameof(IsConfigurationMode));
-                RaisePropertyChanged(nameof(IsPlayerMode)); // Notify IsPlayerMode change as well
+                RaisePropertyChanged(nameof(IsPlayerMode));
+                RaisePropertyChanged(nameof(IsResultMode));
             }
         }
         private bool _isPlayerMode = false;
@@ -59,7 +60,20 @@ namespace QuizLab3.ViewModel
             {
                 _isPlayerMode = value;
                 RaisePropertyChanged(nameof(IsConfigurationMode));
-                RaisePropertyChanged(nameof(IsPlayerMode)); // Notify IsPlayerMode change as well
+                RaisePropertyChanged(nameof(IsPlayerMode));
+                RaisePropertyChanged(nameof(IsResultMode));
+            }
+        }
+        private bool _isResultMode = false;
+        public bool IsResultMode
+        {
+            get => _isResultMode;
+            set
+            {
+                _isResultMode = value;
+                RaisePropertyChanged(nameof(IsConfigurationMode));
+                RaisePropertyChanged(nameof(IsPlayerMode));
+                RaisePropertyChanged(nameof(IsResultMode));
             }
         }
 
@@ -72,6 +86,7 @@ namespace QuizLab3.ViewModel
         public DelegateCommand DefaultCommand { get; }
         public DelegateCommand ShowConfigurationViewCommand { get; }
         public DelegateCommand ShowPlayerViewCommand { get; }
+        public DelegateCommand ShowResultViewCommand { get; }
         public DelegateCommand FullScreenCommand { get; }
 
 
@@ -96,6 +111,7 @@ namespace QuizLab3.ViewModel
             ShowConfigurationViewCommand = new DelegateCommand(ShowConfigurationView);
 
             ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView, CanShowPlayerView);
+            ShowResultViewCommand = new DelegateCommand(ShowResultView, CanShowResultView);
 
             FullScreenCommand = new DelegateCommand(SetFullScreen);
 
@@ -140,13 +156,16 @@ namespace QuizLab3.ViewModel
         {
             IsConfigurationMode = true;
             IsPlayerMode = false;
+            IsResultMode = false;
             PlayerViewModel.timer.Stop();
+
         }
 
         private void ShowPlayerView(object? obj)
         {
             IsConfigurationMode = false;
             IsPlayerMode = true;
+            IsResultMode = false;
 
             PlayerViewModel.ShuffleQuestions();
 
@@ -156,8 +175,28 @@ namespace QuizLab3.ViewModel
         }
         private bool CanShowPlayerView(object? arg)
         {
-            return true; //ActivePack?.Questions != null && ActivePack.Questions.Count > 0;
+            return true;
+               // ActivePack?.Questions != null && ActivePack.Questions.Count > 0;
             //TODO:Enable the play and edit button, vice versa.
+        }
+
+        private void ShowResultView(object? obj)
+        {
+            IsConfigurationMode = false;
+            IsPlayerMode = false;
+            IsResultMode = true;
+
+
+           PlayerViewModel.ShuffleQuestions();
+
+            PlayerViewModel.TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
+            PlayerViewModel.timer.Start();
+
+        }
+        private bool CanShowResultView(object? arg)
+        {
+            return true; //ha kvar?
+
         }
         private void SetFullScreen(object? obj)
         {

@@ -18,7 +18,7 @@ namespace QuizLab3.ViewModel
         public QuestionPackViewModel? ActivePack { get => mainWindowViewModel.ActivePack; }
         private List<Question> _shuffledQuestions { get; set; }
 
-       // public List<Question> ShuffledAnswers { get; set; }
+        public List<Question> ShuffledAnswers { get; set; }
 
         public int TotalQuestions => ShuffledQuestions?.Count ?? 0; //returns counted shuffledQuestionslist
 
@@ -76,12 +76,11 @@ namespace QuizLab3.ViewModel
             this.mainWindowViewModel = mainWindowViewModel;
             ShuffledQuestions = new List<Question>(); //skapar en ny lista
             ShuffleQuestions();
-            //TimeRemaining = mainWindowViewModel?.ActivePack?.TimeLimitInSeconds ?? 0;
 
             this.timer = new DispatcherTimer(); //skapar ett objekt av Timer //sätt intervall och tick för
             timer.Interval = TimeSpan.FromSeconds(1); //skapar en timespan som är en sekund
             timer.Tick += Timer_Tick; //event += så kommer det upp förslag på eventhandler                 
-            //_currentQuestionIndex = 0; //initialiserar index
+            _currentQuestionIndex = 0; //initialiserar index
         }
 
 
@@ -91,9 +90,10 @@ namespace QuizLab3.ViewModel
             {
                 TimeRemaining--;
             }
-            else
+            else if (CurrentQuestionIndex != TotalQuestions)
             {
-                timer.Stop();
+                NextQuestion();
+                TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
             }
         }
 
@@ -101,7 +101,7 @@ namespace QuizLab3.ViewModel
         {
             if (mainWindowViewModel?.ActivePack?.Questions != null)
             {
-                ShuffledQuestions = mainWindowViewModel.ActivePack.Questions.ToList();
+                ShuffledQuestions= mainWindowViewModel.ActivePack.Questions.ToList(); //klonar listan från ActivePack.Questions
 
                 ShuffledQuestions.Shuffle();
 
@@ -110,8 +110,30 @@ namespace QuizLab3.ViewModel
                 CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
             }
         }
-       
+        public void ShuffleAnswers()
+        {
+            if (mainWindowViewModel?.ActivePack?.Questions != null)
+            {
+                ShuffledAnswers = mainWindowViewModel.ActivePack.Questions.ToList(); //klonar listan från ActivePack.Questions
+               // ShuffledAnswers.Remove(CurrentQuestion.Query); //HUR FÅR JAG EN LISTA med bara questions 
+
+                RaisePropertyChanged(nameof(ShuffledQuestions));
+
+                //CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
+            }
         }
+        public void NextQuestion()
+        {
+            if (_currentQuestionIndex < _shuffledQuestions.Count ) //lägg till minus 1?
+            {
+                _currentQuestionIndex++;
+                RaisePropertyChanged(nameof(CurrentQuestionIndex)); // Update display index
+                CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
+
+            }
+        }
+
+    }
 
         }
     

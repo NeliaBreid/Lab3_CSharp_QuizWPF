@@ -144,9 +144,7 @@ namespace QuizLab3.ViewModel
 
         private void CreatePack(object? parameter) //här är när man klickar på CreateKnappen i dialog
         {
-
             Packs.Add(new QuestionPackViewModel(new QuestionPack(NewQuestionPack.Name, NewQuestionPack.Difficulty, NewQuestionPack.TimeLimitInSeconds)));
-
         }
 
         private bool CanCreatePack()
