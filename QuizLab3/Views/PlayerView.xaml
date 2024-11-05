@@ -12,12 +12,12 @@
             <ColumnDefinition Width="207*"/>
             <ColumnDefinition Width="193*"/>
         </Grid.ColumnDefinitions>
-
+ 
         <Label VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="35" Grid.Column="1" Margin="0,10,10,0" Content="{Binding TimeRemainingDisplay,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></Label>
         
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Height="89" Grid.ColumnSpan="2" Margin="50 80 50 50" Width="419" RenderTransformOrigin="0.5,0.5">
 
-            <TextBlock HorizontalAlignment="Center" FontSize="35" Text="{Binding ShuffledQuestions}"></TextBlock>
+            <TextBlock HorizontalAlignment="Center" FontSize="35" Text="{Binding CurrentQuestion.Query}"></TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="Question "/>
                 <TextBlock Text="{Binding CurrentQuestionIndex}"></TextBlock>
@@ -30,7 +30,7 @@
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
 
-                <Button Margin="10" Width="200" Height="60">H</Button>
+                <Button Margin="10" Width="200" Height="60"></Button>
                 <Button Margin="10" Width="200" Height="60">H</Button>
             </StackPanel>
 

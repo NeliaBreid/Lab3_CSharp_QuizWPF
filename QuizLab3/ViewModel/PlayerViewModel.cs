@@ -15,16 +15,14 @@ namespace QuizLab3.ViewModel
         private readonly MainWindowViewModel? mainWindowViewModel;
 
         public DispatcherTimer timer;
-
-        private ConfigurationViewModel _currentQuestion;
         public QuestionPackViewModel? ActivePack { get => mainWindowViewModel.ActivePack; }
         private List<Question> _shuffledQuestions { get; set; }
+
        // public List<Question> ShuffledAnswers { get; set; }
 
-        private int _currentQuestionIndex; //field för att spara index
         public int TotalQuestions => ShuffledQuestions?.Count ?? 0; //returns counted shuffledQuestionslist
 
-       // public string CurrentQuestionDisplay => $"Question {CurrentQuestionIndex} of {TotalQuestions}";
+        private int _currentQuestionIndex; //field för att spara index
         public int CurrentQuestionIndex
         {
             get => _currentQuestionIndex;
@@ -32,6 +30,17 @@ namespace QuizLab3.ViewModel
             {
                 _currentQuestionIndex = value;
                 RaisePropertyChanged(nameof(TotalQuestions));
+                
+            }
+        }
+        private Question _currentQuestion; //frågan jag är på just nu, innehåller både fråga o svar.
+        public Question CurrentQuestion
+        {
+            get => _currentQuestion;
+            private set
+            {
+                _currentQuestion = value;
+                RaisePropertyChanged();
             }
         }
         public List<Question> ShuffledQuestions
@@ -44,6 +53,7 @@ namespace QuizLab3.ViewModel
                 RaisePropertyChanged(nameof(TotalQuestions)); // Update total question count
             }
         }
+
 
         private int _timeRemaining;
         public string TimeRemainingDisplay => TimeSpan.FromSeconds(TimeRemaining).ToString($"c");
@@ -71,7 +81,7 @@ namespace QuizLab3.ViewModel
             this.timer = new DispatcherTimer(); //skapar ett objekt av Timer //sätt intervall och tick för
             timer.Interval = TimeSpan.FromSeconds(1); //skapar en timespan som är en sekund
             timer.Tick += Timer_Tick; //event += så kommer det upp förslag på eventhandler                 
-            _currentQuestionIndex = 0; //initialiserar index
+            //_currentQuestionIndex = 0; //initialiserar index
         }
 
 
@@ -96,6 +106,8 @@ namespace QuizLab3.ViewModel
                 ShuffledQuestions.Shuffle();
 
                 RaisePropertyChanged(nameof(ShuffledQuestions));
+
+                CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
             }
         }
        
