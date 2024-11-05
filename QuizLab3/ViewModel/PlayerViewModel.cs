@@ -18,34 +18,40 @@ namespace QuizLab3.ViewModel
 
         private ConfigurationViewModel _currentQuestion;
         public QuestionPackViewModel? ActivePack { get => mainWindowViewModel.ActivePack; }
-        public List<string> ShuffledQuestions { get; set; }
-        public List<Question> ShuffledAnswers { get; set; }
+        private List<Question> _shuffledQuestions { get; set; }
+       // public List<Question> ShuffledAnswers { get; set; }
 
-        public int TotalQuestions { get => ActivePack.Questions?.Count ?? 0; } //funkar inte än
-            //Add a Prop/field thats readOnly and gets the count and the index of Number
+        private int _currentQuestionIndex; //field för att spara index
+        public int TotalQuestions => ShuffledQuestions?.Count ?? 0; //returns counted shuffledQuestionslist
 
-   
-
-
-
-
-        private int _timeRemaining;
-        public string TimeRemainingDisplay => TimeSpan.FromSeconds(TimeRemaining).ToString($"ss");
-
-        // TODO: Make this as minuts or change the slider.
-        public ConfigurationViewModel CurrentQuestion
+       // public string CurrentQuestionDisplay => $"Question {CurrentQuestionIndex} of {TotalQuestions}";
+        public int CurrentQuestionIndex
         {
-            get => _currentQuestion;
-            set
+            get => _currentQuestionIndex;
+            private set
             {
-                _currentQuestion = value;
-                RaisePropertyChanged();
+                _currentQuestionIndex = value;
+                RaisePropertyChanged(nameof(TotalQuestions));
             }
         }
+        public List<Question> ShuffledQuestions
+        {
+            get => _shuffledQuestions;
+            private set
+            {
+                _shuffledQuestions = value;
+                RaisePropertyChanged(); // Notify view of the new list of questions
+                RaisePropertyChanged(nameof(TotalQuestions)); // Update total question count
+            }
+        }
+
+        private int _timeRemaining;
+        public string TimeRemainingDisplay => TimeSpan.FromSeconds(TimeRemaining).ToString($"c");
+
         public int TimeRemaining
         {
             get => _timeRemaining;
-            set 
+            set
             {
                 _timeRemaining = value;
                 RaisePropertyChanged();
@@ -58,26 +64,26 @@ namespace QuizLab3.ViewModel
         public PlayerViewModel(MainWindowViewModel? mainWindowViewModel) //
         {
             this.mainWindowViewModel = mainWindowViewModel;
-            ShuffledQuestions = new List<string>(); //skapar en ny lista
+            ShuffledQuestions = new List<Question>(); //skapar en ny lista
             ShuffleQuestions();
             //TimeRemaining = mainWindowViewModel?.ActivePack?.TimeLimitInSeconds ?? 0;
 
             this.timer = new DispatcherTimer(); //skapar ett objekt av Timer //sätt intervall och tick för
             timer.Interval = TimeSpan.FromSeconds(1); //skapar en timespan som är en sekund
             timer.Tick += Timer_Tick; //event += så kommer det upp förslag på eventhandler                 
-
+            _currentQuestionIndex = 0; //initialiserar index
         }
 
-   
+
         private void Timer_Tick(object? sender, EventArgs e)
         {
             if (TimeRemaining > 0)
             {
-                TimeRemaining--; 
+                TimeRemaining--;
             }
             else
             {
-                timer.Stop(); 
+                timer.Stop();
             }
         }
 
@@ -85,14 +91,16 @@ namespace QuizLab3.ViewModel
         {
             if (mainWindowViewModel?.ActivePack?.Questions != null)
             {
-                // Copy and shuffle questions from ActivePack
-                ShuffledQuestions = mainWindowViewModel.ActivePack.Questions.Select(q => q.Query).ToList();
+                ShuffledQuestions = mainWindowViewModel.ActivePack.Questions.ToList();
 
                 ShuffledQuestions.Shuffle();
 
-                RaisePropertyChanged(nameof(ShuffledQuestions)); // Notify binding of the update
+                RaisePropertyChanged(nameof(ShuffledQuestions));
             }
         }
+       
+        }
 
-    }
-}
+        }
+    
+

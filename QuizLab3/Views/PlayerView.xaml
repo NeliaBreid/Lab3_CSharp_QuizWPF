@@ -19,9 +19,9 @@
 
             <TextBlock HorizontalAlignment="Center" FontSize="35" Text="{Binding ShuffledQuestions}"></TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock>Question</TextBlock>
-                <TextBlock>..</TextBlock>
-                <TextBlock>out of</TextBlock>
+                <TextBlock Text="Question "/>
+                <TextBlock Text="{Binding CurrentQuestionIndex}"></TextBlock>
+                <TextBlock Text=" out of "/>
                 <TextBlock Text="{Binding TotalQuestions}"></TextBlock>
             </StackPanel>
 
