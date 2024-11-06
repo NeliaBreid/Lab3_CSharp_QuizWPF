@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace QuizLab3.Converters
 {
-    internal class EnumConverter : IValueConverter
+    public class EnumConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

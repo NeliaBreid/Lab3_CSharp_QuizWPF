@@ -55,16 +55,6 @@ namespace QuizLab3.ViewModel
             }
         }
 
-        private string _query;
-        public string Query
-        {
-            get => ActiveQuestion.Query;
-            set
-            {
-                ActiveQuestion.Query = value;
-                RaisePropertyChanged();
-            }
-        }
       
 
         public DelegateCommand AddQuestionsCommand { get; }

@@ -3,9 +3,11 @@ using QuizLab3.Command;
 using QuizLab3.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Threading;
 
 namespace QuizLab3.ViewModel
@@ -31,6 +33,7 @@ namespace QuizLab3.ViewModel
             {
                 _currentQuestionIndex = value;
                 RaisePropertyChanged(nameof(TotalQuestions));
+                RaisePropertyChanged(nameof(CurrentQuestionIndex));
 
             }
         }
@@ -44,46 +47,7 @@ namespace QuizLab3.ViewModel
                 RaisePropertyChanged();
             }
         }
-        //private Question _questionOption1; //frågan jag är på just nu, innehåller både fråga o svar.
-        //public Question QuestionOption1
-        //{
-        //    get => _questionOption1;
-        //    private set
-        //    {
-        //        _questionOption1 = value;
-        //        RaisePropertyChanged();
-        //    }
-        //}
-        //private Question _questionOption2; //frågan jag är på just nu, innehåller både fråga o svar.
-        //public Question QuestionOption2
-        //{
-        //    get => _questionOption2;
-        //    private set
-        //    {
-        //        _questionOption2 = value;
-        //        RaisePropertyChanged();
-        //    }
-        //}
-        //private Question _questionOption3; //frågan jag är på just nu, innehåller både fråga o svar.
-        //public Question QuestionOption3
-        //{
-        //    get => _questionOption3;
-        //    private set
-        //    {
-        //        _questionOption3 = value;
-        //        RaisePropertyChanged();
-        //    }
-        //}
-        //private Question _questionOption4; //frågan jag är på just nu, innehåller både fråga o svar.
-        //public Question QuestionOption4
-        //{
-        //    get => _questionOption4;
-        //    private set
-        //    {
-        //        _questionOption4 = value;
-        //        RaisePropertyChanged();
-        //    }
-        //}
+    
         public List<Question> ShuffledQuestions
         {
             get => _shuffledQuestions;
@@ -125,7 +89,7 @@ namespace QuizLab3.ViewModel
             CurrentQuestionIndex = 0; //initialiserar index
             AnswerButtonCommand = new DelegateCommand(SetAnswerButton);
         }
-
+        
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
@@ -150,8 +114,8 @@ namespace QuizLab3.ViewModel
 
                 RaisePropertyChanged(nameof(ShuffledQuestions));
 
-                CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
-                ShuffleAnswers();
+                //CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
+                
             }
         }
         public void ShuffleAnswers()
@@ -172,23 +136,63 @@ namespace QuizLab3.ViewModel
         }
         public void NextQuestion()
         {
-            if (_currentQuestionIndex < TotalQuestions) //lägg till minus 1?
+            //if (_currentQuestionIndex < TotalQuestions) //lägg till minus 1?
+            //{
+            //    _currentQuestionIndex++;
+            //    RaisePropertyChanged(nameof(CurrentQuestionIndex)); // Update display index
+            //  // CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
+            //    ShuffleAnswers();
+            //}
+            if (_currentQuestionIndex < TotalQuestions - 1)
             {
                 _currentQuestionIndex++;
                 RaisePropertyChanged(nameof(CurrentQuestionIndex)); // Update display index
+
+                // Set the current question based on the new index
                 CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
                 ShuffleAnswers();
+            }
+            else
+            {
+                // Optional: Stop the game or handle end-of-quiz behavior
+                timer.Stop();
             }
         }
         public void SetAnswerButton(object? obj)
         {
-            if ( obj == ShuffledQuestions) //Börja kolla här
-            {
-                
-            }
+
+            //AnswerColors = ShuffledAnswers
+            //    .Select(answer => answer == CurrentQuestion.CorrectAnswer ? Brushes.Green: Brushes.Red)
+            //    .ToList();
+
+            //RaisePropertyChanged(nameof(AnswerColors));
+    
+        }
+       
+        public void StartGame()
+        {
+            _currentQuestionIndex = 0;
+
+            ShuffleQuestions();
+            ShuffleAnswers();
+
+            TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
+            timer.Start();
+
+            CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
+
+           
+        }
+        public void GameReset()
+        {
+            _currentQuestionIndex = 0;
+            TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
+            CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
+            RaisePropertyChanged(nameof(CurrentQuestionIndex));
         }
 
- 
+
+
 
     }
 

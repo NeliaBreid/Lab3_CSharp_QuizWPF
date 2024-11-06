@@ -3,22 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuizLab3.Dialogs" xmlns:converters="clr-namespace:QuizLab3.Converters"
+        xmlns:local="clr-namespace:QuizLab3.Dialogs" 
+        xmlns:converters="clr-namespace:QuizLab3.Converters"
         mc:Ignorable="d"
         Title="New Question Pack" Height="310" Width="260" ResizeMode="NoResize">
-    
-    
-    <Window.Resources>
+
+
+    <!--<Window.Resources>
         <converters:EnumConverter x:Key="EnumConverter"/>
-    </Window.Resources>
-    
+    </Window.Resources>--> <!--SelectedItem="{Binding NewQuestionPack.Difficulty, Converter={StaticResource EnumConverter}}"-->
+
     <Grid>
         <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="center">
             <TextBlock Text="PackName" Margin="5" FontWeight="Bold"/>
             <TextBox x:Name="NameBox1" Margin="5 0 5 10" DataContext="{Binding ConfigurationViewModel}" Text="{Binding NewQuestionPack.Name}" />
 
             <Label Content="Difficulty" FontWeight="Bold"/>
-            <ComboBox Margin="5 0 5 10" DataContext="{Binding ConfigurationViewModel}" SelectedItem="{Binding NewQuestionPack.Difficulty, Converter={StaticResource EnumConverter}}">
+            <ComboBox Margin="5 0 5 10" DataContext="{Binding ConfigurationViewModel}" >
                 <ComboBoxItem>Easy</ComboBoxItem>
                 <ComboBoxItem>Medium</ComboBoxItem>
                 <ComboBoxItem>Hard</ComboBoxItem>

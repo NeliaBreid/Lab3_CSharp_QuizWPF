@@ -157,7 +157,8 @@ namespace QuizLab3.ViewModel
             IsConfigurationMode = true;
             IsPlayerMode = false;
             IsResultMode = false;
-            PlayerViewModel.timer.Stop();
+            
+            PlayerViewModel.GameReset();
         }
 
         private void ShowPlayerView(object? obj)
@@ -166,10 +167,8 @@ namespace QuizLab3.ViewModel
             IsPlayerMode = true;
             IsResultMode = false;
 
-            PlayerViewModel.ShuffleQuestions();
-
-            PlayerViewModel.TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
-            PlayerViewModel.timer.Start();
+            PlayerViewModel.StartGame();
+      
 
         }
         private bool CanShowPlayerView(object? arg)
@@ -183,12 +182,6 @@ namespace QuizLab3.ViewModel
             IsConfigurationMode = false;
             IsPlayerMode = false;
             IsResultMode = true;
-
-
-           PlayerViewModel.ShuffleQuestions();
-
-            PlayerViewModel.TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
-            PlayerViewModel.timer.Start();
 
         }
         private bool CanShowResultView(object? arg)
@@ -212,6 +205,10 @@ namespace QuizLab3.ViewModel
                 window.ResizeMode = ResizeMode.CanResize;
                 window.WindowState = WindowState.Normal;
             }
+
         }
+    
+        
+   
     }
 }
