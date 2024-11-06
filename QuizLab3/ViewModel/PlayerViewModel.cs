@@ -90,7 +90,7 @@ namespace QuizLab3.ViewModel
             timer.Interval = TimeSpan.FromSeconds(1); //skapar en timespan som är en sekund
             timer.Tick += Timer_Tick; //event += så kommer det upp förslag på eventhandler                 
             CurrentQuestionIndex = 0; //initialiserar index
-            AnswerButtonCommand = new DelegateCommand(SetAnswerButton,CanSetAnswerButton);
+            AnswerButtonCommand = new DelegateCommand(SetAnswerButton);
             CountCorrectAnswers = 0;
         }
 
@@ -116,9 +116,6 @@ namespace QuizLab3.ViewModel
                 ShuffledQuestions.Shuffle();
 
                 RaisePropertyChanged(nameof(ShuffledQuestions));
-
-                
-
                 CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
 
             }
@@ -153,6 +150,10 @@ namespace QuizLab3.ViewModel
 
                 TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
             }
+            else if(CurrentQuestionIndex == TotalQuestions)
+            {
+                mainWindowViewModel.ShowResultView();
+            }
             else
             {
                 timer.Stop();
@@ -175,14 +176,13 @@ namespace QuizLab3.ViewModel
             {
                 UpdateButtonContent(selectedAnswer, "Incorrect!");
             }
-            Thread.Sleep(2000);
+            Task.Delay(2000);
+            //Thread.Sleep(2000); 
+            //TODO:lägg till task.delay istället.
             NextQuestion();
 
         }
-        private bool CanSetAnswerButton(object? arg)
-        {
-            return CurrentQuestionIndex < TotalQuestions+1;
-        }
+       
 
             public void StartGame()
         {
@@ -196,6 +196,7 @@ namespace QuizLab3.ViewModel
         }
         public void GameReset()
         {
+            CountCorrectAnswers = 0;
             _currentQuestionIndex = 0;
             TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
             CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
@@ -204,10 +205,10 @@ namespace QuizLab3.ViewModel
 
         public void SetAnswers()
         {
-            AnswerContent1 = ShuffledAnswers.ElementAtOrDefault(0) ?? string.Empty;
-            AnswerContent2 = ShuffledAnswers.ElementAtOrDefault(1) ?? string.Empty;
-            AnswerContent3 = ShuffledAnswers.ElementAtOrDefault(2) ?? string.Empty;
-            AnswerContent4 = ShuffledAnswers.ElementAtOrDefault(3) ?? string.Empty;
+            AnswerContent1 = ShuffledAnswers[0] ?? string.Empty;
+            AnswerContent2 = ShuffledAnswers[1] ?? string.Empty;
+            AnswerContent3 = ShuffledAnswers[2] ?? string.Empty;
+            AnswerContent4 = ShuffledAnswers[3] ?? string.Empty;
 
             RaisePropertyChanged(nameof(AnswerContent1));
             RaisePropertyChanged(nameof(AnswerContent2));
@@ -217,12 +218,14 @@ namespace QuizLab3.ViewModel
         private void UpdateButtonContent(string answer, string feedback)
         {
             if (AnswerContent1 == answer)
+            {
                 AnswerContent1 = feedback;
-            else if (AnswerContent2 == answer)
+            }
+            if (AnswerContent2 == answer)
                 AnswerContent2 = feedback;
-            else if (AnswerContent3 == answer)
+            if (AnswerContent3 == answer)
                 AnswerContent3 = feedback;
-            else if (AnswerContent4 == answer)
+            if (AnswerContent4 == answer)
                 AnswerContent4 = feedback;
 
             RaisePropertyChanged(nameof(AnswerContent1));
@@ -230,10 +233,16 @@ namespace QuizLab3.ViewModel
             RaisePropertyChanged(nameof(AnswerContent3));
             RaisePropertyChanged(nameof(AnswerContent4));
         }
+        public void PlayGame()
+        {
+            StartGame();
+            if(CurrentQuestionIndex== TotalQuestions)
+            {
+                mainWindowViewModel.ShowResultView();
+            }
 
-
+        }
     }
-
 }
     
 

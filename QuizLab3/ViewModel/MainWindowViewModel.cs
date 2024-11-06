@@ -111,6 +111,7 @@ namespace QuizLab3.ViewModel
 
             FullScreenCommand = new DelegateCommand(SetFullScreen);
 
+
         }
 
 
@@ -153,7 +154,7 @@ namespace QuizLab3.ViewModel
             IsConfigurationMode = true;
             IsPlayerMode = false;
             IsResultMode = false;
-            
+
             PlayerViewModel.GameReset();
         }
 
@@ -164,13 +165,13 @@ namespace QuizLab3.ViewModel
             IsResultMode = false;
 
             PlayerViewModel.StartGame();
-      
+
 
         }
         private bool CanShowPlayerView(object? arg)
         {
             return ActivePack.Questions.Any();
-  
+
         }
         private bool CanShowResultView(object? arg)
         {
@@ -179,7 +180,7 @@ namespace QuizLab3.ViewModel
         }
         private void SetFullScreen(object? obj)
         {
-            var window = App.Current.MainWindow; 
+            var window = App.Current.MainWindow;
 
             if (window.WindowState == WindowState.Normal)
             {
@@ -195,6 +196,12 @@ namespace QuizLab3.ViewModel
             }
 
         }
+        public void ShowResultView()
+        {
+        ResultDialog createResultDialog = new ResultDialog();
+            createResultDialog.ShowDialog();
+        }
+            
     
         
    

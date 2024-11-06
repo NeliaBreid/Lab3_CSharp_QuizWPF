@@ -4,14 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuizLab3.Dialogs" 
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:converters="clr-namespace:QuizLab3.Converters"
+        xmlns:model="clr-namespace:QuizLab3.Model"
         mc:Ignorable="d"
         Title="New Question Pack" Height="310" Width="260" ResizeMode="NoResize">
 
-
-    <!--<Window.Resources>
-        <converters:EnumConverter x:Key="EnumConverter"/>
-    </Window.Resources>--> <!--SelectedItem="{Binding NewQuestionPack.Difficulty, Converter={StaticResource EnumConverter}}"-->
+    <Window.Resources>
+        <ObjectDataProvider x:Key="DifficultyValues" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:Difficulty"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
 
     <Grid>
         <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="center">
@@ -19,10 +24,7 @@
             <TextBox x:Name="NameBox1" Margin="5 0 5 10" DataContext="{Binding ConfigurationViewModel}" Text="{Binding NewQuestionPack.Name}" />
 
             <Label Content="Difficulty" FontWeight="Bold"/>
-            <ComboBox Margin="5 0 5 10" DataContext="{Binding ConfigurationViewModel}" >
-                <ComboBoxItem>Easy</ComboBoxItem>
-                <ComboBoxItem>Medium</ComboBoxItem>
-                <ComboBoxItem>Hard</ComboBoxItem>
+            <ComboBox Margin="5 0 5 10" DataContext="{Binding ConfigurationViewModel}"  ItemsSource="{Binding Source={StaticResource DifficultyValues}}">
             </ComboBox>
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
