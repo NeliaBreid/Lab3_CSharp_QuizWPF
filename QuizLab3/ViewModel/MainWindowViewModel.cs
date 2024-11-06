@@ -192,7 +192,8 @@ namespace QuizLab3.ViewModel
         }
         public void ShowResultView()
         {
-        ResultDialog createResultDialog = new ResultDialog();
+            PlayerViewModel.timer.Stop();
+            ResultDialog createResultDialog = new ResultDialog();
             createResultDialog.ShowDialog();
         }
             

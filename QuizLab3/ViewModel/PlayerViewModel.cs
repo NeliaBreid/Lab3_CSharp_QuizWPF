@@ -99,6 +99,10 @@ namespace QuizLab3.ViewModel
             {
                 TimeRemaining--;
             }
+            else if(TimeRemaining==0&& CurrentQuestionIndex == TotalQuestions && CurrentQuestionIndex!=0)
+            {
+                mainWindowViewModel.ShowResultView();
+            }
             else if (CurrentQuestionIndex != TotalQuestions)
             {
                 NextQuestion();
@@ -151,10 +155,12 @@ namespace QuizLab3.ViewModel
             else if(CurrentQuestionIndex == TotalQuestions)
             {
                 mainWindowViewModel.ShowResultView();
+                GameReset();
             }
             else
             {
                 timer.Stop();
+      
             }
         }
         private async void SetAnswerButton(object? obj)
@@ -176,9 +182,6 @@ namespace QuizLab3.ViewModel
                 UpdateButtonContent(selectedAnswer, "Incorrect!");
                 await Task.Delay(2000);
             }
-            //await Task.Delay(2000);
-            //Thread.Sleep(2000); 
-            //TODO:lägg till task.delay istället.
             NextQuestion();
 
         }
@@ -201,6 +204,7 @@ namespace QuizLab3.ViewModel
             TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
             CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
             RaisePropertyChanged(nameof(CurrentQuestionIndex));
+            RaisePropertyChanged(nameof(CountCorrectAnswers));
         }
 
         public void SetAnswers()

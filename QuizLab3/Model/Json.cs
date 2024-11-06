@@ -15,7 +15,7 @@ namespace QuizLab3.Json
     {
         string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-        internal async void SaveJson(List<QuestionPack> packs)
+        internal async void SaveJson(List<QuestionPack> packs) 
         {
             string json = JsonSerializer.Serialize(packs);
           await File.WriteAllTextAsync(filePath, json); //lägger in min path o filen
