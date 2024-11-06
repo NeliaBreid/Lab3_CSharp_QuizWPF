@@ -15,16 +15,16 @@ namespace QuizLab3.Json
     {
         string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-        public async void SaveJson(object data)
+        internal async void SaveJson(List<QuestionPack> packs)
         {
-            string json = JsonSerializer.Serialize(data);
+            string json = JsonSerializer.Serialize(packs);
           await File.WriteAllTextAsync(filePath, json); //lägger in min path o filen
         }
-        //public async List<QuestionPack> LoadJson()
-        //{
-        //    string json = File.ReadAllText(filePath); //läsa av filen
-        //    return JsonSerializer.Deserialize(ObservableCollection<QuestionPackViewModel> Packs = new ObservableCollection<QuestionPackViewModel>()); //Jag vill ha tillbaks mina packs
-        //}
+        internal async Task<List<QuestionPack>> LoadJson()
+        {
+            string json = await File.ReadAllTextAsync(filePath); //läsa av filen
+            return JsonSerializer.Deserialize<List<QuestionPack>>(json); //Jag vill ha tillbaks mina packs
+        }
 
     }
 }

@@ -76,8 +76,6 @@ namespace QuizLab3.ViewModel
                 RaisePropertyChanged(nameof(TimeRemainingDisplay));
             }
         }
-
-        //public DelegateCommand UpdateButtonCommand { get; } //måste gå o binda mot så inte bara field
         public DelegateCommand AnswerButtonCommand { get; }
         public PlayerViewModel(MainWindowViewModel? mainWindowViewModel) //
         {
@@ -159,7 +157,7 @@ namespace QuizLab3.ViewModel
                 timer.Stop();
             }
         }
-        private void SetAnswerButton(object? obj)
+        private async void SetAnswerButton(object? obj)
         {
 
             if (obj is not string selectedAnswer)
@@ -170,13 +168,15 @@ namespace QuizLab3.ViewModel
             {
                 UpdateButtonContent(selectedAnswer, "Correct!");
                 CountCorrectAnswers++;
+                await Task.Delay(2000);
                 RaisePropertyChanged(nameof(CountCorrectAnswers));
             }
             else
             {
                 UpdateButtonContent(selectedAnswer, "Incorrect!");
+                await Task.Delay(2000);
             }
-            Task.Delay(2000);
+            //await Task.Delay(2000);
             //Thread.Sleep(2000); 
             //TODO:lägg till task.delay istället.
             NextQuestion();

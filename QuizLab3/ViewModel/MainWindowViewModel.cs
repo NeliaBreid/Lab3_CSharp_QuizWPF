@@ -165,19 +165,13 @@ namespace QuizLab3.ViewModel
             IsResultMode = false;
 
             PlayerViewModel.StartGame();
-
-
         }
         private bool CanShowPlayerView(object? arg)
         {
             return ActivePack.Questions.Any();
 
         }
-        private bool CanShowResultView(object? arg)
-        {
-            return true; //ha kvar?
 
-        }
         private void SetFullScreen(object? obj)
         {
             var window = App.Current.MainWindow;
