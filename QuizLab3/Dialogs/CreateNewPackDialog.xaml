@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuizLab3.Dialogs" 
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        xmlns:converters="clr-namespace:QuizLab3.Converters"
         xmlns:model="clr-namespace:QuizLab3.Model"
         mc:Ignorable="d"
         Title="New Question Pack" Height="310" Width="260" ResizeMode="NoResize">

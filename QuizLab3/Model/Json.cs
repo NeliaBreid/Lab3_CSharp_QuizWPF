@@ -12,19 +12,31 @@ using System.Threading.Tasks;
 namespace QuizLab3.Json
 {
     public class Json
-    {
-        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+    {//string filePath= directory.GetcurrentDirectory()+"\\.Lab3Quiz.txt" is this the way to create a new file?
 
-        internal async void SaveJson(List<QuestionPack> packs) 
+        string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Lab3Quiz.json");
+        internal async void SaveJson(List<QuestionPack> packs)
         {
             string json = JsonSerializer.Serialize(packs);
-          await File.WriteAllTextAsync(filePath, json); //lägger in min path o filen
+            await File.WriteAllTextAsync(filePath, json); //lägger in min path o filen
         }
+
+        //sätt en try-catch runt Load
+       
         internal async Task<List<QuestionPack>> LoadJson()
         {
-            string json = await File.ReadAllTextAsync(filePath); //läsa av filen
-            return JsonSerializer.Deserialize<List<QuestionPack>>(json); //Jag vill ha tillbaks mina packs
+            try
+            {
+                string json = await File.ReadAllTextAsync(filePath); //läsa av filen
+                return JsonSerializer.Deserialize<List<QuestionPack>>(json); //Jag vill ha tillbaks mina packs
+            }
+            catch (Exception ex) {return new List<QuestionPack>();}
+
         }
 
     }
+
 }
+
+
+

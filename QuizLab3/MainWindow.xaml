@@ -13,14 +13,12 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
     
-    <Window.InputBindings> 
-        <KeyBinding Key="U" Modifiers="Ctrl"/>
-        <KeyBinding Key="L" Modifiers="Ctrl"/>
-        <KeyBinding Key="P" Modifiers="Ctrl"/>
-        <KeyBinding Key="E" Modifiers="Ctrl"/>
-        <KeyBinding Key="O" Modifiers="Ctrl"/>
-        <KeyBinding Key="F4" Modifiers="Alt"/>
-        <KeyBinding Key="Enter" Modifiers="Alt"/>
+    <Window.InputBindings>
+        <KeyBinding Key="U" Modifiers="Ctrl"  Command="{Binding ConfigurationViewModel.DeleteQuestionPacksCommand}"/>
+        <KeyBinding Key="P" Modifiers="Ctrl"  Command="{Binding ShowPlayerViewCommand}"/>
+        <KeyBinding Key="E" Modifiers="Ctrl" Command="{Binding ShowConfigurationViewCommand}"/>
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding PackOptionsDialog}"/>
+        <KeyBinding Key="Enter" Modifiers="Alt" Command="{Binding FullScreenCommand}"/>
         <KeyBinding Key="Insert" Command="{Binding ConfigurationViewModel.AddQuestionsCommand}"/>
         <KeyBinding Key="Delete" Command="{Binding ConfigurationViewModel.RemoveQuestionsCommand}"/>
     </Window.InputBindings>

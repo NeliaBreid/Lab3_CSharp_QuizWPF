@@ -37,7 +37,6 @@ namespace QuizLab3.ViewModel
                 _currentQuestionIndex = value;
                 RaisePropertyChanged(nameof(TotalQuestions));
                 RaisePropertyChanged(nameof(CurrentQuestionIndex));
-
             }
         }
         private Question _currentQuestion; //frågan jag är på just nu, innehåller både fråga o svar.
@@ -165,6 +164,7 @@ namespace QuizLab3.ViewModel
         }
         private async void SetAnswerButton(object? obj)
         {
+            UpdateButtonContent(CurrentQuestion.CorrectAnswer, "Correct!");
 
             if (obj is not string selectedAnswer)
                 return;

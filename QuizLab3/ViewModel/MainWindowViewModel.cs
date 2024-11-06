@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -14,21 +15,22 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace QuizLab3.ViewModel
 {
     class MainWindowViewModel : ViewModelBase
     {
-
         public ObservableCollection<QuestionPackViewModel> Packs { get; set; }
         public PlayerViewModel PlayerViewModel { get; } //get, bara för att hålla koll på den
         public ConfigurationViewModel ConfigurationViewModel { get; }
 
         private QuestionPackViewModel? _activePack; //backningfield. frågetecknet för att tala om för kompliern att vi vet att den kan vara null
-
         public List<Question> ShuffledQuestions { get; set; }
         public List<Question> ShuffledAnswers { get; set; }
+
+        private QuizLab3.Json.Json JsonHandler; //gör en ny instans av Json
         public QuestionPackViewModel? ActivePack
         {
             get => _activePack;
@@ -90,6 +92,9 @@ namespace QuizLab3.ViewModel
 
         public MainWindowViewModel()
         {
+            JsonHandler = new QuizLab3.Json.Json();
+            LoadDataAsync();
+
             Packs = new ObservableCollection<QuestionPackViewModel>(); //skapar en instans av Packs
 
             ActivePack = new QuestionPackViewModel(new QuestionPack("My Default QuestionPack"));
@@ -111,6 +116,8 @@ namespace QuizLab3.ViewModel
 
             FullScreenCommand = new DelegateCommand(SetFullScreen);
 
+            //string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Lab3Quiz.json");
+            
 
         }
 
@@ -196,9 +203,12 @@ namespace QuizLab3.ViewModel
             ResultDialog createResultDialog = new ResultDialog();
             createResultDialog.ShowDialog();
         }
-            
-    
-        
-   
-    }
+     
+    public void ToQuestionPack()
+        {
+            List<QuestionPackViewModel> packsList = Packs.ToList();
+        }
+
+        }
 }
+

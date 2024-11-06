@@ -23,6 +23,7 @@ namespace QuizLab3.ViewModel
         {
             this.model = model;
             this.Questions = new ObservableCollection<Question>(model.Questions);
+
         }
         public string Name //Det blir bara som en översättning egentligen
         {
@@ -53,8 +54,7 @@ namespace QuizLab3.ViewModel
         }   
         public ObservableCollection<Question> Questions { get; set; }
 
-      
-
+       
     }
 
 }
