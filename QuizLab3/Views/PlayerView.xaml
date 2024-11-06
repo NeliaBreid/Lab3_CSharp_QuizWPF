@@ -27,6 +27,11 @@
                 <TextBlock Text="{Binding CurrentQuestionIndex, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                 <TextBlock Text=" out of "/>
                 <TextBlock Text="{Binding TotalQuestions}"></TextBlock>
+                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Correct Questions: "/>
+                <TextBlock Text="{Binding CountCorrectAnswers, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
         </StackPanel>
@@ -34,15 +39,15 @@
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
 
-                <Button Margin="10" Width="200" Height="60" Content="{Binding ShuffledAnswers[0]}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding ShuffledAnswers[0]}"></Button>
-                <Button Margin="10" Width="200" Height="60" Content="{Binding ShuffledAnswers[1]}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding ShuffledAnswers[1]}"></Button>
+                <Button Margin="10" Width="200" Height="60" Content="{Binding AnswerContent1}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding AnswerContent1}"></Button>
+                <Button Margin="10" Width="200" Height="60" Content="{Binding AnswerContent2}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding AnswerContent2}"></Button>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
 
-                <Button Margin="10" Width="200" Height="60" Content="{Binding ShuffledAnswers[2]}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding ShuffledAnswers[2]}"></Button>
+                <Button Margin="10" Width="200" Height="60" Content="{Binding AnswerContent3}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding AnswerContent3}"></Button>
 
-                <Button Margin="10" Width="200" Height="60" Content="{Binding ShuffledAnswers[3]}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding ShuffledAnswers[3]}"/> 
+                <Button Margin="10" Width="200" Height="60" Content="{Binding AnswerContent4}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding AnswerContent4}"/> 
             
             </StackPanel>
         </StackPanel>

@@ -77,8 +77,6 @@ namespace QuizLab3.ViewModel
             }
         }
 
-        //public bool IsPlayerMode => !IsConfigurationMode;
-
         public DelegateCommand NewPackDialog { get; }
         public DelegateCommand PackOptionsDialog { get; }
         public DelegateCommand SetActivePackCommand { get; }
@@ -86,7 +84,6 @@ namespace QuizLab3.ViewModel
         public DelegateCommand DefaultCommand { get; }
         public DelegateCommand ShowConfigurationViewCommand { get; }
         public DelegateCommand ShowPlayerViewCommand { get; }
-        public DelegateCommand ShowResultViewCommand { get; }
         public DelegateCommand FullScreenCommand { get; }
 
 
@@ -111,7 +108,6 @@ namespace QuizLab3.ViewModel
             ShowConfigurationViewCommand = new DelegateCommand(ShowConfigurationView);
 
             ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView, CanShowPlayerView);
-            ShowResultViewCommand = new DelegateCommand(ShowResultView, CanShowResultView);
 
             FullScreenCommand = new DelegateCommand(SetFullScreen);
 
@@ -175,14 +171,6 @@ namespace QuizLab3.ViewModel
         {
             return ActivePack.Questions.Any();
   
-        }
-
-        private void ShowResultView(object? obj)
-        {
-            IsConfigurationMode = false;
-            IsPlayerMode = false;
-            IsResultMode = true;
-
         }
         private bool CanShowResultView(object? arg)
         {

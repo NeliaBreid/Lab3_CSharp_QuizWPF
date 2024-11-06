@@ -36,8 +36,6 @@
         <view:ConfigurationView Grid.Row="1"  Visibility="{Binding DataContext.IsConfigurationMode, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibilityConverter}}" />
        
         <view:PlayerView Grid.Row="1"  Visibility="{Binding DataContext.IsPlayerMode, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibilityConverter}}"/>
-        
-        <view:ResultView Grid.Row="1" Visibility="{Binding DataContext.IsResultMode, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
     </Grid>
 </Window>
