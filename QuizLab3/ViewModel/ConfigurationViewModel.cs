@@ -15,10 +15,11 @@ namespace QuizLab3.ViewModel
 {
     class ConfigurationViewModel : ViewModelBase
     {
-        private readonly MainWindowViewModel? mainWindowViewModel;
-        public ObservableCollection<QuestionPackViewModel> Packs { get => mainWindowViewModel.Packs; } //funkar denna?
-        public QuestionPackViewModel? ActivePack{ get => mainWindowViewModel.ActivePack;}
+        public QuestionPackViewModel? ActivePack{ get => mainWindowViewModel?.ActivePack;}
+        public ObservableCollection<QuestionPackViewModel> Packs { get => mainWindowViewModel.Packs; }
         
+        private readonly MainWindowViewModel? mainWindowViewModel;
+
         private Question _activeQuestion;
 
         private QuestionPack _newQuestionPack;
@@ -30,7 +31,6 @@ namespace QuizLab3.ViewModel
             {
                 _newQuestionPack = value;
                 RaisePropertyChanged();
-
             }
         }
         public Question? ActiveQuestion
@@ -40,7 +40,6 @@ namespace QuizLab3.ViewModel
             {
                 _activeQuestion = value;
                 RaisePropertyChanged();
-
             }
         }
 
@@ -49,13 +48,11 @@ namespace QuizLab3.ViewModel
         public DelegateCommand CreateQuestionPacksCommand { get; }
         public DelegateCommand DeleteQuestionPacksCommand { get; }
 
-
-
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel;
 
-            ActiveQuestion = ActivePack.Questions.FirstOrDefault();
+            ActiveQuestion = ActivePack?.Questions.FirstOrDefault();
 
             AddQuestionsCommand = new DelegateCommand(AddQuestionToActivePack, CanAddQuestionToActivePack);
 
@@ -75,37 +72,37 @@ namespace QuizLab3.ViewModel
                      ActiveQuestion.IncorrectAnswers[0] = string.Empty,
                      ActiveQuestion.IncorrectAnswers[1] = string.Empty,
                      ActiveQuestion.IncorrectAnswers[2] = string.Empty);
-                     ActivePack.Questions.Add(newQuestion);
+                     ActivePack?.Questions.Add(newQuestion);
             }
             else
             {
-                ActivePack.Questions.Add(new Question("New Question", string.Empty, string.Empty, string.Empty, string.Empty));
+                ActivePack?.Questions.Add(new Question("New Question", string.Empty, string.Empty, string.Empty, string.Empty));
             }
 
-
             RemoveQuestionsCommand.RaiseCanExecuteChanged();
-            mainWindowViewModel.ShowPlayerViewCommand.RaiseCanExecuteChanged();
 
-            mainWindowViewModel.SaveDataAsync();
+            mainWindowViewModel?.ShowPlayerViewCommand.RaiseCanExecuteChanged();
+
+            mainWindowViewModel?.SaveDataAsync();
+
             RaisePropertyChanged(); 
 
         }
         private bool CanAddQuestionToActivePack(object parameter)
         {
             return ActivePack != null;
-
         }
         private void RemoveQuestionFromActivePack(object parameter)
         {
-            ActiveQuestion = ActivePack.Questions.FirstOrDefault();
+            ActiveQuestion = ActivePack?.Questions.FirstOrDefault();
 
             if (ActivePack != null && ActiveQuestion != null)
             {
                 ActivePack.Questions.Remove(ActiveQuestion);
                 RemoveQuestionsCommand.RaiseCanExecuteChanged();
-                mainWindowViewModel.ShowPlayerViewCommand.RaiseCanExecuteChanged();
+                mainWindowViewModel?.ShowPlayerViewCommand.RaiseCanExecuteChanged();
             }
-            mainWindowViewModel.SaveDataAsync();
+            mainWindowViewModel?.SaveDataAsync();
             RaisePropertyChanged();
         }
 
@@ -114,10 +111,10 @@ namespace QuizLab3.ViewModel
             return ActivePack != null && ActivePack.Questions.Any();
         }
 
-        private void CreatePack(object? parameter) //här är när man klickar på CreateKnappen i dialog
+        private void CreatePack(object? parameter)
         {
             Packs.Add(new QuestionPackViewModel(new QuestionPack(NewQuestionPack.Name, NewQuestionPack.Difficulty, NewQuestionPack.TimeLimitInSeconds)));
-            mainWindowViewModel.SaveDataAsync();
+            mainWindowViewModel?.SaveDataAsync();
         }
 
         private bool CanCreatePack()
@@ -132,7 +129,7 @@ namespace QuizLab3.ViewModel
                 mainWindowViewModel.ActivePack = null;
                 DeleteQuestionPacksCommand.RaiseCanExecuteChanged();
             }
-            mainWindowViewModel.SaveDataAsync();
+            mainWindowViewModel?.SaveDataAsync();
             RaisePropertyChanged(nameof(ActivePack));
         }
     }

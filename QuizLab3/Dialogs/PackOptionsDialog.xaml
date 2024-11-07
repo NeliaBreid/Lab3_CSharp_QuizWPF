@@ -27,7 +27,6 @@
             <Label Content="Difficulty" FontWeight="Bold"/>
             <ComboBox Margin="5 0 5 10" SelectedItem="{Binding Difficulty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
               ItemsSource="{Binding Source={StaticResource DifficultyValues}}">
-                <!-- TODO: Make the Combobox Reflect correct Value from the start -->
 
             </ComboBox>
 

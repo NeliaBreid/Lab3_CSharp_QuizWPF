@@ -12,7 +12,7 @@ namespace QuizLab3.Model
 
     internal class QuestionPack
     {
-        public QuestionPack(string name, Difficulty difficulty = Difficulty.Medium, int timeLimitInSeconds = 30) //lägger till default värden
+        public QuestionPack(string name, Difficulty difficulty = Difficulty.Medium, int timeLimitInSeconds = 30)
         {
             Name = name;
             Difficulty = difficulty;

@@ -18,7 +18,7 @@ namespace QuizLab3.Model
             IncorrectAnswers = new string[3] { incorrectAnswer1, incorrectAnswer2, incorrectAnswer3 };
         }
 
-        public string Query { get; set; } //tänk att den heter question
+        public string Query { get; set; } 
         public string CorrectAnswer { get; set; }
         public string[] IncorrectAnswers { get; set; }
 

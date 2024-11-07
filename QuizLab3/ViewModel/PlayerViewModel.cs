@@ -14,10 +14,7 @@ namespace QuizLab3.ViewModel
 {
     class PlayerViewModel : ViewModelBase
     {
-        private readonly MainWindowViewModel? mainWindowViewModel;
-
-        public DispatcherTimer timer;
-        public QuestionPackViewModel? ActivePack { get => mainWindowViewModel.ActivePack; }
+        public QuestionPackViewModel? ActivePack { get => _mainWindowViewModel?.ActivePack; }
         private List<Question> _shuffledQuestions { get; set; }
         public List<String> ShuffledAnswers { get; set; }
         public string AnswerContent1 { get; set; }
@@ -25,10 +22,33 @@ namespace QuizLab3.ViewModel
         public string AnswerContent3 { get; set; }
         public string AnswerContent4 { get; set; }
         public int CountCorrectAnswers { get; set; }
-        public int TotalQuestions => ShuffledQuestions?.Count ?? 0; //returns counted shuffledQuestionslist
 
+        public DispatcherTimer _timer;
 
-        private int _currentQuestionIndex; //field för att spara index
+        private int _timeRemaining;
+
+        private int _totalQuestions;
+
+        private int _currentQuestionIndex; 
+
+        private Question _currentQuestion; 
+
+        private readonly MainWindowViewModel? _mainWindowViewModel;
+
+        public string TimeRemainingDisplay
+        {
+            get
+            {
+                return TimeSpan.FromSeconds(TimeRemaining).ToString("c");
+            }
+        }
+        public int TotalQuestions
+        {
+            get
+            {
+                return ShuffledQuestions != null ? ShuffledQuestions.Count : 0;
+            }
+        }
         public int CurrentQuestionIndex
         {
             get => _currentQuestionIndex + 1;
@@ -39,7 +59,6 @@ namespace QuizLab3.ViewModel
                 RaisePropertyChanged(nameof(CurrentQuestionIndex));
             }
         }
-        private Question _currentQuestion; //frågan jag är på just nu, innehåller både fråga o svar.
         public Question CurrentQuestion
         {
             get => _currentQuestion;
@@ -56,14 +75,10 @@ namespace QuizLab3.ViewModel
             private set
             {
                 _shuffledQuestions = value;
-                RaisePropertyChanged(); // Notify view of the new list of questions
-                RaisePropertyChanged(nameof(TotalQuestions)); // Update total question count
+                RaisePropertyChanged(); 
+                RaisePropertyChanged(nameof(TotalQuestions)); 
             }
         }
-
-
-        private int _timeRemaining;
-        public string TimeRemainingDisplay => TimeSpan.FromSeconds(TimeRemaining).ToString($"c");
 
         public int TimeRemaining
         {
@@ -75,18 +90,20 @@ namespace QuizLab3.ViewModel
                 RaisePropertyChanged(nameof(TimeRemainingDisplay));
             }
         }
+
         public DelegateCommand AnswerButtonCommand { get; }
-        public PlayerViewModel(MainWindowViewModel? mainWindowViewModel) //
+
+        public PlayerViewModel(MainWindowViewModel? mainWindowViewModel) 
         {
-            this.mainWindowViewModel = mainWindowViewModel;
+            this._mainWindowViewModel = mainWindowViewModel;
             ShuffledQuestions = new List<Question>();
-            //skapar en ny lista
+
             ShuffleQuestions();
 
-            this.timer = new DispatcherTimer(); //skapar ett objekt av Timer //sätt intervall och tick för
-            timer.Interval = TimeSpan.FromSeconds(1); //skapar en timespan som är en sekund
-            timer.Tick += Timer_Tick; //event += så kommer det upp förslag på eventhandler                 
-            CurrentQuestionIndex = 0; //initialiserar index
+            this._timer = new DispatcherTimer(); 
+            _timer.Interval = TimeSpan.FromSeconds(1); 
+            _timer.Tick += Timer_Tick;               
+            CurrentQuestionIndex = 0; 
             AnswerButtonCommand = new DelegateCommand(SetAnswerButton);
             CountCorrectAnswers = 0;
         }
@@ -98,9 +115,9 @@ namespace QuizLab3.ViewModel
             {
                 TimeRemaining--;
             }
-            else if(TimeRemaining==0&& CurrentQuestionIndex == TotalQuestions && CurrentQuestionIndex!=0)
+            else if(TimeRemaining == 0 && CurrentQuestionIndex == TotalQuestions && CurrentQuestionIndex != 0)
             {
-                mainWindowViewModel.ShowResultView();
+                _mainWindowViewModel?.ShowResultView();
             }
             else if (CurrentQuestionIndex != TotalQuestions)
             {
@@ -111,9 +128,9 @@ namespace QuizLab3.ViewModel
 
         public void ShuffleQuestions()
         {
-            if (mainWindowViewModel?.ActivePack?.Questions != null)
+            if (_mainWindowViewModel?.ActivePack?.Questions != null)
             {
-                ShuffledQuestions = mainWindowViewModel.ActivePack.Questions.ToList(); //klonar listan från ActivePack.Questions
+                ShuffledQuestions = _mainWindowViewModel.ActivePack.Questions.ToList(); 
                 ShuffledQuestions.Shuffle();
 
                 RaisePropertyChanged(nameof(ShuffledQuestions));
@@ -153,13 +170,12 @@ namespace QuizLab3.ViewModel
             }
             else if(CurrentQuestionIndex == TotalQuestions)
             {
-                mainWindowViewModel.ShowResultView();
+                _mainWindowViewModel.ShowResultView();
                 GameReset();
             }
             else
             {
-                timer.Stop();
-      
+                _timer.Stop();
             }
         }
         private async void SetAnswerButton(object? obj)
@@ -183,7 +199,6 @@ namespace QuizLab3.ViewModel
                 await Task.Delay(2000);
             }
             NextQuestion();
-
         }
        
 
@@ -195,14 +210,19 @@ namespace QuizLab3.ViewModel
             ShuffleAnswers();
 
             TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
-            timer.Start();
+            _timer.Start();
         }
+
         public void GameReset()
         {
             CountCorrectAnswers = 0;
+
             _currentQuestionIndex = 0;
+
             TimeRemaining = ActivePack?.TimeLimitInSeconds ?? 0;
+
             CurrentQuestion = ShuffledQuestions.ElementAtOrDefault(_currentQuestionIndex);
+
             RaisePropertyChanged(nameof(CurrentQuestionIndex));
             RaisePropertyChanged(nameof(CountCorrectAnswers));
         }
@@ -226,11 +246,17 @@ namespace QuizLab3.ViewModel
                 AnswerContent1 = feedback;
             }
             if (AnswerContent2 == answer)
+            {
                 AnswerContent2 = feedback;
+            }
             if (AnswerContent3 == answer)
+            {
                 AnswerContent3 = feedback;
+            }
             if (AnswerContent4 == answer)
+            {
                 AnswerContent4 = feedback;
+            }
 
             RaisePropertyChanged(nameof(AnswerContent1));
             RaisePropertyChanged(nameof(AnswerContent2));

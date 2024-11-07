@@ -24,16 +24,20 @@ namespace QuizLab3.ViewModel
 {
     class MainWindowViewModel : ViewModelBase
     {
-        public List<QuestionPackViewModel> packList;
         public ObservableCollection<QuestionPackViewModel> Packs { get; set; }
-        public PlayerViewModel PlayerViewModel { get; } //get, bara för att hålla koll på den
-        public ConfigurationViewModel ConfigurationViewModel { get; }
-
-        private QuestionPackViewModel? _activePack; //backningfield. frågetecknet för att tala om för kompliern att vi vet att den kan vara null
         public List<Question> ShuffledQuestions { get; set; }
         public List<Question> ShuffledAnswers { get; set; }
+        public PlayerViewModel PlayerViewModel { get; } 
+        public ConfigurationViewModel ConfigurationViewModel { get; }
 
-        private QuizLab3.Json.Json JsonHandler; //gör en ny instans av Json
+        private QuestionPackViewModel? _activePack;
+
+        private bool _isPlayerMode = false;
+
+        private bool _isConfigurationMode = true; 
+
+        private QuizLab3.Json.Json JsonHandler; //gör en ny instans av Json---------------------------------------------------------------------
+
         public QuestionPackViewModel? ActivePack
         {
             get => _activePack;
@@ -45,7 +49,6 @@ namespace QuizLab3.ViewModel
 
             }
         }
-        private bool _isConfigurationMode = true; //börjar här, därför true
         public bool IsConfigurationMode
         {
             get => _isConfigurationMode;
@@ -54,10 +57,9 @@ namespace QuizLab3.ViewModel
                 _isConfigurationMode = value;
                 RaisePropertyChanged(nameof(IsConfigurationMode));
                 RaisePropertyChanged(nameof(IsPlayerMode));
-                RaisePropertyChanged(nameof(IsResultMode));
+
             }
         }
-        private bool _isPlayerMode = false;
         public bool IsPlayerMode
         {
             get => _isPlayerMode;
@@ -66,39 +68,24 @@ namespace QuizLab3.ViewModel
                 _isPlayerMode = value;
                 RaisePropertyChanged(nameof(IsConfigurationMode));
                 RaisePropertyChanged(nameof(IsPlayerMode));
-                RaisePropertyChanged(nameof(IsResultMode));
+               
             }
         }
-        private bool _isResultMode = false;
-        public bool IsResultMode
-        {
-            get => _isResultMode;
-            set
-            {
-                _isResultMode = value;
-                RaisePropertyChanged(nameof(IsConfigurationMode));
-                RaisePropertyChanged(nameof(IsPlayerMode));
-                RaisePropertyChanged(nameof(IsResultMode));
-            }
-        }
-
+ 
         public DelegateCommand NewPackDialog { get; }
         public DelegateCommand PackOptionsDialog { get; }
         public DelegateCommand SetActivePackCommand { get; }
-        public DelegateCommand SelectViewCommand { get; }
-        public DelegateCommand DefaultCommand { get; }
         public DelegateCommand ShowConfigurationViewCommand { get; }
         public DelegateCommand ShowPlayerViewCommand { get; }
         public DelegateCommand FullScreenCommand { get; }
 
 
-
         public MainWindowViewModel()
         {
-            JsonHandler = new QuizLab3.Json.Json();
-            LoadDataAsync();
+            JsonHandler = new QuizLab3.Json.Json(); //json -------------------------------------------------------------------------
+            LoadDataAsync(); //json ------------------------------------------------------------------------------------------------
 
-            Packs = new ObservableCollection<QuestionPackViewModel>(); //skapar en instans av Packs
+            Packs = new ObservableCollection<QuestionPackViewModel>();
 
             ActivePack = new QuestionPackViewModel(new QuestionPack("My Default QuestionPack"));
             Packs.Add(ActivePack);
@@ -107,9 +94,9 @@ namespace QuizLab3.ViewModel
 
             ConfigurationViewModel = new ConfigurationViewModel(this);
 
-            NewPackDialog = new DelegateCommand(CreateNewPackDialog, CanCreateNewPackDialog);
+            NewPackDialog = new DelegateCommand(OpenNewPackDialog);
 
-            PackOptionsDialog = new DelegateCommand(UpdatePackOptionsDialog, CanUpdatePackOptionsDialog);
+            PackOptionsDialog = new DelegateCommand(OpenPackOptionsDialog);
 
             SetActivePackCommand = new DelegateCommand(SetActivePack);
 
@@ -120,14 +107,7 @@ namespace QuizLab3.ViewModel
             FullScreenCommand = new DelegateCommand(SetFullScreen);
         }
 
-
-
-        private bool CanCreateNewPackDialog(object? arg)
-        {
-            return true;
-        }
-
-        private void CreateNewPackDialog(object obj)
+        private void OpenNewPackDialog(object obj)
         {
             ConfigurationViewModel.NewQuestionPack = new QuestionPack(" ");
 
@@ -135,12 +115,8 @@ namespace QuizLab3.ViewModel
             createNewPackDialog.ShowDialog();
 
         }
-        private bool CanUpdatePackOptionsDialog(object? arg)
-        {
-            return true;
-        }
 
-        private void UpdatePackOptionsDialog(object? obj)
+        private void OpenPackOptionsDialog(object? obj)
         {
             ConfigurationViewModel.NewQuestionPack = new QuestionPack(" ");
             PackOptionsDialog newPackOptionsDialog = new PackOptionsDialog();
@@ -149,33 +125,28 @@ namespace QuizLab3.ViewModel
         }
         private void SetActivePack(object? obj)
         {
-
             ActivePack = (QuestionPackViewModel)obj;
 
             RaisePropertyChanged(nameof(ActivePack));
-
         }
         private void ShowConfigurationView(object? obj)
         {
             IsConfigurationMode = true;
             IsPlayerMode = false;
-            IsResultMode = false;
 
             PlayerViewModel.GameReset();
         }
-
+      
         private void ShowPlayerView(object? obj)
         {
             IsConfigurationMode = false;
             IsPlayerMode = true;
-            IsResultMode = false;
 
             PlayerViewModel.StartGame();
         }
         private bool CanShowPlayerView(object? arg)
         {
             return ActivePack.Questions.Any();
-
         }
 
         private void SetFullScreen(object? obj)
@@ -194,16 +165,16 @@ namespace QuizLab3.ViewModel
                 window.ResizeMode = ResizeMode.CanResize;
                 window.WindowState = WindowState.Normal;
             }
-
         }
+
         public void ShowResultView()
         {
-            PlayerViewModel.timer.Stop();
+            PlayerViewModel._timer.Stop();
             ResultDialog createResultDialog = new ResultDialog();
             createResultDialog.ShowDialog();
         }
 
-        private async Task LoadDataAsync()
+        private async Task LoadDataAsync() //json _------------------------------------------------------------------
         {
             List<QuestionPack> loadedPacks = await JsonHandler.LoadJson();
 
@@ -218,17 +189,19 @@ namespace QuizLab3.ViewModel
             }
         }
 
-        public async Task SaveDataAsync()
+        public async Task SaveDataAsync() //json _------------------------------------------------------------------
         {
-                List<QuestionPack> packsToSave = Packs.Select(viewModel => new QuestionPack(
-                    viewModel.Name,
-                    viewModel.Difficulty,
-                    viewModel.TimeLimitInSeconds)
-                {
-                    Questions = viewModel.Questions.ToList()
-                }).ToList();
+            List<QuestionPack> packsToSave = Packs.Select(viewModel => new QuestionPack(
 
-                await JsonHandler.SaveJson(packsToSave);
+                viewModel.Name,
+                viewModel.Difficulty,
+                viewModel.TimeLimitInSeconds)
+            {
+                Questions = viewModel.Questions.ToList()
+            }
+            ).ToList();
+
+            await JsonHandler.SaveJson(packsToSave);
             
         }
 

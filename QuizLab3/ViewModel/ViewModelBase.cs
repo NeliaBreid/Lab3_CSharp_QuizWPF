@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace QuizLab3.ViewModel
 {
-    class ViewModelBase : INotifyPropertyChanged  // Lägger det i en separatklass så den kan återanvändas. För att använda metoden behöver den ärvas.
+    class ViewModelBase : INotifyPropertyChanged
     {
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public void RaisePropertyChanged([CallerMemberName] string? propertyName = null) //Den här metoden håller koll på när det uppdateras
+        public void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

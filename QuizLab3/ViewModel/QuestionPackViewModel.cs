@@ -16,17 +16,17 @@ using System.Windows.Input;
 namespace QuizLab3.ViewModel
 {
     class QuestionPackViewModel: ViewModelBase
-        //Model är helt fristående, modelview ska vara en mellanhand och kunna hämta logik från Model
+        
     {
-        private readonly QuestionPack model; //Den kommer bara gå att läsa
-        public QuestionPackViewModel() { }//test json
+        private readonly QuestionPack model; 
+        public QuestionPackViewModel() { } //test json---------------------------------------------------------------------
         public QuestionPackViewModel(QuestionPack model)
         {
             this.model = model;
             this.Questions = new ObservableCollection<Question>(model.Questions);
 
         }
-        public string Name //Det blir bara som en översättning egentligen
+        public string Name 
         {
             get => model.Name;
             set 

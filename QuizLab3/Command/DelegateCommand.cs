@@ -11,24 +11,24 @@ namespace QuizLab3.Command
     {
         private readonly Action<object> execute;
         private readonly Func<object?, bool> canExecute;
-        public event EventHandler? CanExecuteChanged; //när man bindar knappens command med det här eventet. om det ändras i koden så ändras alla som suscribar på den. 
+        public event EventHandler? CanExecuteChanged; 
 
-        public DelegateCommand(Action<object> execute, Func<object?,bool> canExecute = null) //referens till en void metod som tar en object in //tar objekt in o retunerar en bool. det är i princip metoderna nedan
+        public DelegateCommand(Action<object> execute, Func<object?,bool> canExecute = null)
         {
-            ArgumentNullException.ThrowIfNull(execute); //om null så exeption
+            ArgumentNullException.ThrowIfNull(execute);
             this.execute = execute;
             this.canExecute = canExecute;
         }
 
-        public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty); //uppdateringsmetoden
+        public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty); 
         public bool CanExecute(object? parameter)
         {
             return canExecute is null? true: canExecute(parameter);
         }
 
-        public void Execute(object? parameter) //kod som körs när man trycker på knappen, men bara om CanExecute är true(bool)
+        public void Execute(object? parameter)
         {
-            execute(parameter); //passar vidare
+            execute(parameter);
         }
 
     }
