@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace QuizLab3.Model
@@ -11,6 +12,7 @@ namespace QuizLab3.Model
 
     internal class QuestionPack
     {
+        [JsonConstructor]
         public QuestionPack(string name, Difficulty difficulty = Difficulty.Medium, int timeLimitInSeconds = 30) //lägger till default värden
         {
             Name = name;

@@ -108,6 +108,7 @@ namespace QuizLab3.ViewModel
             RemoveQuestionsCommand.RaiseCanExecuteChanged();
             mainWindowViewModel.ShowPlayerViewCommand.RaiseCanExecuteChanged();
 
+            mainWindowViewModel.SaveDataAsync();
             RaisePropertyChanged(); 
 
         }
@@ -124,7 +125,7 @@ namespace QuizLab3.ViewModel
                 RemoveQuestionsCommand.RaiseCanExecuteChanged();
                 mainWindowViewModel.ShowPlayerViewCommand.RaiseCanExecuteChanged();
             }
-
+            mainWindowViewModel.SaveDataAsync();
             RaisePropertyChanged();
         }
 
@@ -137,6 +138,7 @@ namespace QuizLab3.ViewModel
         private void CreatePack(object? parameter) //här är när man klickar på CreateKnappen i dialog
         {
             Packs.Add(new QuestionPackViewModel(new QuestionPack(NewQuestionPack.Name, NewQuestionPack.Difficulty, NewQuestionPack.TimeLimitInSeconds)));
+            mainWindowViewModel.SaveDataAsync();
         }
 
         private bool CanCreatePack()
@@ -151,7 +153,7 @@ namespace QuizLab3.ViewModel
                 mainWindowViewModel.ActivePack = null;
                 DeleteQuestionPacksCommand.RaiseCanExecuteChanged();
             }
-
+            mainWindowViewModel.SaveDataAsync();
             RaisePropertyChanged();
         }
 

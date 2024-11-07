@@ -3,37 +3,68 @@ using QuizLab3.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace QuizLab3.Json
 {
     public class Json
-    {//string filePath= directory.GetcurrentDirectory()+"\\.Lab3Quiz.txt" is this the way to create a new file?
+    {
+        private readonly string appDataPath;
+        private readonly string filePath;
+        private readonly JsonSerializerOptions options;
 
-        string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Lab3Quiz.json");
-        internal async void SaveJson(List<QuestionPack> packs)
+        public Json()
         {
-            string json = JsonSerializer.Serialize(packs);
-            await File.WriteAllTextAsync(filePath, json); //lägger in min path o filen
+            
+            appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+            
+            string appFolder = Path.Combine(appDataPath, "Quizlab3");
+            Directory.CreateDirectory(appFolder);  
+
+         
+            filePath = Path.Combine(appFolder, "Quizlab3.json");
+
+            options = new JsonSerializerOptions
+            {
+                IncludeFields = true,
+                PropertyNameCaseInsensitive = true
+            };
         }
 
-        //sätt en try-catch runt Load
-       
+        internal async Task SaveJson(List<QuestionPack> packs)
+        {
+            string json = JsonSerializer.Serialize(packs, new JsonSerializerOptions { WriteIndented = true });
+            await File.WriteAllTextAsync(filePath, json);
+        }
+
         internal async Task<List<QuestionPack>> LoadJson()
         {
             try
             {
-                string json = await File.ReadAllTextAsync(filePath); //läsa av filen
-                return JsonSerializer.Deserialize<List<QuestionPack>>(json); //Jag vill ha tillbaks mina packs
+                if (File.Exists(filePath))
+                {
+                    string json = await File.ReadAllTextAsync(filePath);
+                    return JsonSerializer.Deserialize<List<QuestionPack>>(json, options);
+                }
+                else
+                {
+                    Debug.WriteLine("File not found at path: " + filePath); // filen finns
+                }
             }
-            catch (Exception ex) {return new List<QuestionPack>();}
-
+            catch (Exception ex) 
+            {
+                Debug.WriteLine($"Error loading JSON: {ex.Message}");
+            }
+         
+            return new List<QuestionPack>();
         }
-
     }
 
 }

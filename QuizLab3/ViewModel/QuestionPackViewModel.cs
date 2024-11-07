@@ -9,6 +9,7 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -18,6 +19,8 @@ namespace QuizLab3.ViewModel
         //Model är helt fristående, modelview ska vara en mellanhand och kunna hämta logik från Model
     {
         private readonly QuestionPack model; //Den kommer bara gå att läsa
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+        public QuestionPack Model => model;
 
         public QuestionPackViewModel(QuestionPack model)
         {

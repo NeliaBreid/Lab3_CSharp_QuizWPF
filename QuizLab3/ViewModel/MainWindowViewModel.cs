@@ -10,18 +10,21 @@ using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace QuizLab3.ViewModel
 {
     class MainWindowViewModel : ViewModelBase
     {
+        public List<QuestionPackViewModel> packList;
         public ObservableCollection<QuestionPackViewModel> Packs { get; set; }
         public PlayerViewModel PlayerViewModel { get; } //get, bara för att hålla koll på den
         public ConfigurationViewModel ConfigurationViewModel { get; }
@@ -115,10 +118,6 @@ namespace QuizLab3.ViewModel
             ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView, CanShowPlayerView);
 
             FullScreenCommand = new DelegateCommand(SetFullScreen);
-
-            //string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Lab3Quiz.json");
-            
-
         }
 
 
@@ -203,12 +202,36 @@ namespace QuizLab3.ViewModel
             ResultDialog createResultDialog = new ResultDialog();
             createResultDialog.ShowDialog();
         }
-     
-    public void ToQuestionPack()
+
+        private async Task LoadDataAsync()
         {
-            List<QuestionPackViewModel> packsList = Packs.ToList();
+            List<QuestionPack> loadedPacks = await JsonHandler.LoadJson();
+
+            foreach (var pack in loadedPacks)
+            {
+                Packs.Add(new QuestionPackViewModel(pack));
+            }
+
+            if (Packs.Any())
+            {
+                ActivePack = Packs.First();
+            }
         }
 
+        public async Task SaveDataAsync()
+        {
+                List<QuestionPack> packsToSave = Packs.Select(viewModel => new QuestionPack(
+                    viewModel.Name,
+                    viewModel.Difficulty,
+                    viewModel.TimeLimitInSeconds)
+                {
+                    Questions = viewModel.Questions.ToList()
+                }).ToList();
+
+                await JsonHandler.SaveJson(packsToSave);
+            
         }
+
+    }
 }
 
