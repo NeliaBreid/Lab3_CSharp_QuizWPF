@@ -237,15 +237,7 @@ namespace QuizLab3.ViewModel
             RaisePropertyChanged(nameof(AnswerContent3));
             RaisePropertyChanged(nameof(AnswerContent4));
         }
-        public void PlayGame()
-        {
-            StartGame();
-            if(CurrentQuestionIndex== TotalQuestions)
-            {
-                mainWindowViewModel.ShowResultView();
-            }
-
-        }
+      
     }
 }
     

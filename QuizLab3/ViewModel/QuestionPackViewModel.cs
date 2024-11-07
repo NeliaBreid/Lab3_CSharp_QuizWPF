@@ -19,9 +19,7 @@ namespace QuizLab3.ViewModel
         //Model är helt fristående, modelview ska vara en mellanhand och kunna hämta logik från Model
     {
         private readonly QuestionPack model; //Den kommer bara gå att läsa
-        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
-        public QuestionPack Model => model;
-
+        public QuestionPackViewModel() { }//test json
         public QuestionPackViewModel(QuestionPack model)
         {
             this.model = model;

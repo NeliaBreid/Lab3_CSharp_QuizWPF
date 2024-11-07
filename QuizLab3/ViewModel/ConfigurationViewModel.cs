@@ -23,17 +23,6 @@ namespace QuizLab3.ViewModel
 
         private QuestionPack _newQuestionPack;
 
-        private Visibility _questionPanelVisibility;
-        public Visibility QuestionPanelVisibility
-        {
-            get => _questionPanelVisibility;
-            set
-            {  
-                _questionPanelVisibility = value;
-                RaisePropertyChanged();
-            }
-        }
-
         public QuestionPack? NewQuestionPack
         {
             get => _newQuestionPack;
@@ -55,8 +44,6 @@ namespace QuizLab3.ViewModel
             }
         }
 
-      
-
         public DelegateCommand AddQuestionsCommand { get; }
         public DelegateCommand RemoveQuestionsCommand { get; }
         public DelegateCommand CreateQuestionPacksCommand { get; }
@@ -68,43 +55,34 @@ namespace QuizLab3.ViewModel
         {
             this.mainWindowViewModel = mainWindowViewModel;
 
-            QuestionPanelVisibility = Visibility.Hidden;
-
-            ActiveQuestion = ActivePack.Questions.FirstOrDefault(); //får ut första itemet i en lista.
+            ActiveQuestion = ActivePack.Questions.FirstOrDefault();
 
             AddQuestionsCommand = new DelegateCommand(AddQuestionToActivePack, CanAddQuestionToActivePack);
 
             RemoveQuestionsCommand = new DelegateCommand(RemoveQuestionFromActivePack, CanRemoveQuestionFromActivePack);
 
             CreateQuestionPacksCommand = new DelegateCommand(CreatePack);
-            DeleteQuestionPacksCommand = new DelegateCommand(DeletePack, CanDeletePack);
-
-
-    }
+            DeleteQuestionPacksCommand = new DelegateCommand(DeletePack);
+        }
 
         private void AddQuestionToActivePack(object parameter)
         {
-
             if (ActiveQuestion != null)
             {
-               
                 var newQuestion = new Question(
-                     ActiveQuestion.Query,
-                     ActiveQuestion.CorrectAnswer,
-                     ActiveQuestion.IncorrectAnswers[0],
-                     ActiveQuestion.IncorrectAnswers[1],
-                     ActiveQuestion.IncorrectAnswers[2]);
+                     ActiveQuestion.Query = "New Question",
+                     ActiveQuestion.CorrectAnswer=string.Empty,
+                     ActiveQuestion.IncorrectAnswers[0] = string.Empty,
+                     ActiveQuestion.IncorrectAnswers[1] = string.Empty,
+                     ActiveQuestion.IncorrectAnswers[2] = string.Empty);
                      ActivePack.Questions.Add(newQuestion);
-
             }
-            else 
+            else
             {
                 ActivePack.Questions.Add(new Question("New Question", string.Empty, string.Empty, string.Empty, string.Empty));
             }
 
-                QuestionPanelVisibility = Visibility.Visible;
 
-            
             RemoveQuestionsCommand.RaiseCanExecuteChanged();
             mainWindowViewModel.ShowPlayerViewCommand.RaiseCanExecuteChanged();
 
@@ -119,6 +97,8 @@ namespace QuizLab3.ViewModel
         }
         private void RemoveQuestionFromActivePack(object parameter)
         {
+            ActiveQuestion = ActivePack.Questions.FirstOrDefault();
+
             if (ActivePack != null && ActiveQuestion != null)
             {
                 ActivePack.Questions.Remove(ActiveQuestion);
@@ -131,8 +111,7 @@ namespace QuizLab3.ViewModel
 
         private bool CanRemoveQuestionFromActivePack(object parameter)
         {
-            return ActivePack.Questions.Any();
-            
+            return ActivePack != null && ActivePack.Questions.Any();
         }
 
         private void CreatePack(object? parameter) //här är när man klickar på CreateKnappen i dialog
@@ -154,15 +133,8 @@ namespace QuizLab3.ViewModel
                 DeleteQuestionPacksCommand.RaiseCanExecuteChanged();
             }
             mainWindowViewModel.SaveDataAsync();
-            RaisePropertyChanged();
+            RaisePropertyChanged(nameof(ActivePack));
         }
-
-        private bool CanDeletePack(object parameter)
-        {
-            return ActivePack != null;
-
-        }
-
     }
 }
 

@@ -10,7 +10,7 @@ namespace QuizLab3.Model
 {
     internal class Question 
     {
-        [JsonConstructor]
+        
         public Question(string query, string correctAnswer, string incorrectAnswer1, string incorrectAnswer2, string incorrectAnswer3)
         {
             Query = query;

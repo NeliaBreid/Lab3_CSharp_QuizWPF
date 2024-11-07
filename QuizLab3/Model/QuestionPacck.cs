@@ -12,7 +12,6 @@ namespace QuizLab3.Model
 
     internal class QuestionPack
     {
-        [JsonConstructor]
         public QuestionPack(string name, Difficulty difficulty = Difficulty.Medium, int timeLimitInSeconds = 30) //lägger till default värden
         {
             Name = name;
