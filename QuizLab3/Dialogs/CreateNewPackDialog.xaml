@@ -32,15 +32,17 @@
                 <TextBlock Margin="0 10 10 10" Text="seconds"/>
             </StackPanel>
 
-            <Slider 
+            <StackPanel>
+                <Slider
                 TickPlacement="BottomRight"
                 TickFrequency="5"
-                 Margin="5 0 5 10"
+                Margin="0 0 0 10"
+
                 Minimum="5"
                 Maximum="120"
-                Width="230"
                 DataContext="{Binding ConfigurationViewModel}" 
                 Value="{Binding NewQuestionPack.TimeLimitInSeconds}"/>
+            </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Cancel" Margin="20" HorizontalAlignment="left" Click="Button_Click_1"/>

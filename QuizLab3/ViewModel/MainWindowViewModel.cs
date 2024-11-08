@@ -76,7 +76,6 @@ namespace QuizLab3.ViewModel
         public DelegateCommand ShowPlayerViewCommand { get; }
         public DelegateCommand FullScreenCommand { get; }
 
-
         public MainWindowViewModel()
         {
             Packs = new ObservableCollection<QuestionPackViewModel>();

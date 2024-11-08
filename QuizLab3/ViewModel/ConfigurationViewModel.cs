@@ -64,21 +64,16 @@ namespace QuizLab3.ViewModel
 
         private void AddQuestionToActivePack(object parameter)
         {
-            if (ActiveQuestion != null)
-            {
-                var newQuestion = new Question(
-                     ActiveQuestion.Query = "New Question",
-                     ActiveQuestion.CorrectAnswer=string.Empty,
-                     ActiveQuestion.IncorrectAnswers[0] = string.Empty,
-                     ActiveQuestion.IncorrectAnswers[1] = string.Empty,
-                     ActiveQuestion.IncorrectAnswers[2] = string.Empty);
-                     ActivePack?.Questions.Add(newQuestion);
-            }
+            var newQuestion = new Question(
+            query: "New Question",
+            correctAnswer: string.Empty,
+            incorrectAnswer1: string.Empty,
+            incorrectAnswer2: string.Empty,
+            incorrectAnswer3: string.Empty);
 
-            else
-            {
-                ActivePack?.Questions.Add(new Question("New Question", string.Empty, string.Empty, string.Empty, string.Empty));
-            }
+            ActiveQuestion = newQuestion;
+
+            ActivePack?.Questions.Add(newQuestion);
 
             RemoveQuestionsCommand.RaiseCanExecuteChanged();
 
@@ -113,16 +108,11 @@ namespace QuizLab3.ViewModel
 
         private void CreatePack(object? parameter)
         {
-            if (ActivePack == null)
-            {
-               
-            }
-            else
-            {
-                Packs.Add(new QuestionPackViewModel(new QuestionPack(NewQuestionPack.Name, NewQuestionPack.Difficulty, NewQuestionPack.TimeLimitInSeconds)));
-                RaisePropertyChanged(nameof(ActivePack));
-            }
+            var newPack = new QuestionPackViewModel(new QuestionPack(NewQuestionPack.Name, NewQuestionPack.Difficulty, NewQuestionPack.TimeLimitInSeconds));
+            Packs.Add(newPack);
 
+            mainWindowViewModel.ActivePack = newPack;
+            RaisePropertyChanged(nameof(ActivePack));
         }
 
         private bool CanCreatePack()
