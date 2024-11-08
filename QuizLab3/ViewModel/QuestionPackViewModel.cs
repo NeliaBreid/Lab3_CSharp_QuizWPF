@@ -19,7 +19,6 @@ namespace QuizLab3.ViewModel
         
     {
         private readonly QuestionPack model; 
-        public QuestionPackViewModel() { } //test json---------------------------------------------------------------------
         public QuestionPackViewModel(QuestionPack model)
         {
             this.model = model;

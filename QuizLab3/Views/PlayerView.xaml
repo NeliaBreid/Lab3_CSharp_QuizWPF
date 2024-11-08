@@ -8,19 +8,21 @@
              mc:Ignorable="d" 
              DataContext="{Binding PlayerViewModel}"
              d:DesignHeight="450" d:DesignWidth="650">
-    
 
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="207*"/>
             <ColumnDefinition Width="193*"/>
         </Grid.ColumnDefinitions>
- 
-        <Label VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="35" Grid.Column="1" Margin="0,10,10,0" Content="{Binding TimeRemainingDisplay,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"></Label>
-        
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Height="89" Grid.ColumnSpan="2" Margin="50 80 50 50" Width="419" RenderTransformOrigin="0.5,0.5">
 
+        <Label VerticalAlignment="Top"
+               HorizontalAlignment="Right" 
+               FontSize="35" 
+               Grid.Column="1" 
+               Margin="0,10,10,0" 
+               Content="{Binding TimeRemainingDisplay,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Height="89" Grid.ColumnSpan="2" Margin="50 80 50 50" Width="419">
             <TextBlock HorizontalAlignment="Center" FontSize="35" Text="{Binding CurrentQuestion.Query}"></TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="Question "/>
@@ -35,20 +37,17 @@
             </StackPanel>
 
         </StackPanel>
+
         <StackPanel Orientation="Vertical" Margin="50" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.ColumnSpan="2" Width="442">
-
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-
                 <Button Margin="10" Width="200" Height="60" Content="{Binding AnswerContent1}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding AnswerContent1}"></Button>
                 <Button Margin="10" Width="200" Height="60" Content="{Binding AnswerContent2}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding AnswerContent2}"></Button>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-
                 <Button Margin="10" Width="200" Height="60" Content="{Binding AnswerContent3}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding AnswerContent3}"></Button>
 
                 <Button Margin="10" Width="200" Height="60" Content="{Binding AnswerContent4}" Command="{Binding AnswerButtonCommand}" CommandParameter="{Binding AnswerContent4}"/> 
-            
             </StackPanel>
         </StackPanel>
         

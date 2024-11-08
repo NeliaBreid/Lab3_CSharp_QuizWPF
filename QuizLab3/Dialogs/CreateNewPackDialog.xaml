@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:QuizLab3.Dialogs" 
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:model="clr-namespace:QuizLab3.Model"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="New Question Pack" Height="310" Width="260" ResizeMode="NoResize">
 

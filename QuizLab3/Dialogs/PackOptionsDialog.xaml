@@ -7,6 +7,7 @@
         xmlns:viewmodel="clr-namespace:QuizLab3.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:model="clr-namespace:QuizLab3.Model"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="Pack Options" Height="280" Width="260" ResizeMode="NoResize">
 

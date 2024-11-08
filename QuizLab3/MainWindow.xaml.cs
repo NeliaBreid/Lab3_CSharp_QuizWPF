@@ -38,7 +38,7 @@ namespace QuizLab3
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            await viewModel.LoadDataAsync(); //json ------------------------------------------------------------------------------------------------
+            await viewModel.LoadDataAsync();
         }
     }
 }

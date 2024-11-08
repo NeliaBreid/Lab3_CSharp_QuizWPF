@@ -11,14 +11,12 @@
              d:DesignHeight="450" d:DesignWidth="650">
 
     <Grid>
-     
-
+        
         <Grid.RowDefinitions>
-
             <RowDefinition Height="auto" />
             <RowDefinition Height="2*" />
-
         </Grid.RowDefinitions>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -27,18 +25,18 @@
         <Label  Grid.Column="0" Grid.Row="0" Margin="5" FontWeight="Bold" Content="{Binding ActivePack.Name, Mode=TwoWay}"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
-
-            <Button FontSize="15"
-                    Width="18" 
-                    Height="18" 
-                    Margin="5 0 0 0"  
-                    ToolTip="Pack Options"
-                    Command="{Binding DataContext.PackOptionsDialog, RelativeSource={RelativeSource AncestorType=Window}}">
-
+            <Button 
+                FontSize="15"
+                Width="18" 
+                Height="18" 
+                Margin="5 0 0 0"  
+                ToolTip="Pack Options"
+                Command="{Binding DataContext.PackOptionsDialog, RelativeSource={RelativeSource AncestorType=Window}}">
                 <fa:IconBlock Icon="Sliders" Foreground="Black"/>
             </Button>
 
-            <Button FontSize="15" 
+            <Button 
+                FontSize="15" 
                 Width="18" 
                 Height="18" 
                 Margin="5 0 0 0" 
@@ -46,20 +44,19 @@
                 Command= "{Binding AddQuestionsCommand}">
                 <fa:IconBlock Icon="Plus" Foreground="Green"/>
             </Button>
-            
-            <Button x:Name="removeButton"
-                    FontSize="15" 
-                    Width="18" 
-                    Height="18" 
-                    Margin="5 0 0 0" 
-                    ToolTip="Remove Question"
-                    Command="{Binding RemoveQuestionsCommand}">
-                
+
+            <Button 
+                FontSize="15" 
+                Width="18" 
+                Height="18" 
+                Margin="5 0 0 0" 
+                ToolTip="Remove Question"
+                Command="{Binding RemoveQuestionsCommand}">
                 <fa:IconBlock Icon="Minus" Foreground="Black"/>
             </Button>
         
         </StackPanel>
-    <ListBox x:Name="studentListBox" 
+            <ListBox
                  Grid.Column="0" 
                  Grid.Row="2" 
                  SelectionMode="Extended" 
@@ -78,14 +75,14 @@
     </ListBox>
 
         <StackPanel Grid.Row="2" Grid.Column="1">
-
+            
             <TextBlock FontWeight="Bold" Margin="20 0 0 0" Text="Question:" />
             <TextBox Margin="20 0 20 20" Height="80" Text="{Binding ActiveQuestion.Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
 
                 <TextBlock FontWeight="Bold" Margin="20 0 0 0"  Text="Correct Answer:" />
-                <TextBox  x:Name="correctAnswer" Margin="20 0 20 10" Text="{Binding ActiveQuestion.CorrectAnswer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="20 0 20 10" Text="{Binding ActiveQuestion.CorrectAnswer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock FontWeight="Bold" Margin="20 0 0 0" Text="First Incorrect Answer:" />
                 <TextBox Margin="20 0 20 10" Text="{Binding ActiveQuestion.IncorrectAnswers[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -99,7 +96,5 @@
             </StackPanel>
         </StackPanel>
         
-
-
     </Grid>
 </UserControl>

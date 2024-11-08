@@ -20,9 +20,9 @@ namespace QuizLab3.ViewModel
         
         private readonly MainWindowViewModel? mainWindowViewModel;
 
-        private Question _activeQuestion;
+        private Question? _activeQuestion;
 
-        private QuestionPack _newQuestionPack;
+        private QuestionPack? _newQuestionPack;
 
         public QuestionPack? NewQuestionPack
         {
@@ -107,7 +107,7 @@ namespace QuizLab3.ViewModel
         }
 
         private void CreatePack(object? parameter)
-        {
+        { 
             var newPack = new QuestionPackViewModel(new QuestionPack(NewQuestionPack.Name, NewQuestionPack.Difficulty, NewQuestionPack.TimeLimitInSeconds));
             Packs.Add(newPack);
 

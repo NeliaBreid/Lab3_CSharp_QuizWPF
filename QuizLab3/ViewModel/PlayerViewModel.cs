@@ -93,7 +93,7 @@ namespace QuizLab3.ViewModel
 
         public DelegateCommand AnswerButtonCommand { get; }
 
-        public PlayerViewModel(MainWindowViewModel? mainWindowViewModel) 
+        public PlayerViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this._mainWindowViewModel = mainWindowViewModel;
             ShuffledQuestions = new List<Question>();

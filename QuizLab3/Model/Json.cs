@@ -22,16 +22,15 @@ namespace QuizLab3.Json
         public Json()
         {
             
-            appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
             string appFolder = Path.Combine(appDataPath, "Quizlab3");
             Directory.CreateDirectory(appFolder);  
 
-            filePath = Path.Combine(appFolder, "Quizlab3.json");
+            var filePath = Path.Combine(appFolder, "Quizlab3.json");
 
             options = new JsonSerializerOptions
             {
-                
                 IncludeFields = true,
                 PropertyNameCaseInsensitive = true
             };
@@ -54,7 +53,7 @@ namespace QuizLab3.Json
                 }
                 else
                 {
-                    Debug.WriteLine("File not found at path: " + filePath); // filen finns
+                    Debug.WriteLine("File not found at path: " + filePath);
                 }
             }
             catch (Exception ex) 

@@ -164,10 +164,9 @@ namespace QuizLab3.ViewModel
             createResultDialog.ShowDialog();
         }
 
-        public async Task LoadDataAsync() //json -------------------------------------------------------------------
+        public async Task LoadDataAsync() 
         {
-  
-             
+              
             var JsonHandler = new QuizLab3.Json.Json();
 
             List<QuestionPack> loadedPacks = await JsonHandler.LoadJson();
@@ -193,7 +192,7 @@ namespace QuizLab3.ViewModel
             ConfigurationViewModel.DeleteQuestionPacksCommand.RaiseCanExecuteChanged();
         }
 
-        public async Task SaveDataAsync() //json _------------------------------------------------------------------
+        public async Task SaveDataAsync()
         {
             var JsonHandler = new QuizLab3.Json.Json();
 
@@ -210,7 +209,6 @@ namespace QuizLab3.ViewModel
             await JsonHandler.SaveJson(packsToSave);
             
         }
-
     }
 }
 
