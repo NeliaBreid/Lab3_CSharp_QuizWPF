@@ -19,13 +19,26 @@ namespace QuizLab3
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = new MainWindowViewModel();
+            DataContext = viewModel = new MainWindowViewModel();
+
+            Loaded += MainWindow_Loaded;
+            Closed += MainWindow_Closed;
         }
-       
-     
+
+        private async void MainWindow_Closed(object? sender, EventArgs e)
+        {
+            
+            await viewModel.SaveDataAsync();
+        }
+
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            await viewModel.LoadDataAsync(); //json ------------------------------------------------------------------------------------------------
+        }
     }
 }

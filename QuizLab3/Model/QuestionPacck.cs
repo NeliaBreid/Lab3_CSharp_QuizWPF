@@ -12,6 +12,11 @@ namespace QuizLab3.Model
 
     internal class QuestionPack
     {
+        [JsonConstructor]
+        public QuestionPack() //kan det här hjölpa något?
+        {
+
+        }
         public QuestionPack(string name, Difficulty difficulty = Difficulty.Medium, int timeLimitInSeconds = 30)
         {
             Name = name;

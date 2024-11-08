@@ -24,15 +24,14 @@ namespace QuizLab3.Json
             
             appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-            
             string appFolder = Path.Combine(appDataPath, "Quizlab3");
             Directory.CreateDirectory(appFolder);  
 
-         
             filePath = Path.Combine(appFolder, "Quizlab3.json");
 
             options = new JsonSerializerOptions
             {
+                
                 IncludeFields = true,
                 PropertyNameCaseInsensitive = true
             };

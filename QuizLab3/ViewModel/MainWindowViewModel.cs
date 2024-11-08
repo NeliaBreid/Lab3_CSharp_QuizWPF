@@ -36,8 +36,6 @@ namespace QuizLab3.ViewModel
 
         private bool _isConfigurationMode = true; 
 
-        private QuizLab3.Json.Json JsonHandler; //gör en ny instans av Json---------------------------------------------------------------------
-
         public QuestionPackViewModel? ActivePack
         {
             get => _activePack;
@@ -46,7 +44,6 @@ namespace QuizLab3.ViewModel
                 _activePack = value;
                 RaisePropertyChanged(nameof(ActivePack));
                 ConfigurationViewModel?.RaisePropertyChanged();
-
             }
         }
         public bool IsConfigurationMode
@@ -82,13 +79,7 @@ namespace QuizLab3.ViewModel
 
         public MainWindowViewModel()
         {
-            JsonHandler = new QuizLab3.Json.Json(); //json -------------------------------------------------------------------------
-            LoadDataAsync(); //json ------------------------------------------------------------------------------------------------
-
             Packs = new ObservableCollection<QuestionPackViewModel>();
-
-            ActivePack = new QuestionPackViewModel(new QuestionPack("My Default QuestionPack"));
-            Packs.Add(ActivePack);
 
             PlayerViewModel = new PlayerViewModel(this);
 
@@ -174,8 +165,12 @@ namespace QuizLab3.ViewModel
             createResultDialog.ShowDialog();
         }
 
-        private async Task LoadDataAsync() //json _------------------------------------------------------------------
+        public async Task LoadDataAsync() //json -------------------------------------------------------------------
         {
+  
+             
+            var JsonHandler = new QuizLab3.Json.Json();
+
             List<QuestionPack> loadedPacks = await JsonHandler.LoadJson();
 
             foreach (var pack in loadedPacks)
@@ -187,10 +182,22 @@ namespace QuizLab3.ViewModel
             {
                 ActivePack = Packs.First();
             }
+
+            if (ActivePack == null)
+            {
+                ActivePack = new QuestionPackViewModel(new QuestionPack("My Default QuestionPack"));
+                Packs.Add(ActivePack);
+            };
+            ConfigurationViewModel.AddQuestionsCommand.RaiseCanExecuteChanged();
+            ConfigurationViewModel.RemoveQuestionsCommand.RaiseCanExecuteChanged();
+            ConfigurationViewModel.CreateQuestionPacksCommand.RaiseCanExecuteChanged();
+            ConfigurationViewModel.DeleteQuestionPacksCommand.RaiseCanExecuteChanged();
         }
 
         public async Task SaveDataAsync() //json _------------------------------------------------------------------
         {
+            var JsonHandler = new QuizLab3.Json.Json();
+
             List<QuestionPack> packsToSave = Packs.Select(viewModel => new QuestionPack(
 
                 viewModel.Name,
