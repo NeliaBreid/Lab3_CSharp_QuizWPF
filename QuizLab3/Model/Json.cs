@@ -27,7 +27,7 @@ namespace QuizLab3.Json
             string appFolder = Path.Combine(appDataPath, "Quizlab3");
             Directory.CreateDirectory(appFolder);  
 
-            var filePath = Path.Combine(appFolder, "Quizlab3.json");
+            filePath = Path.Combine(appFolder, "Quizlab3.json");
 
             options = new JsonSerializerOptions
             {
