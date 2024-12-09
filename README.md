@@ -27,12 +27,3 @@ Appen sparar paket och frågor i Json, så att man kan ladda in dem vid ett sena
 ## **Full Screen**
 
 Det ska finnas ett menyalternativ för att köra programmet i helskärmsläge.
-
-
-Förvald betänketid ska visas och räkna ner.
-
-Korrekt svar och spelaren svar ska visas, innan appen går vidare till nästa fråga.
-
-Efter alla frågor gått igenom visas ett resultat.
-
-Det ska finnas ett helskärmsläge.
