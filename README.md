@@ -1,10 +1,6 @@
 # Labb 3 - Quiz Configurator
 
-Jag har byggt en applikation för att konfigurera quiz-frågor och köra quiz-rundor. Appen är skriven i WPF och XAML och byggas på Model-View-ViewModel (MVVM)-arkitektur.
-
-### Översikt över appens uppbyggnad
-
-Appen består i huvudsak av två delar ,en “configurator” för att skapa paket med frågor; och en “player” där man kan köra quiz-rundor.
+Jag har byggt en applikation för att konfigurera quiz-frågor och köra quiz-rundor. Appen är skriven i WPF och XAML och byggas på Model-View-ViewModel (MVVM)-arkitektur. Appen består i huvudsak av två delar ,en “configurator” för att skapa paket med frågor; och en “player” där man kan köra quiz-rundor.
 
 
 ## Configuration Mode
